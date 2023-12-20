@@ -1,0 +1,880 @@
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: rgb(183, 179, 179);
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #a41c1c; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(132, 129, 129); 
+}
+
+.toggle-password {
+  cursor: pointer;
+}
+
+.password-container {
+  display: flex; /* Establece un layout flexible */
+  align-items: center; /* Alinea verticalmente los elementos */
+  position: relative; /* Para posicionar la imagen de forma absoluta */
+}
+
+.password-container input {
+  flex-grow: 1; /* Ocupa el espacio disponible */
+}
+
+.toggle-password {
+  position: absolute; /* Posiciona la imagen de forma absoluta */
+  right: 1vw; /* Distancia desde el borde izquierdo del contenedor */
+  cursor: pointer;
+  height: 2vw; /* Ajusta según el tamaño deseado */
+  width: 2vw; /* Ajusta según el tamaño deseado */
+}
+
+/* Reloj */
+.clock {
+  width: 12%;
+  height: 3%;
+  color: black;
+  font-size: 1.1vw;
+  text-align: center;
+  border: 0.3vw solid black;
+  position: fixed;
+  top: 1%;
+  left: 50%;
+  transform: translateX(-50%);
+  align-items: center;
+  justify-content: center;
+}
+
+.horizontal-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.Div3XLine {
+  width: 30%;
+}
+
+/* Estilos de las previsualizaciones de imagen */
+.preview1 {
+  display: none;
+  width: 220px;
+  height: 220px;
+  object-fit: fill;  
+}
+
+.preview2 {
+  display: none;
+  width: 100%;
+  object-fit: fill;  
+}
+
+/* Estilos generales para body */
+body {
+  overflow-y: auto;
+  background-color: rgb(183, 179, 179);
+  font-family: Arial, sans-serif;
+}
+
+
+form {
+  margin: 0 auto;
+  padding: 2%;
+  background-color: transparent;
+}
+
+.NoMarginForm {
+  margin: 0;
+  padding: 0;
+}
+
+p {
+  color: black;
+  font-size: 1.25vw;
+  font-weight: bold;  
+}
+
+a {
+  color: black;
+  font-size: 1.25vw;
+}
+
+h1 {
+  font-size: 2.5vw;
+  line-height: 1.1;
+  text-align: center;  
+  color: black;
+  font-weight: bold;  
+}
+
+h2 {
+  font-size: 2.2vw;
+  line-height: 1.1;
+  text-align: center;  
+  color: black;
+  font-weight: bold;  
+}
+
+h3 {
+  font-size: 2.0vw;
+  line-height: 1.1;
+  text-align: center; 
+  color: black;
+  font-weight: bold;  
+}
+
+h4 {
+  font-size: 1.5vw;
+  line-height: 1.1;
+  text-align: left; 
+  color: black;
+  font-weight: bold;  
+}
+
+label {
+  font-size: 1.5vw;
+  color: black;
+  display: block;
+  margin-bottom: 0.3vw;
+  margin-top: 10px;
+  font-weight: bold;  
+}
+
+input[type="text"],
+input[type="number"],
+input[type="password"],
+input[type="date"],
+input[type="time"],
+select {
+  width: 100%;
+  height: 2vw;
+  padding: 0.1vw 0.1vw 0.1vw 0.3vw;
+  margin-bottom: 1vw;
+  font-size: 1.2vw;
+  background-color: white;
+  color: black;
+  border: 0.1vw solid black;
+  border-radius: 0.5vw;
+  box-sizing: border-box;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+input[type="password"]:focus,
+input[type="date"]:focus,
+input[type="time"]:focus,
+select:focus {
+  outline: 0.1vw solid black;
+}
+
+input[type="radio"] {
+  width: 1.5vw;
+  height: 1.5vw;
+  accent-color:black;
+}
+
+input[type="file"] {
+  margin-bottom: 1vw;
+}
+
+img {
+  margin-bottom: 1vw;
+}
+
+textarea {
+  width: 100%; /* Ancho del textarea al 100% del contenedor */
+  height: 15vw; /* Altura del textarea */
+  font-size: 1.5vw;
+  padding: 0.5vw; /* Espacio interno (padding) del textarea */
+  margin-bottom: 1vw;
+  background-color: white;  /* Color de fondo */
+  color: black;  /* Color del texto */
+  border: 0.1vw solid black; /* Borde del textarea */
+  border-radius: 0.5vw; /* Borde redondeado del textarea */
+  resize: vertical; /* Permitir redimensionar verticalmente el textarea */
+  box-sizing: border-box;
+}
+
+textarea:focus {
+  outline: 0.1vw solid black;
+}
+
+/* Estilos comunes para todos los formularios */
+.Formulario {
+  right: 1%;
+  width: 75%;
+  max-width: 75%;
+  padding: 0.5vw;
+  line-height: 1.50vw;
+  font-size: 1.25vw;
+  box-sizing: border-box;
+  border: 0.3vw solid black;
+  border-radius: 1.5vw;
+}
+
+.LoginForm {
+  width: 40%;
+  max-width: 40%;
+  margin: 0 auto; /* Establece márgenes automáticos para centrar horizontalmente */
+  padding: 0.5vw;
+  line-height: 1.50vw;
+  font-size: 1.25vw;
+  box-sizing: border-box;
+  border: 0.3vw solid black;
+  border-radius: 1.5vw;
+}
+
+/* Estilos comunes para los botones*/
+.CustomButton {
+  width: 20vw;
+  height: 5vw;
+  position: fixed;
+  background: transparent;
+  background-color: transparent;
+  border-radius: 1.5vw;
+  display: inline-block;
+  cursor: pointer;
+  border: 0.3vw solid black;
+  color: black;
+  font-family: Arial;
+  font-size: 1.5vw;
+  font-weight: bold;
+  text-align: center;
+  transition: background-color 1s, border-color 1s, color 1s;
+}
+.CustomButton:hover {
+  color: rgb(255, 255, 255);
+  border: 0.3vw solid rgb(255, 255, 255);
+  background-color: black;
+}
+
+.Volver {
+  right: 1%;
+  top: 1%;
+  padding: 0% 5%;
+  background-image: url('Images/VolverGold.png');
+  background-size: 25%; 
+  background-repeat: no-repeat;
+  background-position: left center; 
+}
+
+.Volver:hover {
+  border: 0.3vw solid rgb(255, 255, 255);
+  color: rgb(255, 255, 255);
+  background-image: url('Images/VolverWhite.png');
+  background-color: rgb(0, 0, 0);
+}
+
+/* IP Main*/
+.TituloIP {
+  margin: 0;
+  top: 1%;
+  left: 1%;
+  height: 14%;
+  width: 33%;
+  border-radius:0.5vw;
+  border: 0.3vw solid black;
+  position: fixed;
+  color: black;
+  font-size: 3vw;
+  display: flex;
+  text-align: center;
+  justify-content: center; 
+  align-items: center;
+}
+
+.B_Personas {
+  margin: 0.5vw 1vw;
+  position: relative;
+  width: 14vw;
+  padding: 0% 5%;
+  background-image: url('Images/personas.png');
+  background-size: 25%;
+  background-repeat: no-repeat;
+  background-position: left center; 
+}
+
+.B_Lugares {
+  margin: 0.5vw 1vw;
+  position: relative;
+  width: 14vw;
+  padding: 0% 5%;
+  background-image: url('Images/lugares.png');
+  background-size: 25%;
+  background-repeat: no-repeat;
+  background-position: left center; 
+}
+
+.B_Fuentes {
+  margin: 0.5vw 1vw;
+  position: relative;
+  width: 14vw;
+  padding: 0% 12%;
+  font-size: 1.25vw;
+  background-image: url('Images/datos.png');
+  background-size: 25%;
+  background-repeat: no-repeat;
+  background-position: left center;
+}
+
+.Main_Aside {
+  margin: 0;
+  top: 18%;
+  right: 1%;
+  height: 80%;
+  width: 12.5%;
+  border-radius:0.5vw;
+  border: 0.3vw solid black;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.Main_Aside_LOGO img {
+  width: 100%;
+  height: auto;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.Bandera img {
+  width: 100%;
+  height: 100%;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+
+
+
+
+
+.MiniB_PDF {
+  width: 20%;
+  height: 10%;
+  padding: 0% 3%;
+  position:fixed;
+  font-size: 1.5vw;
+  top: 10%;
+  left: 0.5%;
+}
+
+
+.B_ElementosAdicionales1 {
+  margin-top: 2vw;
+  margin-bottom: 2vw;
+  position:static;
+  padding: 0% 5%;
+  width: 48%;
+  font-size: 1.7vw;
+}
+
+.B_ElementosAdicionales2 {
+  margin-top: 2vw;
+  position:static;
+  padding: 0% 5%;
+  width: 48%;
+  font-size: 1.7vw;
+}
+
+.DeleteLong {
+  margin-top: 2vw;
+  margin-bottom: 2vw;
+  position:static;
+  padding: 5% 10%;
+  width: 100%;
+  font-size: 1.7vw;
+  background-image: url('Images/delete.png');
+  background-size: 10%;
+  background-repeat: no-repeat;
+  background-position: left center; 
+}
+
+.DeleteShort {
+  margin-top: 2vw;
+  margin-bottom: 2vw;
+  position:static;
+  padding: 1% 0% 1% 8%;
+  width: 48%;
+  font-size: 1.3vw;
+  background-image: url('Images/delete.png');
+  background-size: 20%;
+  background-repeat: no-repeat;
+  background-position: left center; 
+}
+
+.InsertShort {
+  margin-top: 2vw;
+  margin-bottom: 2vw;
+  position:static;
+  padding: 1% 0% 1% 6%;
+  width: 48%;
+  font-size: 1.3vw;
+  background-image: url('Images/insert.png');
+  background-size: 20%;
+  background-repeat: no-repeat;
+  background-position: left center; 
+}
+
+.B_Agregar {
+  position:fixed;
+}
+    
+.B_Deshacer {
+  position:fixed;
+}
+
+
+.MainTable {
+  position: absolute;
+  top: 75%;
+  left: 0;
+  height: 50%;
+  border: 0.3vw solid rgb(0, 0, 0);
+  overflow-y: scroll;
+  box-sizing: border-box;
+  transform: translateY(-50%);
+}
+
+.SearchTable {
+  position: absolute;
+  top: 40%;
+  left: 0;
+  height: 20%;
+  width: 100%;
+  transform: translateY(-50%);
+}
+
+.dataTables_filter {
+  display: none;
+}
+
+/* Estilos para la tabla */
+table {
+  text-align: center;
+  color: rgb(0, 0, 0);
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+/* Estilos para las celdas de encabezado */
+th {
+  top: 0;
+  z-index: 3;
+  height: 4vw;
+  position: sticky;
+  background-color: black;
+  font-weight:bold;
+  font-size:1.2vw;
+}
+
+/* Estilos para las celdas de datos */
+td {
+  font-weight:bold;
+  font-size:1.1vw;
+}
+
+tr {
+  height: 4vw;
+  background-color: rgb(255, 255, 255);
+}
+
+table tr:hover {
+	background: rgb(199, 204, 208)!important;
+}
+
+.ESTADO_BTN {
+  background: transparent;
+  background-color: transparent;
+  cursor: pointer;
+  border: none;
+  font-family: Arial;
+  font-size: 1.1vw;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.ESTADO_BTN .ON_HOVER {
+  /* Estilos para el texto en estado hover */
+  display: none; /* Ocultar el texto en estado normal */
+}
+
+.ESTADO_BTN:hover .NORMAL_TEXT {
+  /* Estilos para el texto en estado normal durante el hover */
+  display: none; /* Ocultar el texto en estado normal durante el hover */
+}
+
+.ESTADO_BTN:hover .ON_HOVER {
+  /* Estilos para el texto en estado hover */
+  display: inline; /* Mostrar el texto en hover */
+}
+
+.ABIERTO {
+  color: rgb(0, 0, 255);
+}
+
+.ABIERTO:hover {
+  color: rgb(255, 0, 0);
+}
+
+.CERRADO {
+  color: rgb(255, 0, 0);
+}
+
+.CERRADO:hover {
+  color: rgb(0, 0, 255);
+}
+
+
+
+
+
+.TituloCentral {
+  top: 1%;
+  left: 50%;
+  height: 14%;
+  width: 55%;
+  border-radius:0.5vw;
+  border: 0.3vw solid black;
+  position: fixed;
+  transform: translateX(-50%);
+  color: black;
+  font-size: 2.4vw;
+  display: flex;
+  text-align: center;
+  justify-content: center; 
+  align-items: center;
+}
+
+.ContenedorAmpliaciones {
+  top: 40%;
+  left: 50%;
+  height: 58%;
+  width: 55%;
+  border-radius:0.5vw;
+  border: 0.3vw solid black;
+  position: fixed;
+  transform: translateX(-50%);
+  overflow-y: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; 
+  align-items: center;
+}
+
+/* Estilos comunes para los botones*/
+.EnumerarAmpliaciones {
+  width: 15vw;
+  height: 10vw;
+  padding: 5%;
+  background:transparent;
+  background-color:transparent;
+  border-radius: 1vw;
+  flex: 0 1 auto;
+  cursor: pointer;
+  border: 0.3vw solid black;
+  color: black;
+  font-family: Arial;
+  font-size: 2vw;
+  font-weight: bold;
+  text-align: center;
+  transition: background-color 1s, border-color 1s, color 1s;
+}
+.EnumerarAmpliaciones:hover {
+  color: rgb(255, 255, 255);
+  border: 0.3vw solid rgb(255, 255, 255);
+  background-color: black;
+}
+
+.BigButton {
+  width: 27%;
+  height: 20%;
+  position: fixed;
+  background: transparent;
+  background-color: transparent;
+  border-radius:0.5vw;
+  border: 0.3vw solid black;  
+  font-family: Arial;
+  font-size: 2.5vw;
+  font-weight: bold;
+  text-align: center;
+  cursor: pointer;
+  color: black;
+  padding: 0% 0% 0% 6%;
+  background-image: url('Images/InformeGold.png');
+  background-size: 30%;
+  background-repeat: no-repeat;
+  background-position: left center; 
+  transition: background-color 1s, border-color 1s, color 1s;
+}
+.BigButton:hover {
+  color: rgb(255, 255, 255);
+  border: 0.3vw solid rgb(255, 255, 255);
+  background-color: black;
+  background-image: url('Images/InformeWhite.png');
+}
+
+.Right {
+  top: 18%;
+  left: 50.75%;
+}
+
+.Left {
+  top: 18%;
+  left: 22.25%;
+}
+
+.TopCenterDiv {
+  top: 0;
+  left: 50%; 
+  max-width: 15%;
+  position: fixed;
+  transform: translateX(-50%);
+}
+
+.MainVolver {
+  right: 1%;
+  top: 1%;
+  height: 15%;
+  font-size: 2vw;
+  padding: 0% 6%;
+  border-radius:0.5vw;
+  border: 0.3vw solid black;
+  background-image: url('Images/VolverGold.png');
+  background-size: 40%; 
+  background-repeat: no-repeat;
+  background-position: left center; 
+}
+.MainVolver:hover {
+  background-image: url('Images/VolverWhite.png');
+}
+
+.Submit {
+  position:fixed;
+  right: 1%;
+  bottom: 1%;
+}
+
+.B_Telegram {
+  padding: 0% 5.5%;
+  background:transparent;
+  background-color:transparent;
+  border-radius:1.5vw;
+  background-image: url('Images/telegram.png');
+  background-size: 40%;
+  background-repeat: no-repeat;
+  background-position: left center;
+  display:inline-block;
+  cursor:pointer;
+  border:0.3vw solid rgb(50, 180, 255);
+  color: rgb(50, 180, 255);
+  font-family:Arial;
+  font-size: 1.25vw;
+  font-weight:bold;
+  text-align: center;
+  width: 13%;
+  height: 10%;
+  position:fixed;
+  top: 89%;
+  right: 1%;
+  transition: background-color 1s, border-color 1s, color 1s;
+}
+
+.B_Telegram:hover {
+  background-image: url('Images/telegram.png');
+  background-size: 40%;
+  background-repeat: no-repeat;
+  background-position: left center;
+  border:0.3vw solid rgb(255, 255, 255);
+  color: rgb(255, 255, 255);
+  background-color: rgb(50, 180, 255);
+}
+
+.ModuloNoListo {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
+}
+
+.MaquinaEscribir {
+  position: fixed;
+  top: 45%;
+  left: 72%;
+  height: fit-content;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Estilos de botones SweetAlert */
+
+.swal2-confirm.swal2-styled {
+  height: 6vh;
+  width: 9vw;
+}
+
+.swal2-styled.swal2-cancel {
+  height: 6vh;
+  width: 9vw;
+}
+
+/* Estilos de botones */
+.BTN_Custom {
+  height: 5vh;
+  font-size: 0.9vw;
+  font-weight: bold;
+  cursor: pointer;
+  position: relative;
+  display: inline-block;
+  outline: none;
+  border-radius: 0.3vw;
+  color: rgb(255, 255, 255);
+}
+
+.BTN-Black {
+  border: 0.3vw solid rgb(0, 0, 0);
+  box-shadow: 0px 0px 1vw rgba(0, 0, 0, 0.7);
+  background: rgb(0, 0, 0);
+}
+.BTN-Black:hover {
+  border: 0.3vw solid rgb(50, 50, 50);
+  background-color: rgb(0, 0, 0);
+  box-shadow: 0px 0px 1vw rgba(50, 50, 50, 0.7);
+  background:linear-gradient(to bottom, rgb(0, 0, 0) 5%, rgb(50, 50, 50) 100%);
+}
+
+.BTN-White {
+  color: rgb(0, 0, 0);
+  border: 0.3vw solid rgb(255, 255, 255);
+  box-shadow: 0px 0px 1vw rgba(255, 255, 255, 0.7);
+  background: rgb(255, 255, 255);
+}
+.BTN-White:hover {
+  border: 0.3vw solid rgb(225, 225, 225);
+  background-color: rgb(225, 225, 225);
+  box-shadow: 0px 0px 1vw rgba(225, 225, 225, 0.7);
+  background:linear-gradient(to bottom, rgb(255, 255, 255) 5%, rgb(225, 225, 225) 100%);
+}
+
+.BTN-Silver {
+  color: rgb(0, 0, 0);
+  border: 0.3vw solid rgb(112,128,144);
+  box-shadow: 0px 0px 1vw rgba(112,128,144, 0.7);
+  background: rgb(112,128,144);
+}
+.BTN-Silver:hover {
+  border: 0.3vw solid rgb(119,136,153);
+  background-color: rgb(119,136,153);
+  box-shadow: 0px 0px 1vw rgba(119,136,153, 0.7);
+  background:linear-gradient(to bottom, rgb(112,128,144) 5%, rgb(119,136,153) 100%);
+}
+
+.BTN-Grey {
+  color: rgb(0, 0, 0);
+  border: 0.3vw solid rgb(128,128,128);
+  box-shadow: 0px 0px 1vw rgba(128,128,128, 0.7);
+  background: rgb(128,128,128);
+}
+.BTN-Grey:hover {
+  border: 0.3vw solid rgb(169,169,169);
+  background-color: rgb(169,169,169);
+  box-shadow: 0px 0px 1vw rgba(169,169,169, 0.7);
+  background:linear-gradient(to bottom, rgb(128,128,128) 5%, rgb(169,169,169) 100%);
+}
+
+.BTN-Violet {
+  border: 0.3vw solid rgb(148,0,211);
+  box-shadow: 0px 0px 1vw rgba(148,0,211, 0.7);
+  background: rgb(148,0,211);
+}
+.BTN-Violet:hover {
+  color: rgb(0, 0, 0);
+  border: 0.3vw solid rgb(138,43,226);
+  background-color: rgb(138,43,226);
+  box-shadow: 0px 0px 1vw rgba(138,43,226, 0.7);
+  background:linear-gradient(to bottom, rgb(148,0,211) 5%, rgb(138,43,226) 100%);
+}
+
+.BTN-Red {
+  border: 0.3vw solid rgb(225, 50, 50);
+  box-shadow: 0px 0px 1vw rgba(225, 50, 50, 0.7);
+  background: rgb(225, 50, 50);
+}
+.BTN-Red:hover {
+  color: rgb(0, 0, 0);
+  border: 0.3vw solid rgb(225, 100, 100);
+  background-color: rgb(225, 100, 100);
+  box-shadow: 0px 0px 1vw rgba(225, 100, 100, 0.7);
+  background:linear-gradient(to bottom, rgb(225, 50, 50) 5%, rgb(225, 100, 100) 100%);
+}
+
+.BTN-Blue {
+  border: 0.3vw solid rgb(50, 50, 225);
+  box-shadow: 0px 0px 1vw rgba(50, 50, 225, 0.7);
+  background: rgb(50, 50, 225);
+}
+.BTN-Blue:hover {
+  color: rgb(0, 0, 0);
+  border: 0.3vw solid rgb(100, 100, 225);
+  background-color: rgb(100, 100, 225);
+  box-shadow: 0px 0px 1vw rgba(100, 100, 225, 0.7);
+  background:linear-gradient(to bottom, rgb(50, 50, 225) 5%, rgb(100, 100, 225) 100%);
+}
+
+.BTN-Green {
+  border: 0.3vw solid rgb(50, 225, 50);
+  box-shadow: 0px 0px 1vw rgba(50, 225, 50.7);
+  background: rgb(50, 225, 50);
+}
+.BTN-Green:hover {
+  color: rgb(0, 0, 0);
+  border: 0.3vw solid rgb(100, 225, 100);
+  background-color: rgb(100, 225, 100);
+  box-shadow: 0px 0px 1vw rgba(100, 225, 100, 0.7);
+  background:linear-gradient(to bottom, rgb(50, 225, 50) 5%, rgb(100, 225, 100) 100%);
+}
+
+.BTN-Yellow {
+  border: 0.3vw solid rgb(255,255,0);
+  box-shadow: 0px 0px 1vw rgba(255,255,0, 0.7);
+  background: rgb(255,255,0);
+}
+.BTN-Yellow:hover {
+  color: rgb(0, 0, 0);
+  border: 0.3vw solid rgb(200,200,0);
+  background-color: rgb(200,200,0);
+  box-shadow: 0px 0px 1vw rgba(200,200,0, 0.7);
+  background:linear-gradient(to bottom, rgb(255,255,0) 5%, rgb(200,200,0) 100%);
+}
+
+.BTN-Orange {
+  border: 0.3vw solid rgb(255,140,0);
+  box-shadow: 0px 0px 1vw rgba(255,140,0, 0.7);
+  background: rgb(255,140,0);
+}
+.BTN-Orange:hover {
+  color: rgb(0, 0, 0);
+  border: 0.3vw solid rgb(255,165,0);
+  background-color: rgb(255,165,0);
+  box-shadow: 0px 0px 1vw rgba(255,165,0, 0.7);
+  background:linear-gradient(to bottom, rgb(255,140,0) 5%, rgb(255,165,0) 100%);
+}
