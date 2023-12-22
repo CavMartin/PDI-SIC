@@ -154,16 +154,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["POST_Action"]) && $_PO
     }
 
     // Obtener el contador de redes sociales
-    $contadorRedesSociales = intval($_POST["contadorRedesSociales"]);
+    $contadorRedSocial = intval($_POST["contadorRedSocial"]);
 
     // Iterar a través de las redes sociales
-    for ($i = 1; $i <= $contadorRedesSociales; $i++) {
+    for ($i = 1; $i <= $contadorRedSocial; $i++) {
         $tipoRedSocial = $_POST["TipoRedSocial" . $i];
         $redSocialLink = $_POST["RedSocialLink" . $i];
 
         // Llamar a la función para insertar perfiles de redes sociales
         insertRedesSociales($conn, $infractorID, $tipoRedSocial, $redSocialLink);
     }
+
+    // Al final de todo el procesamiento
+    header("Location: ../Main.php");
+    exit(); // Asegura que la redirección se efectúe de inmediato
 }
 
 // Cierra la conexión a la base de datos
@@ -181,6 +185,7 @@ $conn->close();
     <link rel="shortcut icon" href="../CSS/Images/favicon.ico" type="Image/x-icon">
     <script src="../Scripts/TransformarDatos.js"></script>
     <script src="../Scripts/ManejarImagenes.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 </head>
 

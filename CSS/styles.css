@@ -342,12 +342,10 @@ textarea:focus {
 
 .Main_Aside {
   margin: 0;
-  top: 18%;
+  top: 14%;
   right: 1%;
-  height: 80%;
-  width: 12.5%;
-  border-radius:0.5vw;
-  border: 0.3vw solid black;
+  height: 71%;
+  width: 15vw;
   position: fixed;
   display: flex;
   flex-direction: column;
@@ -357,15 +355,6 @@ textarea:focus {
 
 .Main_Aside_LOGO img {
   width: 100%;
-  height: auto;
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-.Bandera img {
-  width: 100%;
-  height: 100%;
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
