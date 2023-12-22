@@ -48,14 +48,14 @@ function insertPersonasRelacionadas($conn, $infractorID, $relacion, $apellido, $
 }
 
 // Función genérica para insertar imágenes
-function insertImagen($conn, $infractorID, $tipoImagen, $imagen) {
-    $sql = "INSERT INTO imagenes (InfractorID, TipoImagen, Imagen)
+function insertImagen($conn, $infractorID, $TipoFotografia, $imagen) {
+    $sql = "INSERT INTO fotografias (InfractorID, TipoFotografia, Imagen)
             VALUES (?, ?, ?)";
 
     $stmtImagen = $conn->prepare($sql);
 
     if ($stmtImagen) {
-        $stmtImagen->bind_param("iss", $infractorID, $tipoImagen, $imagen);
+        $stmtImagen->bind_param("iss", $infractorID, $TipoFotografia, $imagen);
 
         $stmtImagen->execute();
         $stmtImagen->close();
@@ -590,8 +590,8 @@ document.addEventListener("DOMContentLoaded", function() {
                 <input type="hidden" id="RedSocial_NumeroDeOrden${contadorRedSocial}" name="RedSocial_NumeroDeOrden" value="${contadorRedSocial}" readonly>
                 <div class="horizontal-container">
                     <div style="width: 30%;">
-                        <label for="RedSocialTipo${contadorRedSocial}">Red social #${contadorRedSocial}:</label>
-                        <select id="RedSocialTipo${contadorRedSocial}" style="text-align: center;" name="RedSocialTipo${contadorRedSocial}" required>
+                        <label for="TipoRedSocial${contadorRedSocial}">Red social #${contadorRedSocial}:</label>
+                        <select id="TipoRedSocial${contadorRedSocial}" style="text-align: center;" name="TipoRedSocial${contadorRedSocial}" required>
                             <option disabled selected>Selecciona una opción</option>
                             <option value="Facebook">Facebook</option>
                             <option value="Instagram">Instagram</option>
