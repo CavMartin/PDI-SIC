@@ -775,6 +775,8 @@ document.addEventListener("DOMContentLoaded", function() {
     </div>
 </aside>
 
+<div></div>
+
 <script>
     // Agrega un evento click al botón "Volver"
     document.getElementById("Volver").addEventListener("click", function() {
