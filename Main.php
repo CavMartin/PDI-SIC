@@ -77,7 +77,7 @@ $conn->close();
 <button type="submit" class="CustomButton" style="right: 1%;top: 13%;"onclick="window.location.href='PlanillaInfractores/Planilla.php'">Cargar planilla</button>
 
 <!-- Bandeja de entrada -->
-<div class="MainTable">
+<div class="MainTable" style="min-width: 100%;">
 <table>
     <thead>
         <tr>
