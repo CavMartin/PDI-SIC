@@ -458,6 +458,7 @@ textarea:focus {
   top: 75%;
   left: 0;
   height: 50%;
+  width: 100%;
   border: 0.3vw solid rgb(0, 0, 0);
   overflow-y: auto;
   box-sizing: border-box;
