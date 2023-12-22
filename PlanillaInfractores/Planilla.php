@@ -14,6 +14,10 @@ if ($conn->connect_error) {
     die("Error de conexión: " . $conn->connect_error);
 }
 
+// Obtener el ID de usuario del usuario logeado desde la sesión
+$usernameID = $_SESSION['usernameID'];
+$UserRegion = $_SESSION['Region'];
+
 // Función para insertar o actualizar la ficha de infractor
 function insertOrUpdateFichaInfractor($conn, $Ficha_Apellido, $Ficha_Nombre, $Ficha_Alias, $Ficha_TipoDNI, $Ficha_DNI, $Ficha_Prontuario, $Ficha_Genero, $Ficha_FechaNacimiento, $Ficha_LugarNacimiento, $Ficha_EstadoCivil, $Ficha_Provincia, $Ficha_Pais, $Ficha_DomiciliosJSON, $Base64FotoIzquierda, $Base64FotoCentral, $Base64FotoDerecha, $Ficha_FechaHecho, $Ficha_LugarHecho, $Ficha_Causa, $Ficha_Juzgado, $Ficha_Fiscalia, $Ficha_Dependencia, $Ficha_Observaciones, $Ficha_Reseña, $Ficha_DescripcionDelSecuestro) {
     $sql = "INSERT INTO ficha_de_infractor (Apellido, Nombre, Alias, TipoDocumento, DocumentoNumero, Prontuario, Genero, FechaNacimiento, LugarNacimiento, EstadoCivil, Provincia, Pais, Domicilio, FotoIzquierda, FotoCentral, FotoDerecha, FechaHecho, LugarHecho, Causa, Juzgado, Fiscalia, Dependencia, Observaciones, Reseña, Secuestro)

@@ -360,6 +360,18 @@ textarea:focus {
   background-repeat: no-repeat;
 }
 
+.LOGO {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  margin-top: 1%;
+  width: 20%;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
 
 
 
@@ -447,7 +459,7 @@ textarea:focus {
   left: 0;
   height: 50%;
   border: 0.3vw solid rgb(0, 0, 0);
-  overflow-y: scroll;
+  overflow-y: auto;
   box-sizing: border-box;
   transform: translateY(-50%);
 }

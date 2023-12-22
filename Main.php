@@ -7,6 +7,41 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     header("Location: Login.php");
     exit();
 }
+
+// Establece la conexión a la base de datos
+$conn = open_database_connection();
+if ($conn->connect_error) {
+    die("Error de conexión: " . $conn->connect_error);
+}
+
+// Utilizar una sentencia preparada
+$sql = "SELECT ID, 
+               Region,
+               Causa,
+               Reseña,
+               FechaDeCreacion 
+        FROM ficha_de_infractor
+        ORDER BY FechaDeCreacion ASC 
+        LIMIT 25";
+
+$stmt = $conn->prepare($sql);
+
+if ($stmt) {
+    // Ejecutar la consulta
+    $stmt->execute();
+
+    // Obtener los resultados
+    $result = $stmt->get_result();
+    
+    // Cerrar la sentencia preparada
+    $stmt->close();
+} else {
+    // Manejo de errores si la preparación de la consulta falla
+    echo "Error en la preparación de la consulta.";
+}
+
+// Cerrar la conexión
+$conn->close();
 ?>
 
 <!DOCTYPE html>
@@ -24,6 +59,13 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
 </head>
 <body> 
 
+<div class="LOGO">
+    <h1>S.I.C.N.</h1>
+    <div>
+        <img src="CSS/Images/PDI.png" alt="">
+    </div>
+</div>
+
 <form method="post" action="Logout.php">
     <button type="submit" class="CustomButton" style="left: 1%;top: 13%;" name="Logout">Cerrar sesión</button>
 </form>
@@ -34,17 +76,16 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
 
 <button type="submit" class="CustomButton" style="right: 1%;top: 13%;"onclick="window.location.href='PlanillaInfractores/Planilla.php'">Cargar planilla</button>
 
-
 <!-- Bandeja de entrada -->
-<div class="MainTable">
+<div class="MainTable" style="max-width: 100%;">
 <table>
     <thead>
         <tr>
-            <th style="Width: 10vw; Color: White;">ID</th>
-            <th style="Width: 10vw; Color: White;">ESTADO</th>
-            <th style="Width: 20vw; Color: White;">TIPO DE INCIDENCIA</th>
-            <th style="Width: 20vw; Color: White;">FECHA DE CREACIÓN</th>
-            <th style="Width: 40vw; Color: White;">ACCIONES</th>
+            <th style="min-width: 5vw; Color: White;">ID</th>
+            <th style="min-width: 10vw; Color: White;">FECHA DE CREACIÓN</th>
+            <th style="min-width: 10vw; Color: White;">REGIÓN</th>
+            <th style="min-width: 20vw; Color: White;">CAUSA</th>
+            <th style="min-width: 40vw; Color: White;">RESEÑA</th>
         </tr>
     </thead>
     <tbody>
@@ -54,31 +95,11 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
             $fechaFormateada = date("d/m/Y H:i:s", strtotime($row["FechaDeCreacion"]));
         
             echo '<tr>'; // Abrir tr de la fila dinamica
-            echo '<td style="Width: 10vw;">' . htmlspecialchars($row["DispositivoSIACIP"], ENT_QUOTES, 'UTF-8') . '</td>';
-
-            echo '<td style="Width: 10vw;">';
-            // Formulario para Cerrar Incidencia
-            echo '<form action="Main.php" method="POST" style="display:inline;" onsubmit="return ConfirmacionCerrarIncidencia(\'' . htmlspecialchars($row["DispositivoSIACIP"], ENT_QUOTES, 'UTF-8') . '\');">';
-            echo '<input type="hidden" name="CerrarIncidencia" value="' . htmlspecialchars($row["DispositivoSIACIP"], ENT_QUOTES, 'UTF-8') . '">';
-            echo '<button class="ESTADO_BTN ABIERTO"><span class="NORMAL_TEXT">ABIERTO</span><span class="ON_HOVER">CERRAR INCIDENCIA</span></button>';
-            echo '</form>' . '</td>';            
-
-            echo '<td style="Width: 20vw;">' . htmlspecialchars($row["TipoHecho"], ENT_QUOTES, 'UTF-8') . '</td>';
-            echo '<td style="Width: 20vw;">' . htmlspecialchars($fechaFormateada, ENT_QUOTES, 'UTF-8') . '</td>';
-            
-            // Agregamos botones para cada fila
-            echo '<td style="Width: 40vw;">';
-            echo '<div class="containerCustomBTN">';// Custom buttons
-            // Formulario para Reporte Preliminar
-            echo '<div class="btn">';
-            echo '<form action="PlanillaInfractores/Planilla.php" method="POST" style="display:inline;">';
-            echo '<input type="submit" class="btn btnCustom" style="background-color: rgba(45, 178, 255, 0.6);" value="Planilla de infractor">';
-            echo '</form>';
-            echo '</div>';
-
-            echo '</td>';
-            echo '</div>';
-
+            echo '<td style="min-width: 5vw;">' . htmlspecialchars($row["ID"], ENT_QUOTES, 'UTF-8') . '</td>';         
+            echo '<td style="min-width: 10vw;">' . htmlspecialchars($fechaFormateada, ENT_QUOTES, 'UTF-8') . '</td>';
+            echo '<td style="min-width: 10vw;">' . htmlspecialchars($row["Region"], ENT_QUOTES, 'UTF-8') . '</td>';
+            echo '<td style="min-width: 20vw;">' . htmlspecialchars($row["Causa"], ENT_QUOTES, 'UTF-8') . '</td>';
+            echo '<td style="min-width: 40vw;">' . htmlspecialchars($row["Reseña"], ENT_QUOTES, 'UTF-8') . '</td>';
             echo '</tr>';// Cerrar tr de la fila dinamica
         }
         ?>
