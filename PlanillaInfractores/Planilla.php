@@ -760,6 +760,16 @@ document.addEventListener("DOMContentLoaded", function() {
 
 <button type="button" id="Volver" class="CustomButton Volver">Volver</button>
 
+<!-- Aside right -->
+<aside class="Main_Aside">
+    <div class="Main_Aside_LOGO">
+        <img src="../CSS/Images/PSF.png" alt="">
+    </div>
+    <div class="Main_Aside_LOGO">
+        <img src="../CSS/Images/PDI.png" alt="">
+    </div>
+</aside>
+
 <script>
     // Agrega un evento click al botón "Volver"
     document.getElementById("Volver").addEventListener("click", function() {
