@@ -14,6 +14,69 @@ if ($conn->connect_error) {
     die("Error de conexión: " . $conn->connect_error);
 }
 
+// Función para insertar o actualizar la ficha de infractor
+function insertOrUpdateFichaInfractor($conn, $Ficha_Apellido, $Ficha_Nombre, $Ficha_Alias, $Ficha_TipoDNI, $Ficha_DNI, $Ficha_Prontuario, $Ficha_Genero, $Ficha_FechaNacimiento, $Ficha_LugarNacimiento, $Ficha_EstadoCivil, $Ficha_Provincia, $Ficha_Pais, $Ficha_DomiciliosJSON, $Base64FotoIzquierda, $Base64FotoCentral, $Base64FotoDerecha, $Ficha_FechaHecho, $Ficha_LugarHecho, $Ficha_Causa, $Ficha_Juzgado, $Ficha_Fiscalia, $Ficha_Dependencia, $Ficha_Observaciones, $Ficha_Reseña, $Ficha_DescripcionDelSecuestro) {
+    $sql = "INSERT INTO ficha_de_infractor (Apellido, Nombre, Alias, TipoDocumento, DocumentoNumero, Prontuario, Genero, FechaNacimiento, LugarNacimiento, EstadoCivil, Provincia, Pais, Domicilio, FotoIzquierda, FotoCentral, FotoDerecha, FechaHecho, LugarHecho, Causa, Juzgado, Fiscalia, Dependencia, Observaciones, Reseña, Secuestro)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            ON DUPLICATE KEY UPDATE Apellido = ?, Nombre = ?, Alias = ?, TipoDocumento = ?, DocumentoNumero = ?, Prontuario = ?, Genero = ?, FechaNacimiento = ?, LugarNacimiento = ?, EstadoCivil = ?, Provincia = ?, Pais = ?, Domicilio = ?, FotoIzquierda = ?, FotoCentral = ?, FotoDerecha = ?, FechaHecho = ?, LugarHecho = ?, Causa = ?, Juzgado = ?, Fiscalia = ?, Dependencia = ?, Observaciones = ?, Reseña = ?, Secuestro = ?";
+
+    $Ficha_DomiciliosJSON = json_encode($Ficha_DomiciliosJSON);
+
+    $stmtFicha = $conn->prepare($sql);
+
+    if ($stmtFicha) {
+        $stmtFicha->bind_param(str_repeat('s', 50), $Ficha_Apellido, $Ficha_Nombre, $Ficha_Alias, $Ficha_TipoDNI, $Ficha_DNI, $Ficha_Prontuario, $Ficha_Genero, $Ficha_FechaNacimiento, $Ficha_LugarNacimiento, $Ficha_EstadoCivil, $Ficha_Provincia, $Ficha_Pais, $Ficha_DomiciliosJSON, $Base64FotoIzquierda, $Base64FotoCentral, $Base64FotoDerecha, $Ficha_FechaHecho, $Ficha_LugarHecho, $Ficha_Causa, $Ficha_Juzgado, $Ficha_Fiscalia, $Ficha_Dependencia, $Ficha_Observaciones, $Ficha_Reseña, $Ficha_DescripcionDelSecuestro, $Ficha_Apellido, $Ficha_Nombre, $Ficha_Alias, $Ficha_TipoDNI, $Ficha_DNI, $Ficha_Prontuario, $Ficha_Genero, $Ficha_FechaNacimiento, $Ficha_LugarNacimiento, $Ficha_EstadoCivil, $Ficha_Provincia, $Ficha_Pais, $Ficha_DomiciliosJSON, $Base64FotoIzquierda, $Base64FotoCentral, $Base64FotoDerecha, $Ficha_FechaHecho, $Ficha_LugarHecho, $Ficha_Causa, $Ficha_Juzgado, $Ficha_Fiscalia, $Ficha_Dependencia, $Ficha_Observaciones, $Ficha_Reseña, $Ficha_DescripcionDelSecuestro);
+
+        $stmtFicha->execute();
+        $stmtFicha->close();
+    }
+}
+
+// Función para insertar personas relacionadas
+function insertPersonasRelacionadas($conn, $infractorID, $relacion, $apellido, $nombre, $alias, $tipoDocumento, $documentoNumero, $prontuario, $genero, $domicilio, $informacionDeInteres) {
+    $sqlPersona = "INSERT INTO ficha_personas (InfractorID, Relacion, Apellido, Nombre, Alias, TipoDocumento, DocumentoNumero, Prontuario, Genero, Domicilio, InformacionDeInteres)
+                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+    $stmtPersona = $conn->prepare($sqlPersona);
+
+    if ($stmtPersona) {
+        $stmtPersona->bind_param("issssssssss", $infractorID, $relacion, $apellido, $nombre, $alias, $tipoDocumento, $documentoNumero, $prontuario, $genero, $domicilio, $informacionDeInteres);
+
+        $stmtPersona->execute();
+        $stmtPersona->close();
+    }
+}
+
+// Función genérica para insertar imágenes
+function insertImagen($conn, $infractorID, $tipoImagen, $imagen) {
+    $sql = "INSERT INTO imagenes (InfractorID, TipoImagen, Imagen)
+            VALUES (?, ?, ?)";
+
+    $stmtImagen = $conn->prepare($sql);
+
+    if ($stmtImagen) {
+        $stmtImagen->bind_param("iss", $infractorID, $tipoImagen, $imagen);
+
+        $stmtImagen->execute();
+        $stmtImagen->close();
+    }
+}
+
+// Función para insertar perfiles de redes sociales
+function insertRedesSociales($conn, $infractorID, $tipoRedSocial, $redSocialLink) {
+    $sqlRedSocial = "INSERT INTO redes_sociales (InfractorID, TipoRedSocial, Link)
+                     VALUES (?, ?, ?)";
+
+    $stmtRedSocial = $conn->prepare($sqlRedSocial);
+
+    if ($stmtRedSocial) {
+        $stmtRedSocial->bind_param("iss", $infractorID, $tipoRedSocial, $redSocialLink);
+
+        $stmtRedSocial->execute();
+        $stmtRedSocial->close();
+    }
+}
+
 // Verificar si se ha enviado el formulario
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["POST_Action"]) && $_POST["POST_Action"] == "CargarFormulario") {
     $Ficha_Apellido = $_POST["Ficha_Apellido"];
@@ -29,11 +92,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["POST_Action"]) && $_PO
     $Ficha_Provincia = $_POST["Ficha_Provincia"];
     $Ficha_Pais = $_POST["Ficha_Pais"];
     $Ficha_DomiciliosJSON = $_POST["Ficha_DomiciliosJSON"];
-    
     $Base64FotoIzquierda = $_POST["Base64FotoIzquierda"];
     $Base64FotoCentral = $_POST["Base64FotoCentral"];
     $Base64FotoDerecha = $_POST["Base64FotoDerecha"];
-
     $Ficha_FechaHecho = $_POST["Ficha_FechaHecho"];
     $Ficha_LugarHecho = $_POST["Ficha_LugarHecho"];
     $Ficha_Causa = $_POST["Ficha_Causa"];
@@ -44,34 +105,64 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["POST_Action"]) && $_PO
     $Ficha_Reseña = $_POST["Ficha_Reseña"];
     $Ficha_DescripcionDelSecuestro = $_POST["Ficha_DescripcionDelSecuestro"];
 
-    
+    // Llamar a la función para insertar o actualizar la ficha de infractor
+    insertOrUpdateFichaInfractor($conn, $Ficha_Apellido, $Ficha_Nombre, $Ficha_Alias, $Ficha_TipoDNI, $Ficha_DNI, $Ficha_Prontuario, $Ficha_Genero, $Ficha_FechaNacimiento, $Ficha_LugarNacimiento, $Ficha_EstadoCivil, $Ficha_Provincia, $Ficha_Pais, $Ficha_DomiciliosJSON, $Base64FotoIzquierda, $Base64FotoCentral, $Base64FotoDerecha, $Ficha_FechaHecho, $Ficha_LugarHecho, $Ficha_Causa, $Ficha_Juzgado, $Ficha_Fiscalia, $Ficha_Dependencia, $Ficha_Observaciones, $Ficha_Reseña, $Ficha_DescripcionDelSecuestro);
 
+    // Obtener el ID del infractor insertado o actualizado
+    $infractorID = $conn->insert_id;
 
-    // Consulta SQL preparada
-    $sql = "INSERT INTO ficha_de_infractor (Apellido, Nombre, Alias, TipoDocumento, DocumentoNumero, Prontuario, Genero, FechaNacimiento, LugarNacimiento, EstadoCivil, Provincia, Pais, Domicilio, FotoIzquierda, FotoCentral, FotoDerecha, FechaHecho, LugarHecho, Causa, Juzgado, Fiscalia, Dependencia, Observaciones, Reseña, Secuestro)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-            ON DUPLICATE KEY UPDATE Apellido = ?, Nombre = ?, Alias = ?, TipoDocumento = ?, DocumentoNumero = ?, Prontuario = ?, Genero = ?, FechaNacimiento = ?, LugarNacimiento = ?, EstadoCivil = ?, Provincia = ?, Pais = ?, Domicilio = ?, FotoIzquierda = ?, FotoCentral = ?, FotoDerecha = ?, FechaHecho = ?, LugarHecho = ?, Causa = ?, Juzgado = ?, Fiscalia = ?, Dependencia = ?, Observaciones = ?, Reseña = ?, Secuestro = ?";
+    // Obtener el contador de personas relacionadas
+    $contadorPersonas = intval($_POST["contadorPersonas"]);
 
-    // Ficha_DomiciliosJSON se convierte en JSON antes de usarlo en bind_param
-    $Ficha_DomiciliosJSON = json_encode($Ficha_DomiciliosJSON);
+    // Itera a través de las personas relacionadas
+    for ($i = 1; $i <= $contadorPersonas; $i++) {
+        $relacion = $_POST["PR_Relacion" . $i];
+        $apellido = $_POST["PR_Apellido" . $i];
+        $nombre = $_POST["PR_Nombre" . $i];
+        $alias = $_POST["PR_Alias" . $i];
+        $tipoDocumento = $_POST["PR_TipoDNI" . $i];
+        $documentoNumero = $_POST["PR_DNI" . $i];
+        $prontuario = $_POST["PR_Prontuario" . $i];
+        $genero = $_POST["PR_Genero" . $i];
+        $domicilio = $_POST["PR_Domicilio" . $i];
+        $informacionDeInteres = $_POST["PR_InformacionDeInteres" . $i];
 
-    // Preparar la consulta
-    $stmt = $conn->prepare($sql);
+        // Llamar a la función para insertar personas relacionadas
+        insertPersonasRelacionadas($conn, $infractorID, $relacion, $apellido, $nombre, $alias, $tipoDocumento, $documentoNumero, $prontuario, $genero, $domicilio, $informacionDeInteres);
+    }
 
-    if ($stmt) {
-        $stmt->bind_param(str_repeat('s', 50), $Ficha_Apellido, $Ficha_Nombre, $Ficha_Alias, $Ficha_TipoDNI, $Ficha_DNI, $Ficha_Prontuario, $Ficha_Genero, $Ficha_FechaNacimiento, $Ficha_LugarNacimiento, $Ficha_EstadoCivil, $Ficha_Provincia, $Ficha_Pais, $Ficha_DomiciliosJSON, $Base64FotoIzquierda, $Base64FotoCentral, $Base64FotoDerecha, $Ficha_FechaHecho, $Ficha_LugarHecho, $Ficha_Causa, $Ficha_Juzgado, $Ficha_Fiscalia, $Ficha_Dependencia, $Ficha_Observaciones, $Ficha_Reseña, $Ficha_DescripcionDelSecuestro, $Ficha_Apellido, $Ficha_Nombre, $Ficha_Alias, $Ficha_TipoDNI, $Ficha_DNI, $Ficha_Prontuario, $Ficha_Genero, $Ficha_FechaNacimiento, $Ficha_LugarNacimiento, $Ficha_EstadoCivil, $Ficha_Provincia, $Ficha_Pais, $Ficha_DomiciliosJSON, $Base64FotoIzquierda, $Base64FotoCentral, $Base64FotoDerecha, $Ficha_FechaHecho, $Ficha_LugarHecho, $Ficha_Causa, $Ficha_Juzgado, $Ficha_Fiscalia, $Ficha_Dependencia, $Ficha_Observaciones, $Ficha_Reseña, $Ficha_DescripcionDelSecuestro);
+    // Obtener el contador de personas relacionadas
+    $contadorSeña = intval($_POST["contadorSeña"]);
 
-        // Ejecutar la consulta
-        if ($stmt->execute()) {
-            echo "Registro insertado o actualizado correctamente.";
-        } else {
-            echo "Error en la ejecución de la consulta: " . $stmt->error;
-        }
+    // Llamar a la función para insertar señas particulares
+    for ($i = 1; $i <= $contadorSeña; $i++) {
+        $tipoSeña = $_POST["TipoSeña" . $i];
+        $imagenSeña = $_POST["Base64ImagenSeña" . $i];
 
-        // Cerrar la consulta preparada
-        $stmt->close();
-    } else {
-        echo "Error en la preparación de la consulta: " . $conn->error;
+        insertImagen($conn, $infractorID, $tipoSeña, $imagenSeña);
+    }
+
+    // Obtener el contador de personas relacionadas
+    $contadorFotografia = intval($_POST["contadorFotografia"]);
+
+    // Llamar a la función para insertar fotografías
+    for ($i = 1; $i <= $contadorFotografia; $i++) {
+        $tipoFotografia = $_POST["TipoFotografia" . $i];
+        $imagenFotografia = $_POST["Base64ImagenFotografia" . $i];
+
+        insertImagen($conn, $infractorID, $tipoFotografia, $imagenFotografia);
+    }
+
+    // Obtener el contador de redes sociales
+    $contadorRedesSociales = intval($_POST["contadorRedesSociales"]);
+
+    // Iterar a través de las redes sociales
+    for ($i = 1; $i <= $contadorRedesSociales; $i++) {
+        $tipoRedSocial = $_POST["TipoRedSocial" . $i];
+        $redSocialLink = $_POST["RedSocialLink" . $i];
+
+        // Llamar a la función para insertar perfiles de redes sociales
+        insertRedesSociales($conn, $infractorID, $tipoRedSocial, $redSocialLink);
     }
 }
 
@@ -101,9 +192,9 @@ $conn->close();
 <!-- Campos ocultos, necesarios para el funcionamiento de la aplicacion -->
 <input type="hidden" id="POST_Action" name="POST_Action" value="CargarFormulario" readonly>
 
-    <h1><u>Ficha de infractor</u></h1>
+    <h1><u>Ficha de infractor - Ley 23.737</u></h1>
 
-    <div class="horizontal-container">
+<div class="horizontal-container">
     <div class="Div3XLine">
     <label for="Ficha_Apellido">Apellido/s:</label>
     <input type="text" id="Ficha_Apellido" name="Ficha_Apellido" maxlength="50" onchange="transformarDatosMayusculas('Ficha_Apellido')">
@@ -132,7 +223,7 @@ $conn->close();
     </select>
     </div>
 
-    <div class="Div3XLine">
+<div class="Div3XLine">
     <label for="Ficha_DNI">Número de documento:</label>
     <input type="text" id="Ficha_DNI" name="Ficha_DNI" maxlength="10" onchange="transformarDatosNumerico('Ficha_DNI')">
     </div>
@@ -147,8 +238,8 @@ $conn->close();
     <div class="Div3XLine">
     <label for="Ficha_Genero">Género:</label>
     <select id="Ficha_Genero" style="text-align: center;" name="Ficha_Genero" required>
-    <option disabled selected>Selecciona el género</option>
-        <option value="Varón">Varón</option>
+        <option disabled selected>Selecciona el género</option>
+        <option value="Varón" selected>Varón</option>
         <option value="Mujer">Mujer</option>
         <option value="Otro">Otro</option>
         <option value="Desconocido">Desconocido</option>
@@ -288,181 +379,6 @@ document.addEventListener("DOMContentLoaded", function() {
     </div>
 </div>
 
-<div id="SeñasParticularesContainer">
-    <h2 style="text-align: left;">Señas particulares</h2>
-    <!-- Aquí se crearán las señas particulares dinámicamente -->
-</div>
-
-<button type="button" id="agregarSeña" class="CustomButton B_Fuentes">Agregar Seña</button>
-<button type="button" id="eliminarSeña" class="CustomButton B_Fuentes">Eliminar Seña</button>
-
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        var contadorSeña = 0; // Inicializamos el contador en 0
-
-        var botonAgregarSeña = document.getElementById("agregarSeña");
-        var botonEliminarSeña = document.getElementById("eliminarSeña");
-        var contenedorSeñasParticulares = document.getElementById("SeñasParticularesContainer");
-
-        botonAgregarSeña.addEventListener("click", function() {
-            contadorSeña++; // Aumentamos el contador
-            var nuevaSeñaContainer = document.createElement("div");
-            nuevaSeñaContainer.innerHTML = `
-                <input type="hidden" id="NumeroDeOrden${contadorSeña}" name="NumeroDeOrden" value="${contadorSeña}" readonly>
-                <div style="width: 30%;">
-                    <label for="TipoSeña${contadorSeña}">Tipo de Seña #${contadorSeña}:</label>
-                    <select id="TipoSeña${contadorSeña}" style="text-align: center;" name="TipoSeña${contadorSeña}" required>
-                        <option disabled selected>Selecciona una opción</option>
-                        <option value="Seña particular - Tatuaje">Tatuaje</option>
-                        <option value="Seña particular - Cicatriz">Cicatriz</option>
-                        <option value="Seña particular - Otras">Otras</option>
-                    </select>
-
-                    <label for="ImagenSeña${contadorSeña}">Imagen de la seña particular:</label>
-                    <input type="file" id="ImagenSeña${contadorSeña}" name="ImagenSeña${contadorSeña}" accept="image/*" onchange="procesarImagen(event, 'previewImagenSeña${contadorSeña}', 'Base64ImagenSeña${contadorSeña}')">
-                    <img id="previewImagenSeña${contadorSeña}" class="preview2" src="" alt="Previsualización de imagen">
-                    <textarea id="Base64ImagenSeña${contadorSeña}" name="Base64ImagenSeña${contadorSeña}" hidden></textarea>
-                </div>
-            `;
-
-            // Agregar la nueva señal particular al formulario
-            contenedorSeñasParticulares.appendChild(nuevaSeñaContainer);
-        });
-
-        botonEliminarSeña.addEventListener("click", function() {
-            if (contadorSeña > 0) {
-                // Solo eliminar si hay más de una señal particular creada
-                var ultimaSeñaContainer = document.querySelector("#SeñasParticularesContainer > div:last-child");
-                contenedorSeñasParticulares.removeChild(ultimaSeñaContainer);
-                contadorSeña--;
-            }
-        });
-
-        // Llama a la función para agregar la primera señal particular al cargar la página
-        botonAgregarSeña.click();
-    });
-</script>
-
-<h2 style="text-align: left;">Personas relacionadas al infractor</h2>
-
-<div class="PersonasContainer" id="PersonasContainer">
-
-</div>
-
-    <!-- Botón para agregar una nueva instancia de persona -->
-    <button type="button" id="agregarPersona" class="CustomButton B_Personas">Agregar Persona</button>
-    <button type="button" id="eliminarUltimaPersona" class="CustomButton B_Personas">Deshacer Persona</button>
-
-<script>
-        // Contador para llevar un registro de las personas agregadas
-        let contadorPersonas = 0;
-
-        // Función para agregar una nueva instancia de persona
-        function agregarPersona() {
-            contadorPersonas++;
-
-            const nuevaPersona = document.createElement("div");
-            nuevaPersona.innerHTML = `
-                <h2 style="text-align: center;">Persona #${contadorPersonas}</h2>
-
-                <div>
-                    <label for="PR_Relacion${contadorPersonas}">Relación:</label>
-                    <input type="text" id="PR_Relacion${contadorPersonas}" name="PR_Relacion${contadorPersonas}" maxlength="100">
-                </div>
-
-                <div class="horizontal-container">
-                    <div class="Div3XLine">
-                        <label for="PR_Apellido${contadorPersonas}">Apellido/s:</label>
-                        <input type="text" id="PR_Apellido${contadorPersonas}" name="PR_Apellido${contadorPersonas}" maxlength="50" onchange="transformarDatosMayusculas('Apellido${contadorPersonas}')">
-                    </div>
-
-                    <div class="Div3XLine">
-                        <label for="PR_Nombre${contadorPersonas}">Nombre/s:</label>
-                        <input type="text" id="PR_Nombre${contadorPersonas}" name="PR_Nombre${contadorPersonas}" maxlength="50" onchange="transformarDatosNompropio('Nombre${contadorPersonas}')">
-                    </div>
-
-                    <div class="Div3XLine">
-                        <label for="PR_Alias${contadorPersonas}">Alias / Apodo:</label>
-                        <input type="text" id="PR_Alias${contadorPersonas}" name="PR_Alias${contadorPersonas}" maxlength="50" onchange="transformarDatosNompropio('Alias${contadorPersonas}')">
-                    </div>
-                </div>
-
-                <div class="horizontal-container">
-                    <div class="Div3XLine">
-                        <label for="PR_TipoDNI${contadorPersonas}">Tipo de documento:</label>
-                        <select id="PR_TipoDNI${contadorPersonas}" style="text-align: center;" name="PR_TipoDNI${contadorPersonas}" required>
-                            <option disabled selected>Selecciona una opción</option>
-                            <option value="D.N.I." selected>D.N.I.</option>
-                            <option value="L.E.">L.E.</option>
-                            <option value="L.C">L.C</option>
-                            <option value="Pasaporte">Pasaporte</option>
-                        </select>
-                    </div>
-
-                    <div class="Div3XLine">
-                        <label for="PR_DNI${contadorPersonas}">Número de documento:</label>
-                        <input type="text" id="PR_DNI${contadorPersonas}" name="PR_DNI${contadorPersonas}" maxlength="10" onchange="transformarDatosNumerico('DNI${contadorPersonas}')">
-                    </div>
-
-                    <div class="Div3XLine">
-                        <label for="PR_Prontuario${contadorPersonas}">Prontuario:</label>
-                        <input type="text" id="PR_Prontuario${contadorPersonas}" name="PR_Prontuario${contadorPersonas}" maxlength="50">
-                    </div>
-                </div>
-
-                <div class="horizontal-container">
-                    <div style="width: 30%;">
-                        <label for="PR_Genero${contadorPersonas}">Género:</label>
-                        <select id="PR_Genero${contadorPersonas}" style="text-align: center;" name="PR_Genero${contadorPersonas}" required>
-                            <option disabled selected>Selecciona el género</option>
-                            <option value="Varón">Varón</option>
-                            <option value="Mujer">Mujer</option>
-                            <option value="Otro">Otro</option>
-                            <option value="Desconocido">Desconocido</option>
-                        </select>
-                    </div>
-
-                    <div style="width: 65%;">
-                        <label for="PR_Domicilio${contadorPersonas}">Domicilio:</label>
-                        <input type="text" id="PR_Domicilio${contadorPersonas}" name="PR_Domicilio${contadorPersonas}" maxlength="100">
-                    </div>
-                </div>
-
-                <label for="PR_InformacionDeInteres${contadorPersonas}">Información de interés:</label>
-                <textarea type="text" id="PR_InformacionDeInteres${contadorPersonas}" name="PR_InformacionDeInteres${contadorPersonas}"></textarea>
-            `;
-
-            // Agrega la nueva instancia de persona al contenedor
-            document.getElementById("PersonasContainer").appendChild(nuevaPersona);
-        }
-
-        // Agrega un evento click al botón "Agregar Persona"
-        document.getElementById("agregarPersona").addEventListener("click", agregarPersona);
-
-        // Agrega la primera instancia de persona al cargar la página
-        agregarPersona();
-
-        // Función para eliminar la última instancia de persona
-        function eliminarUltimaPersona() {
-            if (contadorPersonas > 0) {
-                // Obtiene el contenedor de personas
-                const personasContainer = document.getElementById("PersonasContainer");
-        
-                // Obtiene la última instancia de persona
-                const ultimaPersona = personasContainer.lastElementChild;
-        
-                // Elimina la última instancia de persona
-                personasContainer.removeChild(ultimaPersona);
-        
-                // Reduce el contador
-                contadorPersonas--;
-            }
-        }
-
-        // Agrega un evento click al botón "Eliminar Última Persona"
-        document.getElementById("eliminarUltimaPersona").addEventListener("click", eliminarUltimaPersona);
-</script>
-
 <h2 style="text-align: left;">Detalles de la infracción</h2>
 
 <div class="horizontal-container">
@@ -477,8 +393,10 @@ document.addEventListener("DOMContentLoaded", function() {
     </div>
 </div>
 
+<div>
     <label for="Ficha_Causa">Causa:</label>
     <input type="text" id="Ficha_Causa" name="Ficha_Causa">
+</div>
 
 <div class="horizontal-container">
     <div class="Div3XLine">
@@ -497,92 +415,99 @@ document.addEventListener("DOMContentLoaded", function() {
     </div>
 </div>
 
-<div>
+<div><!-- Observaciones -->
     <label for="Ficha_Observaciones">Observaciones:</label>
     <textarea type="text" id="Ficha_Observaciones" name="Ficha_Observaciones"></textarea>
 </div>
 
-<div>
+<div><!-- Breve reseña del hecho -->
     <label for="Ficha_Reseña">Breve reseña del hecho:</label>
     <textarea type="text" id="Ficha_Reseña" name="Ficha_Reseña"></textarea>
 </div>
 
-<h2 style="text-align: left;">Información complementaria</h2><!-- Aqui comienza la información complementaria -->
-
-<div id="RedesSocialesContainer">
-    <h3 style="text-align: center;">Perfiles de redes sociales</h3>
-
-    <!-- Aqui se crean las redes sociales dinamicamente -->
+<div><!-- Descripcion del secuestro -->
+    <label for="Ficha_DescripcionDelSecuestro">Descripción del secuestro:</label>
+    <textarea type="text" id="Ficha_DescripcionDelSecuestro" name="Ficha_DescripcionDelSecuestro"></textarea>
 </div>
 
-<button type="button" id="agregarRedSocial" class="CustomButton B_Fuentes">Agregar Red Social</button>
-<button type="button" id="eliminarRedSocial" class="CustomButton B_Fuentes">Eliminar Red Social</button>
+<h2><u>Información complementaria del infractor</u></h2><!-- Aqui comienza la información complementaria -->
 
-<script>
+<div><!-- Señas particulares del infractor -->
+    <div id="SeñasParticularesContainer">
+    <h3>* Señas particulares</h3>
+    <input type="hidden" id="contadorSeña" name="contadorSeña" value="0" readonly>
+    <!-- Aquí se crearán las señas particulares dinámicamente -->
+    </div>
+
+    <div class="button-container">
+    <button type="button" id="agregarSeña" class="CustomButton B_Fuentes">Agregar Seña</button>
+    <button type="button" id="eliminarSeña" class="CustomButton B_Fuentes">Eliminar Seña</button>
+    </div>
+
+    <script>
     document.addEventListener("DOMContentLoaded", function() {
-        var contadorRedSocial = 0; // Inicializamos el contador en 0
+        var contadorSeña = 0; // Inicializamos el contador en 0
 
-        var botonAgregarRedSocial = document.getElementById("agregarRedSocial");
-        var botonEliminarRedSocial = document.getElementById("eliminarRedSocial");
-        var contenedorRedesSociales = document.getElementById("RedesSocialesContainer");
+        var botonAgregarSeña = document.getElementById("agregarSeña");
+        var botonEliminarSeña = document.getElementById("eliminarSeña");
+        var contenedorSeñasParticulares = document.getElementById("SeñasParticularesContainer");
 
-        var redSocialTipoOriginal = document.querySelector("#RedSocialTipo");
-        var redSocialLinkOriginal = document.querySelector("#RedSocialLink");
-
-        // Función para agregar una nueva red social
-        function agregarRedSocial() {
-            contadorRedSocial++; // Aumentamos el contador
-            var nuevaRedSocialContainer = document.createElement("div");
-            nuevaRedSocialContainer.innerHTML = `
-                <input type="hidden" id="NumeroDeOrden${contadorRedSocial}" name="NumeroDeOrden" value="${contadorRedSocial}" readonly>
-                <div class="horizontal-container">
+        botonAgregarSeña.addEventListener("click", function() {
+            contadorSeña++; // Aumentamos el contador
+            var nuevaSeñaContainer = document.createElement("div");
+            nuevaSeñaContainer.innerHTML = `
+                <input type="hidden" id="Seña_NumeroDeOrden${contadorSeña}" name="Seña_NumeroDeOrden" value="${contadorSeña}" readonly>
                 <div style="width: 30%;">
-                    <label for="RedSocialTipo${contadorRedSocial}">Red social #${contadorRedSocial}:</label>
-                    <select id="RedSocialTipo${contadorRedSocial}" style="text-align: center;" name="RedSocialTipo${contadorRedSocial}" required>
+                    <label for="TipoSeña${contadorSeña}">Tipo de Seña #${contadorSeña}:</label>
+                    <select id="TipoSeña${contadorSeña}" style="text-align: center;" name="TipoSeña${contadorSeña}" required>
                         <option disabled selected>Selecciona una opción</option>
-                        <option value="Facebook">Facebook</option>
-                        <option value="Instagram">Instagram</option>
-                        <option value="Twitter">Twitter</option>
-                        <option value="TikTok">TikTok</option>
-                        <option value="Linkedin">Linkedin</option>
-                        <option value="Otros">Otros</option>
+                        <option value="Seña particular - Tatuaje">Tatuaje</option>
+                        <option value="Seña particular - Cicatriz">Cicatriz</option>
+                        <option value="Seña particular - Otras">Otras</option>
                     </select>
-                </div>
-                <div style="width: 65%;">
-                    <label for="RedSocialLink${contadorRedSocial}">Link:</label>
-                    <input type="text" id="RedSocialLink${contadorRedSocial}" name="RedSocialLink${contadorRedSocial}" maxlength="250">
+
+                    <label for="ImagenSeña${contadorSeña}">Imagen de la seña particular:</label>
+                    <input type="file" id="ImagenSeña${contadorSeña}" name="ImagenSeña${contadorSeña}" accept="image/*" onchange="procesarImagen(event, 'previewImagenSeña${contadorSeña}', 'Base64ImagenSeña${contadorSeña}')">
+                    <img id="previewImagenSeña${contadorSeña}" class="preview2" src="" alt="Previsualización de imagen">
+                    <textarea id="Base64ImagenSeña${contadorSeña}" name="Base64ImagenSeña${contadorSeña}" hidden></textarea>
                 </div>
             `;
 
-            // Agregar la nueva red social al formulario
-            contenedorRedesSociales.appendChild(nuevaRedSocialContainer);
-        }
+            // Agregar la nueva señal particular al formulario
+            contenedorSeñasParticulares.appendChild(nuevaSeñaContainer);
 
-        // Llama a la función para agregar la primera red social al cargar la página
-        agregarRedSocial();
+            // Actualizar el valor del campo oculto contadorSeña
+            document.getElementById("contadorSeña").value = contadorSeña;
+        });
 
-        botonAgregarRedSocial.addEventListener("click", agregarRedSocial);
+        botonEliminarSeña.addEventListener("click", function() {
+            if (contadorSeña > 0) {
+                // Solo eliminar si hay más de una señal particular creada
+                var ultimaSeñaContainer = document.querySelector("#SeñasParticularesContainer > div:last-child");
+                contenedorSeñasParticulares.removeChild(ultimaSeñaContainer);
+                contadorSeña--;
 
-        botonEliminarRedSocial.addEventListener("click", function() {
-            if (contadorRedSocial > 0) {
-                // Solo eliminar si hay más de una red social creada
-                var ultimaRedSocialContainer = document.querySelector("#RedesSocialesContainer > div:last-child");
-                contenedorRedesSociales.removeChild(ultimaRedSocialContainer);
-                contadorRedSocial--;
+                // Actualizar el valor del campo oculto contadorSeña
+                document.getElementById("contadorSeña").value = contadorSeña;
             }
         });
     });
-</script>
-
-<div id="FotografiasContainer">
-    <h3 style="text-align: center;">Fotografías</h3>
-    <!-- Aquí se crearán las fotografías dinámicamente -->
+    </script>
 </div>
 
-<button type="button" id="agregarFotografia" class="CustomButton B_Fuentes">Agregar Fotografía</button>
-<button type="button" id="eliminarFotografia" class="CustomButton B_Fuentes">Eliminar Fotografía</button>
+<div><!-- Aqui comienzan las fotografias -->
+    <div id="FotografiasContainer">
+    <h3>* Registros fotografícos</h3>
+    <input type="hidden" id="contadorFotografia" name="contadorFotografia" value="0" readonly>
+    <!-- Aquí se crearán las fotografías dinámicamente -->
+    </div>
 
-<script>
+    <div class="button-container">
+    <button type="button" id="agregarFotografia" class="CustomButton B_Fotografias">Agregar Fotografía</button>
+    <button type="button" id="eliminarFotografia" class="CustomButton B_Fotografias">Eliminar Fotografía</button>
+    </div>
+
+    <script>
     document.addEventListener("DOMContentLoaded", function() {
         var contadorFotografia = 0; // Inicializamos el contador en 0
 
@@ -594,15 +519,14 @@ document.addEventListener("DOMContentLoaded", function() {
             contadorFotografia++; // Aumentamos el contador
             var nuevaFotografiaContainer = document.createElement("div");
             nuevaFotografiaContainer.innerHTML = `
-            <input type="hidden" id="NumeroDeOrden${contadorFotografia}" name="NumeroDeOrden" value="${contadorFotografia}" readonly>
-
+                <input type="hidden" id="Fotografia_NumeroDeOrden${contadorFotografia}" name="Fotografia_NumeroDeOrden" value="${contadorFotografia}" readonly>
                 <div style="width: 30%;">
                     <label for="TipoFotografia${contadorFotografia}">Tipo de Fotografía #${contadorFotografia}:</label>
                     <select id="TipoFotografia${contadorFotografia}" style="text-align: center;" name="TipoFotografia${contadorFotografia}" required>
                         <option disabled selected>Selecciona una opción</option>
                         <option value="Fotografias de la investigación">Fotografias de la investigación</option>
                         <option value="Fotografias del secuestro">Fotografias del secuestro</option>
-                        <option value="Otras fotografias">Otras fotografias</option>
+                        <option value="Otras fotografías">Otras fotografías</option>
                     </select>
 
                     <label for="ImagenFotografia${contadorFotografia}">Imagen de la fotografía:</label>
@@ -614,6 +538,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
             // Agregar la nueva fotografía al formulario
             contenedorFotografias.appendChild(nuevaFotografiaContainer);
+
+            // Actualizar el valor del campo oculto contadorFotografia
+            document.getElementById("contadorFotografia").value = contadorFotografia;
         });
 
         botonEliminarFotografia.addEventListener("click", function() {
@@ -622,17 +549,208 @@ document.addEventListener("DOMContentLoaded", function() {
                 var ultimaFotografiaContainer = document.querySelector("#FotografiasContainer > div:last-child");
                 contenedorFotografias.removeChild(ultimaFotografiaContainer);
                 contadorFotografia--;
+
+                // Actualizar el valor del campo oculto contadorFotografia
+                document.getElementById("contadorFotografia").value = contadorFotografia;
             }
         });
-
-        // Llama a la función para agregar la primera fotografía al cargar la página
-        botonAgregarFotografia.click();
     });
-</script>
+    </script>
+</div>
 
-<div>
-    <label for="Ficha_DescripcionDelSecuestro">Descripción del secuestro:</label>
-    <textarea type="text" id="Ficha_DescripcionDelSecuestro" name="Ficha_DescripcionDelSecuestro"></textarea>
+<div><!-- Aqui comienzan las redes sociales -->
+    <div id="RedesSocialesContainer">
+    <h3>* Perfiles de redes sociales</h3>
+    <input type="hidden" id="contadorRedSocial" name="contadorRedSocial" value="0" readonly>
+    <!-- Aquí se crearán los perfiles de redes sociales dinámicamente -->
+    </div>
+
+    <div class="button-container">
+    <button type="button" id="agregarRedSocial" class="CustomButton B_Fuentes">Agregar Red Social</button>
+    <button type="button" id="eliminarRedSocial" class="CustomButton B_Fuentes">Eliminar Red Social</button>
+    </div>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var contadorRedSocial = 0; // Inicializamos el contador en 0
+
+        var botonAgregarRedSocial = document.getElementById("agregarRedSocial");
+        var botonEliminarRedSocial = document.getElementById("eliminarRedSocial");
+        var contenedorRedesSociales = document.getElementById("RedesSocialesContainer");
+
+        botonAgregarRedSocial.addEventListener("click", function() {
+            contadorRedSocial++; // Aumentamos el contador
+            var nuevaRedSocialContainer = document.createElement("div");
+            nuevaRedSocialContainer.innerHTML = `
+                <input type="hidden" id="RedSocial_NumeroDeOrden${contadorRedSocial}" name="RedSocial_NumeroDeOrden" value="${contadorRedSocial}" readonly>
+                <div class="horizontal-container">
+                    <div style="width: 30%;">
+                        <label for="RedSocialTipo${contadorRedSocial}">Red social #${contadorRedSocial}:</label>
+                        <select id="RedSocialTipo${contadorRedSocial}" style="text-align: center;" name="RedSocialTipo${contadorRedSocial}" required>
+                            <option disabled selected>Selecciona una opción</option>
+                            <option value="Facebook">Facebook</option>
+                            <option value="Instagram">Instagram</option>
+                            <option value="Twitter">Twitter</option>
+                            <option value="TikTok">TikTok</option>
+                            <option value="Linkedin">Linkedin</option>
+                            <option value="Otros">Otros</option>
+                        </select>
+                    </div>
+                    <div style="width: 65%;">
+                        <label for="RedSocialLink${contadorRedSocial}">Link:</label>
+                        <input type="text" id="RedSocialLink${contadorRedSocial}" name="RedSocialLink${contadorRedSocial}" maxlength="250">
+                    </div>
+                </div>
+            `;
+
+            // Agregar la nueva red social al formulario
+            contenedorRedesSociales.appendChild(nuevaRedSocialContainer);
+
+            // Actualizar el valor del campo oculto contadorRedSocial
+            document.getElementById("contadorRedSocial").value = contadorRedSocial;
+        });
+
+        botonEliminarRedSocial.addEventListener("click", function() {
+            if (contadorRedSocial > 0) {
+                // Solo eliminar si hay más de una red social creada
+                var ultimaRedSocialContainer = document.querySelector("#RedesSocialesContainer > div:last-child");
+                contenedorRedesSociales.removeChild(ultimaRedSocialContainer);
+                contadorRedSocial--;
+
+                // Actualizar el valor del campo oculto contadorRedSocial
+                document.getElementById("contadorRedSocial").value = contadorRedSocial;
+            }
+        });
+    });
+    </script>
+</div>
+
+<div><!-- Personas relacionadas al infractor -->
+    <div class="PersonasContainer" id="PersonasContainer">
+    <h3>* Personas relacionadas al infractor</h3>
+    <input type="hidden" id="contadorPersonas" name="contadorPersonas" value="0" readonly>
+    </div>
+
+    <div class="button-container">
+    <!-- Botón para agregar una nueva instancia de persona -->
+    <button type="button" id="agregarPersona" class="CustomButton B_Personas">Agregar persona</button>
+    <button type="button" id="eliminarUltimaPersona" class="CustomButton B_Personas">Quitar persona</button>
+    </div>
+
+    <script>
+    // Contador para llevar un registro de las personas agregadas
+    let contadorPersonas = 0;
+
+    // Función para agregar una nueva instancia de persona
+    function agregarPersona() {
+    contadorPersonas++;
+
+    const nuevaPersona = document.createElement("div");
+    nuevaPersona.innerHTML = `
+        <h2 style="text-align: center;">Persona #${contadorPersonas}</h2>
+
+        <input type="hidden" id="Persona_NumeroDeOrden${contadorPersonas}" name="Persona_NumeroDeOrden${contadorPersonas}" value="${contadorPersonas}" readonly>
+
+        <div>
+            <label for="PR_Relacion${contadorPersonas}">Relación:</label>
+            <input type="text" id="PR_Relacion${contadorPersonas}" name="PR_Relacion${contadorPersonas}" maxlength="100">
+        </div>
+
+        <div class="horizontal-container">
+            <div class="Div3XLine">
+                <label for="PR_Apellido${contadorPersonas}">Apellido/s:</label>
+                <input type="text" id="PR_Apellido${contadorPersonas}" name="PR_Apellido${contadorPersonas}" maxlength="50" onchange="transformarDatosMayusculas('Apellido${contadorPersonas}')">
+            </div>
+
+            <div class="Div3XLine">
+                <label for="PR_Nombre${contadorPersonas}">Nombre/s:</label>
+                <input type="text" id="PR_Nombre${contadorPersonas}" name="PR_Nombre${contadorPersonas}" maxlength="50" onchange="transformarDatosNompropio('Nombre${contadorPersonas}')">
+            </div>
+
+            <div class="Div3XLine">
+                <label for="PR_Alias${contadorPersonas}">Alias / Apodo:</label>
+                <input type="text" id="PR_Alias${contadorPersonas}" name="PR_Alias${contadorPersonas}" maxlength="50" onchange="transformarDatosNompropio('Alias${contadorPersonas}')">
+            </div>
+        </div>
+
+        <div class="horizontal-container">
+            <div class="Div3XLine">
+                <label for="PR_TipoDNI${contadorPersonas}">Tipo de documento:</label>
+                <select id="PR_TipoDNI${contadorPersonas}" style="text-align: center;" name="PR_TipoDNI${contadorPersonas}" required>
+                    <option disabled selected>Selecciona una opción</option>
+                    <option value="D.N.I." selected>D.N.I.</option>
+                    <option value="L.E.">L.E.</option>
+                    <option value="L.C">L.C</option>
+                    <option value="Pasaporte">Pasaporte</option>
+                </select>
+            </div>
+
+            <div class="Div3XLine">
+                <label for="PR_DNI${contadorPersonas}">Número de documento:</label>
+                <input type="text" id="PR_DNI${contadorPersonas}" name="PR_DNI${contadorPersonas}" maxlength="10" onchange="transformarDatosNumerico('DNI${contadorPersonas}')">
+            </div>
+
+            <div class="Div3XLine">
+                <label for="PR_Prontuario${contadorPersonas}">Prontuario:</label>
+                <input type="text" id="PR_Prontuario${contadorPersonas}" name="PR_Prontuario${contadorPersonas}" maxlength="50">
+            </div>
+        </div>
+
+        <div class="horizontal-container">
+            <div style="width: 30%;">
+                <label for="PR_Genero${contadorPersonas}">Género:</label>
+                <select id="PR_Genero${contadorPersonas}" style="text-align: center;" name="PR_Genero${contadorPersonas}" required>
+                    <option disabled selected>Selecciona el género</option>
+                    <option value="Varón">Varón</option>
+                    <option value="Mujer">Mujer</option>
+                    <option value="Otro">Otro</option>
+                    <option value="Desconocido">Desconocido</option>
+                </select>
+            </div>
+
+            <div style="width: 65%;">
+                <label for="PR_Domicilio${contadorPersonas}">Domicilio:</label>
+                <input type="text" id="PR_Domicilio${contadorPersonas}" name="PR_Domicilio${contadorPersonas}" maxlength="100">
+            </div>
+        </div>
+
+        <label for="PR_InformacionDeInteres${contadorPersonas}">Información de interés:</label>
+        <textarea type="text" id="PR_InformacionDeInteres${contadorPersonas}" name="PR_InformacionDeInteres${contadorPersonas}"></textarea>
+    `;
+
+    // Agrega la nueva instancia de persona al contenedor
+    document.getElementById("PersonasContainer").appendChild(nuevaPersona);
+
+    // Actualiza el valor del campo oculto contadorPersonas
+    document.getElementById("contadorPersonas").value = contadorPersonas;
+    }
+
+    // Agrega un evento click al botón "Agregar Persona"
+    document.getElementById("agregarPersona").addEventListener("click", agregarPersona);
+
+    // Función para eliminar la última instancia de persona
+    function eliminarUltimaPersona() {
+    if (contadorPersonas > 0) {
+        // Obtiene el contenedor de personas
+        const personasContainer = document.getElementById("PersonasContainer");
+
+        // Obtiene la última instancia de persona
+        const ultimaPersona = personasContainer.lastElementChild;
+
+        // Elimina la última instancia de persona
+        personasContainer.removeChild(ultimaPersona);
+
+        // Reduce el contador
+        contadorPersonas--;
+
+        // Actualiza el valor del campo oculto contadorPersonas
+        document.getElementById("contadorPersonas").value = contadorPersonas;
+    }
+    }
+
+    // Agrega un evento click al botón "Eliminar Última Persona"
+    document.getElementById("eliminarUltimaPersona").addEventListener("click", eliminarUltimaPersona);
+    </script>
 </div>
 
 <button type="submit" class="CustomButton Submit">Guardar cambios</button>

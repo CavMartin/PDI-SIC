@@ -62,6 +62,12 @@
   justify-content: space-between;
 }
 
+.button-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .Div3XLine {
   width: 30%;
 }
@@ -129,7 +135,7 @@ h2 {
 h3 {
   font-size: 2.0vw;
   line-height: 1.1;
-  text-align: center; 
+  text-align: left; 
   color: black;
   font-weight: bold;  
 }
@@ -248,7 +254,7 @@ textarea:focus {
   border: 0.3vw solid black;
   color: black;
   font-family: Arial;
-  font-size: 1.5vw;
+  font-size: 1.3vw;
   font-weight: bold;
   text-align: center;
   transition: background-color 1s, border-color 1s, color 1s;
@@ -297,10 +303,9 @@ textarea:focus {
 .B_Personas {
   margin: 0.5vw 1vw;
   position: relative;
-  width: 14vw;
   padding: 0% 5%;
   background-image: url('Images/personas.png');
-  background-size: 25%;
+  background-size: 20%;
   background-repeat: no-repeat;
   background-position: left center; 
 }
@@ -308,10 +313,9 @@ textarea:focus {
 .B_Lugares {
   margin: 0.5vw 1vw;
   position: relative;
-  width: 14vw;
   padding: 0% 5%;
   background-image: url('Images/lugares.png');
-  background-size: 25%;
+  background-size: 20%;
   background-repeat: no-repeat;
   background-position: left center; 
 }
@@ -319,11 +323,19 @@ textarea:focus {
 .B_Fuentes {
   margin: 0.5vw 1vw;
   position: relative;
-  width: 14vw;
-  padding: 0% 12%;
-  font-size: 1.25vw;
+  padding: 0% 5%;
   background-image: url('Images/datos.png');
-  background-size: 25%;
+  background-size: 15%;
+  background-repeat: no-repeat;
+  background-position: left center;
+}
+
+.B_Fotografias {
+  margin: 0.5vw 1vw;
+  position: relative;
+  padding: 0% 5%;
+  background-image: url('Images/fotografia.png');
+  background-size: 15%;
   background-repeat: no-repeat;
   background-position: left center;
 }
