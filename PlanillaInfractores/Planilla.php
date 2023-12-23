@@ -1,88 +1,25 @@
 <?php
-// Conectar a la base de datos de forma segura
-require '../ServerConnect.php';
+require '../ServerConnect.php';  // Asegúrate de que este archivo contiene la función open_database_connection()
+require 'DatabaseManager.php';   // Incluye la clase DatabaseManager
 
-if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
-    // El usuario no ha iniciado sesión, redirigirlo a la página de inicio de sesión
-    header("Location: ../Login.php");
-    exit();
-}
-
-// Conexión a la base de datos
+// Conectar a la base de datos y verificar sesión
 $conn = open_database_connection();
 if ($conn->connect_error) {
     die("Error de conexión: " . $conn->connect_error);
 }
 
-// Obtener el ID de usuario del usuario logeado desde la sesión
+if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
+    header("Location: ../Login.php");
+    exit();
+}
+
 $usernameID = $_SESSION['usernameID'];
 $UserRegion = $_SESSION['Region'];
 
-// Función para insertar o actualizar la ficha de infractor
-function insertOrUpdateFichaInfractor($conn, $Ficha_Apellido, $Ficha_Nombre, $Ficha_Alias, $Ficha_TipoDNI, $Ficha_DNI, $Ficha_Prontuario, $Ficha_Genero, $Ficha_FechaNacimiento, $Ficha_LugarNacimiento, $Ficha_EstadoCivil, $Ficha_Provincia, $Ficha_Pais, $Ficha_DomiciliosJSON, $Base64FotoIzquierda, $Base64FotoCentral, $Base64FotoDerecha, $Ficha_FechaHecho, $Ficha_LugarHecho, $Ficha_Causa, $Ficha_Juzgado, $Ficha_Fiscalia, $Ficha_Dependencia, $Ficha_Observaciones, $Ficha_Reseña, $Ficha_DescripcionDelSecuestro) {
-    $sql = "INSERT INTO ficha_de_infractor (Apellido, Nombre, Alias, TipoDocumento, DocumentoNumero, Prontuario, Genero, FechaNacimiento, LugarNacimiento, EstadoCivil, Provincia, Pais, Domicilio, FotoIzquierda, FotoCentral, FotoDerecha, FechaHecho, LugarHecho, Causa, Juzgado, Fiscalia, Dependencia, Observaciones, Reseña, Secuestro)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-            ON DUPLICATE KEY UPDATE Apellido = ?, Nombre = ?, Alias = ?, TipoDocumento = ?, DocumentoNumero = ?, Prontuario = ?, Genero = ?, FechaNacimiento = ?, LugarNacimiento = ?, EstadoCivil = ?, Provincia = ?, Pais = ?, Domicilio = ?, FotoIzquierda = ?, FotoCentral = ?, FotoDerecha = ?, FechaHecho = ?, LugarHecho = ?, Causa = ?, Juzgado = ?, Fiscalia = ?, Dependencia = ?, Observaciones = ?, Reseña = ?, Secuestro = ?";
+$dbManager = new DatabaseManager($conn); // Crear una instancia de DatabaseManager
 
-    $Ficha_DomiciliosJSON = json_encode($Ficha_DomiciliosJSON);
-
-    $stmtFicha = $conn->prepare($sql);
-
-    if ($stmtFicha) {
-        $stmtFicha->bind_param(str_repeat('s', 50), $Ficha_Apellido, $Ficha_Nombre, $Ficha_Alias, $Ficha_TipoDNI, $Ficha_DNI, $Ficha_Prontuario, $Ficha_Genero, $Ficha_FechaNacimiento, $Ficha_LugarNacimiento, $Ficha_EstadoCivil, $Ficha_Provincia, $Ficha_Pais, $Ficha_DomiciliosJSON, $Base64FotoIzquierda, $Base64FotoCentral, $Base64FotoDerecha, $Ficha_FechaHecho, $Ficha_LugarHecho, $Ficha_Causa, $Ficha_Juzgado, $Ficha_Fiscalia, $Ficha_Dependencia, $Ficha_Observaciones, $Ficha_Reseña, $Ficha_DescripcionDelSecuestro, $Ficha_Apellido, $Ficha_Nombre, $Ficha_Alias, $Ficha_TipoDNI, $Ficha_DNI, $Ficha_Prontuario, $Ficha_Genero, $Ficha_FechaNacimiento, $Ficha_LugarNacimiento, $Ficha_EstadoCivil, $Ficha_Provincia, $Ficha_Pais, $Ficha_DomiciliosJSON, $Base64FotoIzquierda, $Base64FotoCentral, $Base64FotoDerecha, $Ficha_FechaHecho, $Ficha_LugarHecho, $Ficha_Causa, $Ficha_Juzgado, $Ficha_Fiscalia, $Ficha_Dependencia, $Ficha_Observaciones, $Ficha_Reseña, $Ficha_DescripcionDelSecuestro);
-
-        $stmtFicha->execute();
-        $stmtFicha->close();
-    }
-}
-
-// Función para insertar personas relacionadas
-function insertPersonasRelacionadas($conn, $infractorID, $relacion, $apellido, $nombre, $alias, $tipoDocumento, $documentoNumero, $prontuario, $genero, $domicilio, $informacionDeInteres) {
-    $sqlPersona = "INSERT INTO ficha_personas (InfractorID, Relacion, Apellido, Nombre, Alias, TipoDocumento, DocumentoNumero, Prontuario, Genero, Domicilio, InformacionDeInteres)
-                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
-    $stmtPersona = $conn->prepare($sqlPersona);
-
-    if ($stmtPersona) {
-        $stmtPersona->bind_param("issssssssss", $infractorID, $relacion, $apellido, $nombre, $alias, $tipoDocumento, $documentoNumero, $prontuario, $genero, $domicilio, $informacionDeInteres);
-
-        $stmtPersona->execute();
-        $stmtPersona->close();
-    }
-}
-
-// Función genérica para insertar imágenes
-function insertImagen($conn, $infractorID, $TipoFotografia, $imagen) {
-    $sql = "INSERT INTO fotografias (InfractorID, TipoFotografia, Imagen)
-            VALUES (?, ?, ?)";
-
-    $stmtImagen = $conn->prepare($sql);
-
-    if ($stmtImagen) {
-        $stmtImagen->bind_param("iss", $infractorID, $TipoFotografia, $imagen);
-
-        $stmtImagen->execute();
-        $stmtImagen->close();
-    }
-}
-
-// Función para insertar perfiles de redes sociales
-function insertRedesSociales($conn, $infractorID, $tipoRedSocial, $redSocialLink) {
-    $sqlRedSocial = "INSERT INTO redes_sociales (InfractorID, TipoRedSocial, Link)
-                     VALUES (?, ?, ?)";
-
-    $stmtRedSocial = $conn->prepare($sqlRedSocial);
-
-    if ($stmtRedSocial) {
-        $stmtRedSocial->bind_param("iss", $infractorID, $tipoRedSocial, $redSocialLink);
-
-        $stmtRedSocial->execute();
-        $stmtRedSocial->close();
-    }
-}
-
-// Verificar si se ha enviado el formulario
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["POST_Action"]) && $_POST["POST_Action"] == "CargarFormulario") {
+    // Recolecta y valida los datos del formulario
     $Ficha_Apellido = $_POST["Ficha_Apellido"];
     $Ficha_Nombre = $_POST["Ficha_Nombre"];
     $Ficha_Alias = $_POST["Ficha_Alias"];
@@ -108,9 +45,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["POST_Action"]) && $_PO
     $Ficha_Observaciones = $_POST["Ficha_Observaciones"];
     $Ficha_Reseña = $_POST["Ficha_Reseña"];
     $Ficha_DescripcionDelSecuestro = $_POST["Ficha_DescripcionDelSecuestro"];
-
+    $usernameID = $_SESSION['usernameID'];
+    $UserRegion = $_SESSION['Region'];
+    
     // Llamar a la función para insertar o actualizar la ficha de infractor
-    insertOrUpdateFichaInfractor($conn, $Ficha_Apellido, $Ficha_Nombre, $Ficha_Alias, $Ficha_TipoDNI, $Ficha_DNI, $Ficha_Prontuario, $Ficha_Genero, $Ficha_FechaNacimiento, $Ficha_LugarNacimiento, $Ficha_EstadoCivil, $Ficha_Provincia, $Ficha_Pais, $Ficha_DomiciliosJSON, $Base64FotoIzquierda, $Base64FotoCentral, $Base64FotoDerecha, $Ficha_FechaHecho, $Ficha_LugarHecho, $Ficha_Causa, $Ficha_Juzgado, $Ficha_Fiscalia, $Ficha_Dependencia, $Ficha_Observaciones, $Ficha_Reseña, $Ficha_DescripcionDelSecuestro);
+    $dbManager->insertOrUpdateFichaInfractor($Ficha_Apellido, $Ficha_Nombre, $Ficha_Alias, $Ficha_TipoDNI, $Ficha_DNI, $Ficha_Prontuario, $Ficha_Genero, $Ficha_FechaNacimiento, $Ficha_LugarNacimiento, $Ficha_EstadoCivil, $Ficha_Provincia, $Ficha_Pais, $Ficha_DomiciliosJSON, $Base64FotoIzquierda, $Base64FotoCentral, $Base64FotoDerecha, $Ficha_FechaHecho, $Ficha_LugarHecho, $Ficha_Causa, $Ficha_Juzgado, $Ficha_Fiscalia, $Ficha_Dependencia, $Ficha_Observaciones, $Ficha_Reseña, $Ficha_DescripcionDelSecuestro, $usernameID, $UserRegion);
 
     // Obtener el ID del infractor insertado o actualizado
     $infractorID = $conn->insert_id;
@@ -132,7 +71,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["POST_Action"]) && $_PO
         $informacionDeInteres = $_POST["PR_InformacionDeInteres" . $i];
 
         // Llamar a la función para insertar personas relacionadas
-        insertPersonasRelacionadas($conn, $infractorID, $relacion, $apellido, $nombre, $alias, $tipoDocumento, $documentoNumero, $prontuario, $genero, $domicilio, $informacionDeInteres);
+        $dbManager->insertPersonasRelacionadas($infractorID, $relacion, $apellido, $nombre, $alias, $tipoDocumento, $documentoNumero, $prontuario, $genero, $domicilio, $informacionDeInteres);
     }
 
     // Obtener el contador de personas relacionadas
@@ -143,7 +82,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["POST_Action"]) && $_PO
         $tipoSeña = $_POST["TipoSeña" . $i];
         $imagenSeña = $_POST["Base64ImagenSeña" . $i];
 
-        insertImagen($conn, $infractorID, $tipoSeña, $imagenSeña);
+        $dbManager->insertImagen($infractorID, $tipoSeña, $imagenSeña);
     }
 
     // Obtener el contador de personas relacionadas
@@ -154,7 +93,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["POST_Action"]) && $_PO
         $tipoFotografia = $_POST["TipoFotografia" . $i];
         $imagenFotografia = $_POST["Base64ImagenFotografia" . $i];
 
-        insertImagen($conn, $infractorID, $tipoFotografia, $imagenFotografia);
+        $dbManager->insertImagen($infractorID, $tipoFotografia, $imagenFotografia);
     }
 
     // Obtener el contador de redes sociales
@@ -166,7 +105,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["POST_Action"]) && $_PO
         $redSocialLink = $_POST["RedSocialLink" . $i];
 
         // Llamar a la función para insertar perfiles de redes sociales
-        insertRedesSociales($conn, $infractorID, $tipoRedSocial, $redSocialLink);
+        $dbManager->insertRedesSociales($infractorID, $tipoRedSocial, $redSocialLink);
     }
 
     // Al final de todo el procesamiento
@@ -229,8 +168,10 @@ $conn->close();
       <option value="L.E.">L.E.</option>
       <option value="L.C">L.C.</option>
       <option value="Pasaporte">Pasaporte</option>
+      <option value="Sin datos">Sin datos</option>
+      <option value="Otros">Otros</option>
     </select>
-    </div>
+</div>
 
 <div class="Div3XLine">
     <label for="Ficha_DNI">Número de documento:</label>
@@ -393,7 +334,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <div class="horizontal-container">
     <div style="width: 30%;">
     <label for="Ficha_FechaHecho" style="text-align: center;">Fecha del hecho:</label>
-    <input type="date" id="Ficha_FechaHecho" name="Ficha_FechaHecho" style="text-align: center; margin-right: 0.5vw;">
+    <input type="date" id="Ficha_FechaHecho" name="Ficha_FechaHecho" style="text-align: center; margin-right: 0.5vw;" required>
     </div>
 
     <div style="width: 65%;">

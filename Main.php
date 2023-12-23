@@ -78,19 +78,19 @@ $conn->close();
 
 <!-- Bandeja de entrada -->
 <div class="MainTable">
-<table>
-    <thead>
-        <tr>
-            <th style="min-width: 5vw; Color: White;">ID</th>
-            <th style="min-width: 10vw; Color: White;">FECHA DE CREACIÓN</th>
-            <th style="min-width: 10vw; Color: White;">REGIÓN</th>
-            <th style="min-width: 20vw; Color: White;">CAUSA</th>
-            <th style="min-width: 40vw; Color: White;">RESEÑA</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php
-        while ($row = $result->fetch_assoc()) {
+    <table>
+        <thead>
+            <tr>
+                <th style="min-width: 5vw; Color: White;">ID</th>
+                <th style="min-width: 10vw; Color: White;">FECHA DE CREACIÓN</th>
+                <th style="min-width: 10vw; Color: White;">REGIÓN</th>
+                <th style="min-width: 20vw; Color: White;">CAUSA</th>
+                <th style="min-width: 55vw; Color: White;">RESEÑA</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            while ($row = $result->fetch_assoc()) {
             // Formatea la fecha y hora en "DD/MM/AAAA Hora:Minuto:Segundo"
             $fechaFormateada = date("d/m/Y H:i:s", strtotime($row["FechaDeCreacion"]));
         
@@ -99,12 +99,12 @@ $conn->close();
             echo '<td style="min-width: 10vw;">' . htmlspecialchars($fechaFormateada, ENT_QUOTES, 'UTF-8') . '</td>';
             echo '<td style="min-width: 10vw;">' . htmlspecialchars($row["Region"], ENT_QUOTES, 'UTF-8') . '</td>';
             echo '<td style="min-width: 20vw;">' . htmlspecialchars($row["Causa"], ENT_QUOTES, 'UTF-8') . '</td>';
-            echo '<td style="min-width: 40vw;">' . htmlspecialchars($row["Reseña"], ENT_QUOTES, 'UTF-8') . '</td>';
+            echo '<td style="min-width: 55vw;">' . htmlspecialchars($row["Reseña"], ENT_QUOTES, 'UTF-8') . '</td>';
             echo '</tr>';// Cerrar tr de la fila dinamica
-        }
-        ?>
-    </tbody>
-</table>
+            }
+            ?>
+        </tbody>
+    </table>
 </div>
 
 </body>

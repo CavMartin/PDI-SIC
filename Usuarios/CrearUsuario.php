@@ -69,6 +69,17 @@ if ((int)$_SESSION['rolUsuario'] > 2) {
         <label for="NI_Operador" style="text-align: center;">NI del operador:</label>
         <input type="text" id="NI_Operador" name="NI_Operador" style="text-align: center;" onchange="transformarDatosNumerico('NI_Operador')" required>
         
+        <label for="Region" style="text-align: center;">Región:</label>
+        <select id="Region" name="Region" style="text-align: center;">
+          <option value="" disabled selected>Seleccione una región</option>
+          <?php if ($rolUsuario == 1) { ?><option value="División informática y tecnología">División informática y tecnología</option><?php } ?>
+          <option value="REGIÓN 1">REGIÓN 1</option>
+          <option value="REGIÓN 2">REGIÓN 2</option>
+          <option value="REGIÓN 3">REGIÓN 3</option>
+          <option value="REGIÓN 4">REGIÓN 4</option>
+          <option value="REGIÓN 5">REGIÓN 5</option>
+        </select>
+
         <button type="submit" class="CustomLargeButton" style="text-align: center; margin-top: 1vw;">Registrar nuevo usuario</button>
     </form>
 </div>
