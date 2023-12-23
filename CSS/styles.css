@@ -467,11 +467,10 @@ textarea:focus {
 
 .SearchTable {
   position: absolute;
-  top: 40%;
+  top: 30%;
   left: 0;
   height: 20%;
   width: 100%;
-  transform: translateY(-50%);
 }
 
 .dataTables_filter {
