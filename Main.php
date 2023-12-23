@@ -85,7 +85,7 @@ $conn->close();
                 <th style="min-width: 10vw; Color: White;">FECHA DE CREACIÓN</th>
                 <th style="min-width: 10vw; Color: White;">REGIÓN</th>
                 <th style="min-width: 20vw; Color: White;">CAUSA</th>
-                <th style="min-width: 55vw; Color: White;">RESEÑA</th>
+                <th style="min-width: 52vw; Color: White;">RESEÑA</th>
             </tr>
         </thead>
         <tbody>
@@ -99,7 +99,7 @@ $conn->close();
             echo '<td style="min-width: 10vw;">' . htmlspecialchars($fechaFormateada, ENT_QUOTES, 'UTF-8') . '</td>';
             echo '<td style="min-width: 10vw;">' . htmlspecialchars($row["Region"], ENT_QUOTES, 'UTF-8') . '</td>';
             echo '<td style="min-width: 20vw;">' . htmlspecialchars($row["Causa"], ENT_QUOTES, 'UTF-8') . '</td>';
-            echo '<td style="min-width: 55vw;">' . htmlspecialchars($row["Reseña"], ENT_QUOTES, 'UTF-8') . '</td>';
+            echo '<td style="min-width: 52vw;">' . htmlspecialchars($row["Reseña"], ENT_QUOTES, 'UTF-8') . '</td>';
             echo '</tr>';// Cerrar tr de la fila dinamica
             }
             ?>
