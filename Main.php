@@ -21,7 +21,7 @@ $sql = "SELECT ID,
                Reseña,
                FechaDeCreacion 
         FROM ficha_de_infractor
-        ORDER BY FechaDeCreacion ASC 
+        ORDER BY FechaDeCreacion DESC 
         LIMIT 25";
 
 $stmt = $conn->prepare($sql);
