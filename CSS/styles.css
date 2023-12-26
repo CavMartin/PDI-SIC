@@ -655,7 +655,7 @@ table tr:hover {
 .TopCenterDiv {
   top: 0;
   left: 50%; 
-  max-width: 15%;
+  max-width: 12%;
   position: fixed;
   transform: translateX(-50%);
 }

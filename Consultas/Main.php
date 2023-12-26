@@ -15,8 +15,15 @@ if ($conn->connect_error) {
 }
 
 // Consulta para obtener los datos
-$sql = "SELECT * FROM ficha_de_infractor
-        ORDER BY FechaDeCreacion DESC";
+// Verifica el rol del usuario y ejecuta la consulta correspondiente
+if (isset($_SESSION['rolUsuario']) && $_SESSION['rolUsuario'] <= 2) {
+    // Usuario es administrador, puede ver todas las fichas
+    $sql = "SELECT * FROM ficha_de_infractor ORDER BY FechaDeCreacion DESC";
+} else {
+    // Usuario no es administrador, solo puede ver fichas de su región
+    $regionUsuario = $conn->real_escape_string($_SESSION['Region']); // Asegura que el valor sea seguro para la consulta
+    $sql = "SELECT * FROM ficha_de_infractor WHERE Region = '$regionUsuario' ORDER BY FechaDeCreacion DESC";
+}
 
 $result = $conn->query($sql);
 
@@ -64,6 +71,7 @@ $conn->close();
             <th style="min-width: 5vw; position: sticky; text-align: center; color: rgb(255, 255, 255); background-color: rgb(0, 0, 0);">ID</th>
             <th style="min-width: 10vw; position: sticky; text-align: center; color: rgb(255, 255, 255); background-color: rgb(0, 0, 0);">REGIÓN</th>
             <th style="min-width: 10vw; position: sticky; text-align: center; color: rgb(255, 255, 255); background-color: rgb(0, 0, 0);">FECHA DE CREACIÓN</th>
+            <th style="min-width: 10vw; position: sticky; text-align: center; color: rgb(255, 255, 255); background-color: rgb(0, 0, 0);">ACCIONES</th>
             <th style="min-width: 10vw; position: sticky; text-align: center; color: rgb(255, 255, 255); background-color: rgb(0, 0, 0);">APELLIDO</th>
             <th style="min-width: 10vw; position: sticky; text-align: center; color: rgb(255, 255, 255); background-color: rgb(0, 0, 0);">NOMBRE</th>
             <th style="min-width: 10vw; position: sticky; text-align: center; color: rgb(255, 255, 255); background-color: rgb(0, 0, 0);">ALIAS</th>
@@ -116,6 +124,7 @@ $conn->close();
             echo '<td>' . htmlspecialchars($row["ID"], ENT_QUOTES, 'UTF-8') . '</td>';
             echo '<td>' . htmlspecialchars($row["Region"], ENT_QUOTES, 'UTF-8') . '</td>';
             echo '<td>' . htmlspecialchars($fechaFormateada, ENT_QUOTES, 'UTF-8') . '</td>';
+            echo '<td>' . htmlspecialchars($row["Apellido"], ENT_QUOTES, 'UTF-8') . '</td>';
             echo '<td>' . htmlspecialchars($row["Apellido"], ENT_QUOTES, 'UTF-8') . '</td>';
             echo '<td>' . htmlspecialchars($row["Nombre"], ENT_QUOTES, 'UTF-8') . '</td>';
             echo '<td>' . htmlspecialchars($row["Alias"], ENT_QUOTES, 'UTF-8') . '</td>';
