@@ -14,15 +14,31 @@ if ($conn->connect_error) {
     die("Error de conexión: " . $conn->connect_error);
 }
 
-// Utilizar una sentencia preparada
-$sql = "SELECT ID, 
-               Region,
-               Causa,
-               Reseña,
-               FechaDeCreacion 
-        FROM ficha_de_infractor
-        ORDER BY FechaDeCreacion DESC 
-        LIMIT 25";
+// Consulta para obtener los datos
+// Verifica el rol del usuario y ejecuta la consulta correspondiente
+if (isset($_SESSION['rolUsuario']) && $_SESSION['rolUsuario'] <= 2) {
+    // Usuario es administrador, puede ver todas las fichas
+    $sql = "SELECT ID,
+                   Region,
+                   Causa,
+                   Reseña,
+                   FechaDeCreacion
+            FROM ficha_de_infractor
+            ORDER BY FechaDeCreacion DESC
+            LIMIT 25";
+} else {
+    // Usuario no es administrador, solo puede ver fichas de su región
+    $regionUsuario = $conn->real_escape_string($_SESSION['Region']); // Asegura que el valor sea seguro para la consulta
+    $sql = "SELECT ID,
+                   Region,
+                   Causa,
+                   Reseña,
+                   FechaDeCreacion
+            FROM ficha_de_infractor
+            WHERE Region = '$regionUsuario'
+            ORDER BY FechaDeCreacion DESC
+            LIMIT 25";
+}
 
 $stmt = $conn->prepare($sql);
 
