@@ -1,6 +1,6 @@
 <?php
 // Conectar a la base de datos de forma segura
-require '../ServerConnect.php';
+require '../PHP/ServerConnect.php';
 
 // Obtener la información del usuario
 $username = $_SESSION['username'];

@@ -1,0 +1,51 @@
+<div class="border border-black rounded bg-light p-3 mx-1 my-3">
+    <div class="d-flex justify-content-between align-items-center mb-2">
+        <h2 class="text-center">Dato complementario #${contadorDC}</h2>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <button type="button" id="quitarDato${contadorDC}" class="btn btn-danger btn-lg me-md-2 fs-4" onclick="eliminarDatoComplementario('${contadorDC}')">
+            <i class="bi bi-file-earmark-text"></i> Eliminar</button>
+        </div>
+    </div>
+
+    <div>
+        <input type="hidden" id="ID_DatoComplementario${contadorDC}" name="ID_DatoComplementario${contadorDC}" value="${ID_DatoComplementario}">
+        <input type="hidden" id="DC_NumeroDeOrden${contadorDC}" name="DC_NumeroDeOrden${contadorDC}" value="${NumeroDeOrden}">
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="input-group mb-3">
+                <label class="input-group-text fw-bold" for="DC_Tipo${contadorDC}">TIPO DE DATO:</label>
+                <select id="DC_Tipo${contadorDC}" class="form-select" name="DC_Tipo${contadorDC}" onchange="HandlerTipoDato(this)" required>
+                    <option value="" disabled selected>Seleccione el tipo de dato complementario</option>
+                </select>
+            </div>
+        </div>
+        <div id="DC_Tipo${contadorDC}Especifique" class="col" style="display: none;">
+            <div class="input-group mb-3">
+                <span class="input-group-text fw-bold">ESPECIFIQUE:</span>
+                <input type="text" class="form-control" id="DC_TipoEspecifique${contadorDC}" name="DC_TipoEspecifique${contadorDC}" value="${DC_TipoEspecifique}" maxlength="100" placeholder="Especifique el tipo de dato complementario">
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-6">
+            <div class="align-items-center">
+                <label for="DC_ImagenAdjunta${contadorDC}" class="custom-file-upload" style="display: block; cursor: pointer;">
+                    <span class="bi bi-file-earmark-image input-group-text fw-bold">IMAGEN ADJUNTA:</span>
+                    <input type="file" class="form-control mb-3" id="DC_ImagenAdjunta${contadorDC}" name="DC_ImagenAdjunta${contadorDC}" accept="image/*" onchange="procesarImagen(event, 'previewDC_ImagenAdjunta${contadorDC}', 'DataURL_DC_ImagenAdjunta${contadorDC}')" style="display: none;">
+                    <img id="previewDC_ImagenAdjunta${contadorDC}" class="Previsualizacion" src="${DC_ImagenAdjuntaPreview}" alt="Previsualización de imagen">
+                </label>
+                <textarea id="DataURL_DC_ImagenAdjunta${contadorDC}" name="DataURL_DC_ImagenAdjunta${contadorDC}" hidden>${DC_ImagenAdjunta}</textarea>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="input-group">
+                <span class="input-group-text fw-bold">DESCRIPCIÓN:</span>
+                <textarea id="DC_Comentario${contadorDC}" name="DC_Comentario${contadorDC}" class="form-control" rows="15">${DC_Comentario}</textarea>
+            </div>
+        </div>
+    </div>
+</div>
+  

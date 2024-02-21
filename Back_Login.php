@@ -1,5 +1,5 @@
 <?php
-require 'ServerConnect.php';
+require 'PHP/ServerConnect.php';
 
 header('Content-Type: application/json');
 
@@ -41,7 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit;
     }
 
-    $stmt = $conn->prepare("SELECT ID, Contraseña, Rol_del_usuario, Estado, Region FROM sistema_usuarios WHERE Usuario = ?");
+    $stmt = $conn->prepare("SELECT ID, Contraseña, Rol_del_usuario, Estado FROM sistema_usuarios WHERE Usuario = ?");
     $stmt->bind_param("s", $username);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -60,7 +60,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $_SESSION['username'] = $username;
                 $_SESSION['rolUsuario'] = $row['Rol_del_usuario'];
                 $_SESSION['usernameID'] = $row['ID'];
-                $_SESSION['Region'] = $row['Region'];
 
                 echo json_encode(['success' => true]);
             }

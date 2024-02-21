@@ -1,0 +1,100 @@
+<div class="border border-black rounded bg-light p-3 mx-1 my-3">
+    <div class="d-flex justify-content-between align-items-center mb-2">
+        <h2 class="text-center">Domicilio #${contadorDomicilio}</h2>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <button type="button" id="quitarDomicilio${contadorDomicilio}" class="btn btn-danger btn-lg me-md-2 fs-4" onclick="eliminarDomicilio('${contadorDomicilio}')">
+            <i class="bi bi-house-x"></i> Eliminar</button>
+        </div>
+    </div>
+
+    <div>
+      <input type="hidden" id="ID_Lugar${contadorDomicilio}" name="ID_Lugar${contadorDomicilio}" value="${ID_Lugar}">
+      <input type="hidden" id="L_NumeroDeOrden${contadorDomicilio}" name="L_NumeroDeOrden${contadorDomicilio}" value="${NumeroDeOrden}">
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <div class="input-group mb-3">
+            <label class="input-group-text fw-bold" for="L_Rol${contadorDomicilio}">CLASIFICACIÓN DEL DOMICILIO #${contadorDomicilio}:</label>
+            <select id="L_Rol${contadorDomicilio}" class="form-select" name="L_Rol${contadorDomicilio}" onchange="HandlerRolLugar(this)" required>
+                <option value="" disabled ${Seleccionado_Seleccionar}>Seleccione el tipo de domicilio</option>
+                <option value="RENAPER" {{Seleccionado_Domicilio_registrado_según_RENAPER}}>Domicilio registrado según RENAPER</option>
+                <option value="Declarado por la persona" {{Seleccionado_Domicilio_aportado_por_la_persona}}>Domicilio aportado por la persona</option>
+                <option value="Aportado por terceros" {{Seleccionado_Domicilio_aportado_por_terceros}}>Domicilio aportado por terceros</option>
+                <option value="Bases de datos policiales" {{Seleccionado_Domicilio_registrado_en_bases_de_datos_policiales}}>Domicilio registrado en bases de datos policiales</option>
+                <option value="Padrón electoral provincial 2017" {{Seleccionado_Domicilio_registrado_según_padrón_electoral_provincial_2017}}>Domicilio registrado según padrón electoral provincial 2017</option>
+                <option value="Padrón electoral provincial 2023" {{Seleccionado_Domicilio_registrado_según_padrón_electoral_provincial_2023}}>Domicilio registrado según padrón electoral provincial 2023</option>
+                <option value="Fuentes abiertas" {{Seleccionado_Domicilio_registrado_según_fuentes_abiertas_periodísticas}}>Domicilio registrado según fuentes abiertas / periodísticas</option>
+                <option value="Otra opción no listada" {{Seleccionado_Otro}}>Otra opción no listada</option>
+            </select>            
+        </div>
+      </div>
+      <div id="L_Rol${contadorDomicilio}Especifique" class="col" style="display: none;">
+        <div class="input-group mb-3">
+            <span class="input-group-text fw-bold" id="basic-addon1">ESPECIFIQUE:</span>
+            <input type="text" class="form-control" id="L_RolEspecifique${contadorDomicilio}" name="L_RolEspecifique${contadorDomicilio}" value="${L_RolEspecifique}" maxlength="100" placeholder="Especifique el tipo de domicilio">
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="input-group mb-3">
+                <span class="input-group-text fw-bold" id="basic-addon1">CALLE:</span>
+                <input type="text" class="form-control" id="L_Calle${contadorDomicilio}" name="L_Calle${contadorDomicilio}" value="${L_Calle}" maxlength="50" placeholder="Nombre de la calle / ruta" onchange="transformarDatosNompropio('L_Calle${contadorDomicilio}')" required>
+            </div>
+        </div>
+        <div class="col">
+            <div class="input-group mb-3">
+                <span class="input-group-text fw-bold" id="basic-addon1">ALTURA CATASTRAL:</span>
+                <input type="text" class="form-control" id="L_AlturaCatastral${contadorDomicilio}" name="L_AlturaCatastral${contadorDomicilio}" value="${L_AlturaCatastral}" maxlength="5" placeholder="Número correspondiente a la altura catastral deldomicilio" onchange="transformarDatosNumerico('L_AlturaCatastral${contadorDomicilio}')">
+            </div>
+        </div>
+        <div class="col">
+            <div class="input-group mb-3">
+                <span class="input-group-text fw-bold" id="basic-addon1">DETALLE:</span>
+                <input type="text" class="form-control" id="L_CalleDetalle${contadorDomicilio}" name="L_CalleDetalle${contadorDomicilio}" value="${L_CalleDetalle}" maxlength="50" placeholder="Detalle adicional del domicilio. Ej: Bis / Piso N° / Depto N°">
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="input-group mb-3">
+                <span class="input-group-text fw-bold" id="basic-addon1">BARRIO:</span>
+                <input type="text" class="form-control" id="L_Barrio${contadorDomicilio}" name="L_Barrio${contadorDomicilio}" value="${L_Barrio}" onchange="transformarDatosNompropio('L_Barrio${contadorDomicilio}')">
+            </div>
+        </div>
+        <div class="col">
+            <div class="input-group mb-3">
+                <span class="input-group-text fw-bold" id="basic-addon1">LOCALIDAD:</span>
+                <input type="text" class="form-control" id="L_Localidad${contadorDomicilio}" name="L_Localidad${contadorDomicilio}" value="${L_Localidad}" list="globalSugerenciasCiudades" maxlength="50">
+                <datalist id="sugerenciasCiudades">
+                </datalist>
+            </div>
+        </div>
+        <div class="col">
+            <div class="input-group mb-3">
+                <span class="input-group-text fw-bold" id="basic-addon1">PROVINCIA:</span>
+                <input type="text" class="form-control" id="L_Provincia${contadorDomicilio}" name="L_Provincia${contadorDomicilio}" value="${L_Provincia}" list="globalSugerenciasProvincias" maxlength="50">
+                <datalist id="sugerenciasProvincias">
+                </datalist>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="input-group mb-3">
+                <span class="input-group-text fw-bold" id="basic-addon1">PAÍS:</span>
+                <input type="text" class="form-control" id="L_Pais${contadorDomicilio}" name="L_Pais${contadorDomicilio}" maxlength="50" value="${L_Pais}" onchange="transformarDatosMayusculas('L_Pais${contadorDomicilio}')">
+            </div>
+        </div>
+        <div class="col">
+            <div class="input-group mb-3">
+                <span class="input-group-text fw-bold" id="basic-addon1">COORDENADAS:</span>
+                <input type="text" class="form-control" id="L_Coordenadas${contadorDomicilio}" name="L_Coordenadas${contadorDomicilio}" value="${L_Coordenadas}">
+            </div>
+        </div>
+    </div>
+</div>

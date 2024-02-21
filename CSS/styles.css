@@ -5,17 +5,35 @@
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: rgb(183, 179, 179);
+  background: #f1f1f1; 
 }
  
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #a41c1c; 
+  background: #888; 
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: rgb(132, 129, 129); 
+  background: #555; 
+}
+
+.LoginGlass {
+  position: fixed;
+  top: 17vw;
+  left: 35vw;
+  width: 30vw;
+  margin: 0 auto;
+  padding: 0.5vw;
+  line-height: 1.50vw;
+  font-size: 1.25vw;
+  box-sizing: border-box;
+  background: rgba(0, 0, 0, 0.5);
+  box-shadow: 0 4px 30px rgb(0, 0, 0);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 0.3vw solid rgb(0, 0, 0);
+  border-radius: 1.5vw;
 }
 
 .toggle-password {
@@ -23,56 +41,64 @@
 }
 
 .password-container {
-  display: flex; /* Establece un layout flexible */
-  align-items: center; /* Alinea verticalmente los elementos */
-  position: relative; /* Para posicionar la imagen de forma absoluta */
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.BodyMain {
+  height: 50%;
+  background-image: url('Images/MainBG.png');
+  background-size: 100%; 
+  background-repeat: no-repeat;
+}
+
+.BodyNuevoFormulario {
+  background-image: url('Images/MainBG2.webp');
+  background-size: 100%; 
+  background-repeat: no-repeat;
+}
+
+.FormGlass {
+  position: fixed;
+  top: 20vw;
+  left: 30vw;
+  width: 40vw;
+  margin: 0 auto;
+  padding: 0.5vw;
+  line-height: 1.50vw;
+  font-size: 1.25vw;
+  box-sizing: border-box;
+  background: rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 30px rgb(0, 0, 0);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 0.3vw solid rgb(0, 0, 0);
+  border-radius: 1.5vw;
 }
 
 .password-container input {
-  flex-grow: 1; /* Ocupa el espacio disponible */
+  flex-grow: 1; 
 }
 
 .toggle-password {
-  position: absolute; /* Posiciona la imagen de forma absoluta */
-  right: 1vw; /* Distancia desde el borde izquierdo del contenedor */
+  position: absolute;
+  right: 1vw;
   cursor: pointer;
-  height: 2vw; /* Ajusta según el tamaño deseado */
-  width: 2vw; /* Ajusta según el tamaño deseado */
-}
-
-/* Reloj */
-.clock {
-  width: 12%;
-  height: 3%;
-  color: black;
-  font-size: 1.1vw;
-  text-align: center;
-  border: 0.3vw solid black;
-  position: fixed;
-  top: 1%;
-  left: 50%;
-  transform: translateX(-50%);
-  align-items: center;
-  justify-content: center;
-}
-
-.horizontal-container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.button-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.Div3XLine {
-  width: 30%;
+  height: 2vw;
+  width: 2vw;
 }
 
 /* Estilos de las previsualizaciones de imagen */
+.Previsualizacion {
+  display: block;
+  width: 100%;
+  object-fit: contain;
+  max-height: 15vw;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
 .preview1 {
   display: none;
   width: 220px;
@@ -86,164 +112,18 @@
   object-fit: fill;  
 }
 
-/* Estilos generales para body */
-body {
-  overflow-y: auto;
-  background-color: rgb(183, 179, 179);
-  font-family: Arial, sans-serif;
-}
-
-
-form {
-  margin: 0 auto;
-  padding: 2%;
-  background-color: transparent;
-}
-
-.NoMarginForm {
-  margin: 0;
-  padding: 0;
-}
-
-p {
-  color: black;
-  font-size: 1.25vw;
-  font-weight: bold;  
-}
-
-a {
-  color: black;
-  font-size: 1.25vw;
-}
-
-h1 {
-  font-size: 2.5vw;
-  line-height: 1.1;
-  text-align: center;  
-  color: black;
-  font-weight: bold;  
-}
-
-h2 {
-  font-size: 2.2vw;
-  line-height: 1.1;
-  text-align: center;  
-  color: black;
-  font-weight: bold;  
-}
-
-h3 {
-  font-size: 2.0vw;
-  line-height: 1.1;
-  text-align: left; 
-  color: black;
-  font-weight: bold;  
-}
-
-h4 {
-  font-size: 1.5vw;
-  line-height: 1.1;
-  text-align: left; 
-  color: black;
-  font-weight: bold;  
-}
-
-label {
-  font-size: 1.5vw;
-  color: black;
-  display: block;
-  margin-bottom: 0.3vw;
-  margin-top: 10px;
-  font-weight: bold;  
-}
-
-input[type="text"],
-input[type="number"],
-input[type="password"],
-input[type="date"],
-input[type="time"],
-select {
-  width: 100%;
-  height: 2vw;
-  padding: 0.1vw 0.1vw 0.1vw 0.3vw;
-  margin-bottom: 1vw;
-  font-size: 1.2vw;
-  background-color: white;
-  color: black;
-  border: 0.1vw solid black;
-  border-radius: 0.5vw;
-  box-sizing: border-box;
-}
-
-input[type="text"]:focus,
-input[type="number"]:focus,
-input[type="password"]:focus,
-input[type="date"]:focus,
-input[type="time"]:focus,
-select:focus {
-  outline: 0.1vw solid black;
-}
-
-input[type="radio"] {
-  width: 1.5vw;
-  height: 1.5vw;
-  accent-color:black;
-}
-
-input[type="file"] {
-  margin-bottom: 1vw;
-}
-
-img {
-  margin-bottom: 1vw;
-}
-
-textarea {
-  width: 100%; /* Ancho del textarea al 100% del contenedor */
-  height: 15vw; /* Altura del textarea */
-  font-size: 1.5vw;
-  padding: 0.5vw; /* Espacio interno (padding) del textarea */
-  margin-bottom: 1vw;
-  background-color: white;  /* Color de fondo */
-  color: black;  /* Color del texto */
-  border: 0.1vw solid black; /* Borde del textarea */
-  border-radius: 0.5vw; /* Borde redondeado del textarea */
-  resize: vertical; /* Permitir redimensionar verticalmente el textarea */
-  box-sizing: border-box;
-}
-
-textarea:focus {
-  outline: 0.1vw solid black;
-}
-
-/* Estilos comunes para todos los formularios */
-.Formulario {
-  right: 1%;
-  width: 75%;
-  max-width: 75%;
-  padding: 0.5vw;
-  line-height: 1.50vw;
-  font-size: 1.25vw;
-  box-sizing: border-box;
-  border: 0.3vw solid black;
-  border-radius: 1.5vw;
-}
-
-.LoginForm {
-  width: 40%;
-  max-width: 40%;
-  margin: 0 auto; /* Establece márgenes automáticos para centrar horizontalmente */
-  padding: 0.5vw;
-  line-height: 1.50vw;
-  font-size: 1.25vw;
-  box-sizing: border-box;
-  border: 0.3vw solid black;
+.glass {
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 0.2vw solid rgb(200, 158, 58);
   border-radius: 1.5vw;
 }
 
 /* Estilos comunes para los botones*/
 .CustomButton {
-  width: 20vw;
+  width: 13vw;
   height: 5vw;
   position: fixed;
   background: transparent;
@@ -251,10 +131,10 @@ textarea:focus {
   border-radius: 1.5vw;
   display: inline-block;
   cursor: pointer;
-  border: 0.3vw solid black;
-  color: black;
+  border: 0.3vw solid rgb(200, 158, 58);
+  color: rgb(200, 158, 58);
   font-family: Arial;
-  font-size: 1.3vw;
+  font-size: 1.25vw;
   font-weight: bold;
   text-align: center;
   transition: background-color 1s, border-color 1s, color 1s;
@@ -262,50 +142,27 @@ textarea:focus {
 .CustomButton:hover {
   color: rgb(255, 255, 255);
   border: 0.3vw solid rgb(255, 255, 255);
-  background-color: black;
+  background-color: rgb(200, 158, 58);
 }
 
-.Volver {
-  right: 1%;
-  top: 1%;
-  padding: 0% 5%;
-  background-image: url('Images/VolverGold.png');
-  background-size: 25%; 
+.B_Encabezado {
+  margin: 0.5vw 1vw;
+  position: relative;
+  width: 30vw;
+  font-size: 2.5vw;
+  background-image: url('Images/evento.png');
+  background-size: 15%; 
   background-repeat: no-repeat;
   background-position: left center; 
-}
-
-.Volver:hover {
-  border: 0.3vw solid rgb(255, 255, 255);
-  color: rgb(255, 255, 255);
-  background-image: url('Images/VolverWhite.png');
-  background-color: rgb(0, 0, 0);
-}
-
-/* IP Main*/
-.TituloIP {
-  margin: 0;
-  top: 1%;
-  left: 1%;
-  height: 14%;
-  width: 33%;
-  border-radius:0.5vw;
-  border: 0.3vw solid black;
-  position: fixed;
-  color: black;
-  font-size: 3vw;
-  display: flex;
-  text-align: center;
-  justify-content: center; 
-  align-items: center;
 }
 
 .B_Personas {
   margin: 0.5vw 1vw;
   position: relative;
+  width: 14vw;
   padding: 0% 5%;
-  background-image: url('Images/personas.png');
-  background-size: 20%;
+  background-image: url('Images/Personas.png');
+  background-size: 25%;
   background-repeat: no-repeat;
   background-position: left center; 
 }
@@ -313,164 +170,352 @@ textarea:focus {
 .B_Lugares {
   margin: 0.5vw 1vw;
   position: relative;
+  width: 14vw;
   padding: 0% 5%;
-  background-image: url('Images/lugares.png');
-  background-size: 20%;
+  background-image: url('Images/Lugar.png');
+  background-size: 25%;
   background-repeat: no-repeat;
   background-position: left center; 
 }
 
-.B_Fuentes {
+.B_Vehiculos {
   margin: 0.5vw 1vw;
   position: relative;
+  width: 14vw;
   padding: 0% 5%;
-  background-image: url('Images/datos.png');
-  background-size: 15%;
+  background-image: url('Images/vehiculo.png');
+  background-size: 25%;
+  background-repeat: no-repeat;
+  background-position: left center; 
+}
+
+.B_Armas {
+  margin: 0.5vw 1vw;
+  position: relative;
+  width: 14vw;
+  padding: 0% 5%;
+  background-image: url('Images/armas.png');
+  background-size: 25%;
+  background-repeat: no-repeat;
+  background-position: left center; 
+}
+
+.B_MensajesExtorsivos {
+  margin: 0.5vw 1vw;
+  position: relative;
+  width: 14vw;
+  padding: 0% 12%;
+  background-image: url('Images/Extorsiones.png');
+  background-size: 25%;
+  background-repeat: no-repeat;
+  background-position: left center; 
+}
+
+.B_Estupefacientes {
+  margin: 0.5vw 1vw;
+  position: relative;
+  width: 14vw;
+  padding: 0% 12%;
+  background-image: url('Images/Estupefacientes.png');
+  background-size: 25%;
   background-repeat: no-repeat;
   background-position: left center;
 }
 
-.B_Fotografias {
-  margin: 0.5vw 1vw;
-  position: relative;
-  padding: 0% 5%;
-  background-image: url('Images/fotografia.png');
-  background-size: 15%;
-  background-repeat: no-repeat;
-  background-position: left center;
-}
-
-.Main_Aside {
+.Contenedor_Entidades {
   margin: 0;
-  top: 14%;
-  right: 1%;
-  height: 71%;
-  width: 15vw;
+  top: 18%;
+  left: 35%;
+  height: 80%;
+  width: 50%;
   position: fixed;
+  border-radius:0.5vw;
+  border: 0.3vw solid rgb(200, 158, 58);
+}
+
+.Div_AgregarEntidad {
+  margin: 0;
+  top: 18%;
+  left: 35%;
+  height: 13%;
+  width: 50%;
+  position: fixed;
+  align-items: center;
   display: flex;
-  flex-direction: column;
   flex-wrap: wrap;
   justify-content: center;
 }
 
-.Main_Aside_LOGO img {
-  width: 100%;
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-.LOGO {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto;
-  margin-top: 1%;
-  width: 20%;
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-
-
-
-
-.MiniB_PDF {
-  width: 20%;
-  height: 10%;
-  padding: 0% 3%;
-  position:fixed;
-  font-size: 1.5vw;
-  top: 10%;
-  left: 0.5%;
-}
-
-
-.B_ElementosAdicionales1 {
-  margin-top: 2vw;
-  margin-bottom: 2vw;
-  position:static;
+.BTN_AgregarEntidad {
+  margin: 0.5vw 1vw;
+  position: relative;
+  width: 48vw;
+  height: 6vw;
   padding: 0% 5%;
-  width: 48%;
-  font-size: 1.7vw;
-}
-
-.B_ElementosAdicionales2 {
-  margin-top: 2vw;
-  position:static;
-  padding: 0% 5%;
-  width: 48%;
-  font-size: 1.7vw;
-}
-
-.DeleteLong {
-  margin-top: 2vw;
-  margin-bottom: 2vw;
-  position:static;
-  padding: 5% 10%;
-  width: 100%;
-  font-size: 1.7vw;
-  background-image: url('Images/delete.png');
+  font-size: 2.5vw;
   background-size: 10%;
   background-repeat: no-repeat;
-  background-position: left center; 
+  background-position: right center; 
 }
 
-.DeleteShort {
-  margin-top: 2vw;
-  margin-bottom: 2vw;
-  position:static;
-  padding: 1% 0% 1% 8%;
-  width: 48%;
-  font-size: 1.3vw;
-  background-image: url('Images/delete.png');
+.DivEnumerarEntidades {
+  margin: 0;
+  top: 33%;
+  left: 35%;
+  height: 65%;
+  width: 50%;
+  position: fixed;
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  overflow-y: auto;
+  justify-content: center;
+}
+
+.BTN_EnumerarEntidades {
+  margin: 0.5vw 0.5vw;
+  position: relative;
+  font-size: 1.1vw;
+  text-align: left;
+  height: 12vw;
+  width: 22vw;
+  padding: 10% 5% 1% 1%;
   background-size: 20%;
   background-repeat: no-repeat;
-  background-position: left center; 
+  background-position: top center; 
 }
 
-.InsertShort {
-  margin-top: 2vw;
-  margin-bottom: 2vw;
-  position:static;
-  padding: 1% 0% 1% 6%;
-  width: 48%;
-  font-size: 1.3vw;
-  background-image: url('Images/insert.png');
-  background-size: 20%;
-  background-repeat: no-repeat;
-  background-position: left center; 
+.Personas {
+  background-image: url('Images/Personas.png');
 }
 
-.B_Agregar {
-  position:fixed;
-}
-    
-.B_Deshacer {
-  position:fixed;
+.Hombre {
+  background-image: url('Images/Hombre.png');
 }
 
+.Mujer {
+  background-image: url('Images/Mujer.png');
+}
+
+.OtroGenero {
+  background-image: url('Images/PersonaOtroGenero.png');
+}
+
+.Lugar {
+  background-image: url('Images/Lugar.png');
+}
+
+.ViaPublica {
+  background-image: url('Images/LugarViaPublica.png');
+}
+
+.Plaza {
+  background-image: url('Images/LugarPlaza.png');
+}
+
+.Ruta {
+  background-image: url('Images/LugarRuta.png');
+}
+
+.Cochera {
+  background-image: url('Images/LugarCochera.png');
+}
+
+.Descampado {
+  background-image: url('Images/LugarDescampado.png');
+}
+
+.AsociacionCivil {
+  background-image: url('Images/LugarAsociacionCivil.png');
+}
+
+.Comercio {
+  background-image: url('Images/LugarComercio.png');
+}
+
+.DependenciaPublica {
+  background-image: url('Images/LugarEdificioPublico.png');
+}
+
+.Industria {
+  background-image: url('Images/LugarIndustria.png');
+}
+
+.Inmueble {
+  background-image: url('Images/LugarInmueble.png');
+}
+
+.Institucion {
+  background-image: url('Images/LugarInstitucionPublica.png');
+}
+
+.Arma {
+  background-image: url('Images/Armas.png');
+}
+
+.Carabina {
+  background-image: url('Images/ArmaCarabina.png');
+}
+
+.Escopeta {
+  background-image: url('Images/ArmaEscopeta.png');
+}
+
+.Fusil {
+  background-image: url('Images/ArmaFusil.png');
+}
+
+.Pistola {
+  background-image: url('Images/ArmaPistola.png');
+}
+
+.Ametralladora {
+  background-image: url('Images/ArmaAmetralladora.png');
+}
+
+.Pistolon {
+  background-image: url('Images/ArmaPistolon.png');
+}
+
+.Revolver {
+  background-image: url('Images/ArmaRevolver.png');
+}
+
+.Vehiculo {
+  background-image: url('Images/vehiculo.png');
+}
+
+.Acoplado {
+  background-image: url('Images/Acoplado.png');
+}
+
+.Automovil {
+  background-image: url('Images/Automovil.png');
+}
+
+.Avioneta {
+  background-image: url('Images/Avioneta.png');
+}
+
+.Bicicleta {
+  background-image: url('Images/Bicicleta.png');
+}
+
+.Camion {
+  background-image: url('Images/Camion.png');
+}
+
+.Camioneta {
+  background-image: url('Images/Camioneta.png');
+}
+
+.Ciclomotor {
+  background-image: url('Images/Ciclomotor.png');
+}
+
+.Cuatriciclo {
+  background-image: url('Images/Cuatriciclo.png');
+}
+
+.Autobus {
+  background-image: url('Images/Autobus.png');
+}
+
+.Lancha {
+  background-image: url('Images/Lancha.png');
+}
+
+.Furgon {
+  background-image: url('Images/Furgon.png');
+}
+
+.Motovehiculo {
+  background-image: url('Images/Motovehiculo.png');
+}
+
+.MaquinaAgricola {
+  background-image: url('Images/MaquinaAgricola.png');
+}
+
+.MaquinaConstruccion {
+  background-image: url('Images/MaquinaConstruccion.png');
+}
+
+.Recolector {
+  background-image: url('Images/Recolector.png');
+}
+
+.MotovehiculoAcuatico {
+  background-image: url('Images/MotovehiculoAcuatico.png');
+}
+
+.Triciclo {
+  background-image: url('Images/Triciclo.png');
+}
+
+.Tractor {
+  background-image: url('Images/Tractor.png');
+}
+
+.Carro {
+  background-image: url('Images/Carro.png');
+}
+
+.VehiculoOficial {
+  background-image: url('Images/MovilOficial.png');
+}
+
+.Mensaje {
+  background-image: url('Images/Extorsiones.png');
+}
+
+.NotaExtorsiva {
+  background-image: url('Images/MensajeNotaExtorsiva.png');
+}
+
+.Llamada {
+  background-image: url('Images/MensajeLlamadas.png');
+}
+
+.SMS {
+  background-image: url('Images/MensajeSMS.png');
+}
+
+.RedesSociales {
+  background-image: url('Images/MensajeRedesSociales.png');
+}
+
+.CorreoElectronico {
+  background-image: url('Images/MensajeCorreoElectronico.png');
+}
+
+.MensajeriaInstantanea {
+  background-image: url('Images/MensajesMensajeriaInstantanea.png');
+}
+
+.EntregaDirecta {
+  background-image: url('Images/MensajeEntregaDirecta.png');
+}
 
 .MainTable {
   position: absolute;
   top: 75%;
   left: 0;
   height: 50%;
-  width: 100%;
   border: 0.3vw solid rgb(0, 0, 0);
-  overflow: auto;
+  background-color: rgb(255, 255, 255);
+  overflow-y: scroll;
   box-sizing: border-box;
   transform: translateY(-50%);
 }
 
 .SearchTable {
-  position: absolute;
-  top: 25%;
+  position: fixed;
+  top: 50%;
   left: 0;
-  height: 20%;
+  height: 50%;
   width: 100%;
+  transform: translateY(-50%);
 }
 
 .dataTables_filter {
@@ -488,10 +533,10 @@ table {
 /* Estilos para las celdas de encabezado */
 th {
   top: 0;
-  z-index: 3;
   height: 4vw;
   position: sticky;
-  background-color: black;
+  color: rgb(255, 255, 255);
+  background-color: rgb(0, 0, 0);
   font-weight:bold;
   font-size:1.2vw;
 }
@@ -553,34 +598,13 @@ table tr:hover {
   color: rgb(0, 0, 255);
 }
 
-
-
-
-
-.TituloCentral {
-  top: 1%;
-  left: 50%;
-  height: 14%;
-  width: 55%;
-  border-radius:0.5vw;
-  border: 0.3vw solid black;
-  position: fixed;
-  transform: translateX(-50%);
-  color: black;
-  font-size: 2.4vw;
-  display: flex;
-  text-align: center;
-  justify-content: center; 
-  align-items: center;
-}
-
 .ContenedorAmpliaciones {
   top: 40%;
   left: 50%;
   height: 58%;
   width: 55%;
   border-radius:0.5vw;
-  border: 0.3vw solid black;
+  border: 0.3vw solid rgb(200, 158, 58);
   position: fixed;
   transform: translateX(-50%);
   overflow-y: auto;
@@ -600,8 +624,8 @@ table tr:hover {
   border-radius: 1vw;
   flex: 0 1 auto;
   cursor: pointer;
-  border: 0.3vw solid black;
-  color: black;
+  border: 0.3vw solid rgb(200, 158, 58);
+  color: rgb(200, 158, 58);
   font-family: Arial;
   font-size: 2vw;
   font-weight: bold;
@@ -611,131 +635,7 @@ table tr:hover {
 .EnumerarAmpliaciones:hover {
   color: rgb(255, 255, 255);
   border: 0.3vw solid rgb(255, 255, 255);
-  background-color: black;
-}
-
-.BigButton {
-  width: 27%;
-  height: 20%;
-  position: fixed;
-  background: transparent;
-  background-color: transparent;
-  border-radius:0.5vw;
-  border: 0.3vw solid black;  
-  font-family: Arial;
-  font-size: 2.5vw;
-  font-weight: bold;
-  text-align: center;
-  cursor: pointer;
-  color: black;
-  padding: 0% 0% 0% 6%;
-  background-image: url('Images/InformeGold.png');
-  background-size: 30%;
-  background-repeat: no-repeat;
-  background-position: left center; 
-  transition: background-color 1s, border-color 1s, color 1s;
-}
-.BigButton:hover {
-  color: rgb(255, 255, 255);
-  border: 0.3vw solid rgb(255, 255, 255);
-  background-color: black;
-  background-image: url('Images/InformeWhite.png');
-}
-
-.Right {
-  top: 18%;
-  left: 50.75%;
-}
-
-.Left {
-  top: 18%;
-  left: 22.25%;
-}
-
-.TopCenterDiv {
-  top: 0;
-  left: 50%; 
-  max-width: 12%;
-  position: fixed;
-  transform: translateX(-50%);
-}
-
-.MainVolver {
-  right: 1%;
-  top: 1%;
-  height: 15%;
-  font-size: 2vw;
-  padding: 0% 6%;
-  border-radius:0.5vw;
-  border: 0.3vw solid black;
-  background-image: url('Images/VolverGold.png');
-  background-size: 40%; 
-  background-repeat: no-repeat;
-  background-position: left center; 
-}
-.MainVolver:hover {
-  background-image: url('Images/VolverWhite.png');
-}
-
-.Submit {
-  position:fixed;
-  right: 1%;
-  bottom: 1%;
-}
-
-.B_Telegram {
-  padding: 0% 5.5%;
-  background:transparent;
-  background-color:transparent;
-  border-radius:1.5vw;
-  background-image: url('Images/telegram.png');
-  background-size: 40%;
-  background-repeat: no-repeat;
-  background-position: left center;
-  display:inline-block;
-  cursor:pointer;
-  border:0.3vw solid rgb(50, 180, 255);
-  color: rgb(50, 180, 255);
-  font-family:Arial;
-  font-size: 1.25vw;
-  font-weight:bold;
-  text-align: center;
-  width: 13%;
-  height: 10%;
-  position:fixed;
-  top: 89%;
-  right: 1%;
-  transition: background-color 1s, border-color 1s, color 1s;
-}
-
-.B_Telegram:hover {
-  background-image: url('Images/telegram.png');
-  background-size: 40%;
-  background-repeat: no-repeat;
-  background-position: left center;
-  border:0.3vw solid rgb(255, 255, 255);
-  color: rgb(255, 255, 255);
-  background-color: rgb(50, 180, 255);
-}
-
-.ModuloNoListo {
-  position: fixed;
-  left: 50%;
-  transform: translateX(-50%);
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
-  height: 100vh;
-}
-
-.MaquinaEscribir {
-  position: fixed;
-  top: 45%;
-  left: 72%;
-  height: fit-content;
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
+  background-color: rgb(200, 158, 58);
 }
 
 /* Estilos de botones SweetAlert */
@@ -748,146 +648,4 @@ table tr:hover {
 .swal2-styled.swal2-cancel {
   height: 6vh;
   width: 9vw;
-}
-
-/* Estilos de botones */
-.BTN_Custom {
-  height: 5vh;
-  font-size: 0.9vw;
-  font-weight: bold;
-  cursor: pointer;
-  position: relative;
-  display: inline-block;
-  outline: none;
-  border-radius: 0.3vw;
-  color: rgb(255, 255, 255);
-}
-
-.BTN-Black {
-  border: 0.3vw solid rgb(0, 0, 0);
-  box-shadow: 0px 0px 1vw rgba(0, 0, 0, 0.7);
-  background: rgb(0, 0, 0);
-}
-.BTN-Black:hover {
-  border: 0.3vw solid rgb(50, 50, 50);
-  background-color: rgb(0, 0, 0);
-  box-shadow: 0px 0px 1vw rgba(50, 50, 50, 0.7);
-  background:linear-gradient(to bottom, rgb(0, 0, 0) 5%, rgb(50, 50, 50) 100%);
-}
-
-.BTN-White {
-  color: rgb(0, 0, 0);
-  border: 0.3vw solid rgb(255, 255, 255);
-  box-shadow: 0px 0px 1vw rgba(255, 255, 255, 0.7);
-  background: rgb(255, 255, 255);
-}
-.BTN-White:hover {
-  border: 0.3vw solid rgb(225, 225, 225);
-  background-color: rgb(225, 225, 225);
-  box-shadow: 0px 0px 1vw rgba(225, 225, 225, 0.7);
-  background:linear-gradient(to bottom, rgb(255, 255, 255) 5%, rgb(225, 225, 225) 100%);
-}
-
-.BTN-Silver {
-  color: rgb(0, 0, 0);
-  border: 0.3vw solid rgb(112,128,144);
-  box-shadow: 0px 0px 1vw rgba(112,128,144, 0.7);
-  background: rgb(112,128,144);
-}
-.BTN-Silver:hover {
-  border: 0.3vw solid rgb(119,136,153);
-  background-color: rgb(119,136,153);
-  box-shadow: 0px 0px 1vw rgba(119,136,153, 0.7);
-  background:linear-gradient(to bottom, rgb(112,128,144) 5%, rgb(119,136,153) 100%);
-}
-
-.BTN-Grey {
-  color: rgb(0, 0, 0);
-  border: 0.3vw solid rgb(128,128,128);
-  box-shadow: 0px 0px 1vw rgba(128,128,128, 0.7);
-  background: rgb(128,128,128);
-}
-.BTN-Grey:hover {
-  border: 0.3vw solid rgb(169,169,169);
-  background-color: rgb(169,169,169);
-  box-shadow: 0px 0px 1vw rgba(169,169,169, 0.7);
-  background:linear-gradient(to bottom, rgb(128,128,128) 5%, rgb(169,169,169) 100%);
-}
-
-.BTN-Violet {
-  border: 0.3vw solid rgb(148,0,211);
-  box-shadow: 0px 0px 1vw rgba(148,0,211, 0.7);
-  background: rgb(148,0,211);
-}
-.BTN-Violet:hover {
-  color: rgb(0, 0, 0);
-  border: 0.3vw solid rgb(138,43,226);
-  background-color: rgb(138,43,226);
-  box-shadow: 0px 0px 1vw rgba(138,43,226, 0.7);
-  background:linear-gradient(to bottom, rgb(148,0,211) 5%, rgb(138,43,226) 100%);
-}
-
-.BTN-Red {
-  border: 0.3vw solid rgb(225, 50, 50);
-  box-shadow: 0px 0px 1vw rgba(225, 50, 50, 0.7);
-  background: rgb(225, 50, 50);
-}
-.BTN-Red:hover {
-  color: rgb(0, 0, 0);
-  border: 0.3vw solid rgb(225, 100, 100);
-  background-color: rgb(225, 100, 100);
-  box-shadow: 0px 0px 1vw rgba(225, 100, 100, 0.7);
-  background:linear-gradient(to bottom, rgb(225, 50, 50) 5%, rgb(225, 100, 100) 100%);
-}
-
-.BTN-Blue {
-  border: 0.3vw solid rgb(50, 50, 225);
-  box-shadow: 0px 0px 1vw rgba(50, 50, 225, 0.7);
-  background: rgb(50, 50, 225);
-}
-.BTN-Blue:hover {
-  color: rgb(0, 0, 0);
-  border: 0.3vw solid rgb(100, 100, 225);
-  background-color: rgb(100, 100, 225);
-  box-shadow: 0px 0px 1vw rgba(100, 100, 225, 0.7);
-  background:linear-gradient(to bottom, rgb(50, 50, 225) 5%, rgb(100, 100, 225) 100%);
-}
-
-.BTN-Green {
-  border: 0.3vw solid rgb(50, 225, 50);
-  box-shadow: 0px 0px 1vw rgba(50, 225, 50.7);
-  background: rgb(50, 225, 50);
-}
-.BTN-Green:hover {
-  color: rgb(0, 0, 0);
-  border: 0.3vw solid rgb(100, 225, 100);
-  background-color: rgb(100, 225, 100);
-  box-shadow: 0px 0px 1vw rgba(100, 225, 100, 0.7);
-  background:linear-gradient(to bottom, rgb(50, 225, 50) 5%, rgb(100, 225, 100) 100%);
-}
-
-.BTN-Yellow {
-  border: 0.3vw solid rgb(255,255,0);
-  box-shadow: 0px 0px 1vw rgba(255,255,0, 0.7);
-  background: rgb(255,255,0);
-}
-.BTN-Yellow:hover {
-  color: rgb(0, 0, 0);
-  border: 0.3vw solid rgb(200,200,0);
-  background-color: rgb(200,200,0);
-  box-shadow: 0px 0px 1vw rgba(200,200,0, 0.7);
-  background:linear-gradient(to bottom, rgb(255,255,0) 5%, rgb(200,200,0) 100%);
-}
-
-.BTN-Orange {
-  border: 0.3vw solid rgb(255,140,0);
-  box-shadow: 0px 0px 1vw rgba(255,140,0, 0.7);
-  background: rgb(255,140,0);
-}
-.BTN-Orange:hover {
-  color: rgb(0, 0, 0);
-  border: 0.3vw solid rgb(255,165,0);
-  background-color: rgb(255,165,0);
-  box-shadow: 0px 0px 1vw rgba(255,165,0, 0.7);
-  background:linear-gradient(to bottom, rgb(255,140,0) 5%, rgb(255,165,0) 100%);
 }

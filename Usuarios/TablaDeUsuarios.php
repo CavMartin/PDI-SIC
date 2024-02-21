@@ -1,6 +1,6 @@
 <?php
 // Conectar a la base de datos de forma segura
-require '../ServerConnect.php';
+require '../PHP/ServerConnect.php';
 
 if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     // El usuario no ha iniciado sesión, redirigirlo a la página de inicio de sesión
@@ -20,7 +20,7 @@ $rolUsuario = $_SESSION['rolUsuario'];
 // Verificar el rol del usuario
 if ((int)$_SESSION['rolUsuario'] > 2) {
     // Si el rol es mayor a 2, el usuario no tiene permiso para acceder al formulario
-    header("Location: Main_Usuario.php");
+    header("Location: Main.php");
     exit();
 }
 
@@ -71,7 +71,7 @@ function actualizarRolUsuario($UsuarioID, $Operacion) {
 // Función para resetear la contraseña
 function resetPasswordToDefault($UsuarioID) {
     global $conn;
-    $defaultPassword = password_hash("SIACIP", PASSWORD_DEFAULT);
+    $defaultPassword = password_hash("PDI", PASSWORD_DEFAULT);
     $sql = "UPDATE sistema_usuarios SET Contraseña = ? WHERE ID = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("si", $defaultPassword, $UsuarioID);
@@ -138,39 +138,73 @@ $conn->close();
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Usuarios - Tabla de usuarios</title>
-  <link rel="icon" href="../css/Images/favicon.ico" type="Image/x-icon">
-  <link rel="shortcut icon" href="../css/Images/favicon.ico" type="Image/x-icon">
-  <link rel="stylesheet" type="text/css" href="../css/styles.css">
-  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <link rel="icon" href="../CSS/Images/favicon.ico" type="Image/x-icon">
+  <link rel="shortcut icon" href="../CSS/Images/favicon.ico" type="Image/x-icon">
+  <link rel="stylesheet" type="text/css" href="../CSS/styles.css">
+  <!-- JQuery -->
+  <script src="../JQuery/jquery-3.7.1.min.js"></script>
+  <!-- SweetAlert -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <!-- Bootstrap -->
+  <script src="../Bootstrap/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="../Bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../Bootstrap/Icons/font/bootstrap-icons.css">
+  <!-- DataTables -->
   <link href="https://cdn.datatables.net/v/dt/dt-1.13.8/datatables.min.css" rel="stylesheet">
   <script src="https://cdn.datatables.net/v/dt/dt-1.13.8/datatables.min.js"></script>
 </head>
-<body class="BodyFondo3" style="background-color: rgb(183, 179, 179);">
+<body class="bg-secondary" style="overflow-x: hidden;">
 
-<button type="button" class="CustomButton Volver" onclick="window.location.href='Main.php'">Volver</button>
+<!-- Barra de navegación -->
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark" style="height: 5vw;">
+    <div class="container-fluid d-flex align-items-center justify-content-center">
+        
+        <!-- Imagen 1 -->
+        <div>
+            <img src="../CSS/Images/PSF.png" alt="Icono" style="width: 4vw; margin: 1vw;"><!-- Icono -->
+        </div>
 
-<div id="search-container" style="max-width: 20%;">
-  <label for="CustomSearch" style="color: rgb(0, 0, 0);">Buscar en la tabla:</label>
-  <input type="text" id="CustomSearch" style="color: rgb(0, 0, 0);" placeholder="Ingrese el valor a buscar...">
-</div>
+        <!-- Título centrado -->
+        <div class="text-center">
+            <h1 class="text-light">TABLA DE USUARIOS</h1>
+        </div>
 
-<div id="length-container" style="max-width: 20%;">
-  <label for="CustomLength" style="color: rgb(0, 0, 0);">Cantidad a mostrar:</label>
-  <select id="CustomLength" style="color: rgb(0, 0, 0);">
-    <option value="10">10 registros</option>
-    <option value="25">25 registros</option>
-    <option value="50">50 registros</option>
-    <option value="100">100 registros</option>
-  </select>
-</div>
+        <!-- Imagen 2 -->
+        <div>
+            <img src="../CSS/Images/OJO.png" alt="Icono" style="width: 4vw; margin: 1vw;"><!-- Icono -->
+        </div>
 
-<div class="TopCenterDiv">
-    <img src="../css/Images/PSF.png" alt="Texto alternativo" width="100%">
+        <!-- Botón de navegación a la página principal -->
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <button type="button" id="VolverButton" class="btn btn-primary btn-lg" style="position: fixed; top: 0; left: 0; width: 12vw; height:4vw; font-size: 1.5vw; margin: 0.5vw;" onclick="window.location.href='Main.php'">
+                <i class="bi bi-arrow-left-square-fill"></i> <b>VOLVER</b>
+            </button>
+        </div>
+    </div>
+</nav>
+
+<div class="row border border-black rounded bg-light p-1" style="position: fixed; top: 6vw;">
+    <div class="col">
+        <div class="input-group my-2">
+            <span class="input-group-text fw-bold">Buscar en la tabla:</span>
+            <input type="text" class="form-control" id="CustomSearch" name="CustomSearch" placeholder="Ingrese el valor a buscar...">
+        </div>
+    </div>
+
+    <div class="input-group mb-2">
+        <label for="CustomLength" class="input-group-text fw-bold">Cantidad de registros:</label>
+        <select id="CustomLength" class="form-select" name="CustomLength">
+            <option value="10" selected>10 registros</option>
+            <option value="25">25 registros</option>
+            <option value="50">50 registros</option>
+            <option value="100">100 registros</option>
+        </select>
+    </div>
 </div>
 
 <!-- Tabla de usuarios -->
 <div class="SearchTable">
-<table id="UserTable" style="display: block; overflow: auto; max-height: 30vw; background-color: rgb(211, 216, 223);">
+<table id="UserTable" style="display: block; overflow: auto; max-height: 33vw; min-height: 33vw; background-color: rgb(211, 216, 223);">
     <thead>
         <tr>
             <th style="width: 10vw; position: sticky; top: -1px; text-align: center; color: rgb(255, 255, 255); background-color: rgb(0, 0, 0);">ID</th>
@@ -228,11 +262,11 @@ $conn->close();
                 if ($row["Estado"] == 1) {
                     echo '<form action="TablaDeUsuarios.php" method="POST" style="display:inline;" onsubmit="return confirm(\'¿Está seguro de que desea dar de baja al usuario?\');">';
                     echo '<input type="hidden" name="BajaUsuario" value="' . $row["ID"] . '">';
-                    echo '<button type="submit" class="BTN_Custom BTN-Red">Dar de baja</button>';
+                    echo '<button type="submit" class="btn btn-danger btn-lg m-1">Dar de baja</button>';
                 } else {
                     echo '<form action="TablaDeUsuarios.php" method="POST" style="display:inline;" onsubmit="return confirm(\'¿Está seguro de que desea dar de alta al usuario?\');">';
                     echo '<input type="hidden" name="AltaUsuario" value="' . $row["ID"] . '">';
-                    echo '<button type="submit" class="BTN_Custom BTN-Blue">Dar de alta</button>';
+                    echo '<button type="submit" class="btn btn-primary btn-lg m-1">Dar de alta</button>';
                 }
                 echo '</form>';
 
@@ -242,7 +276,7 @@ $conn->close();
                     if (!($rolUsuario == 2 && $row["Rol_del_usuario"] == 3) && $row["Rol_del_usuario"] != 1) {
                         echo '<form action="TablaDeUsuarios.php" method="POST" style="display:inline;" onsubmit="return confirm(\'¿Está seguro de que desea modificar el rol del usuario?\');">';
                         echo '<input type="hidden" name="UsuarioID" value="' . $row["ID"] . '">';
-                        echo '<button type="submit" name="CambiarRol" class="BTN_Custom BTN-Green" value="Aumentar">Aumentar Rol</button>';
+                        echo '<button type="submit" name="CambiarRol" class="btn btn-success btn-lg m-1" value="Aumentar">Aumentar Rol</button>';
                         echo '</form>';
                     }
 
@@ -250,7 +284,7 @@ $conn->close();
                     if ($row["Rol_del_usuario"] != 4) {
                         echo '<form action="TablaDeUsuarios.php" method="POST" style="display:inline;" onsubmit="return confirm(\'¿Está seguro de que desea modificar el rol del usuario?\');">';
                         echo '<input type="hidden" name="UsuarioID" value="' . $row["ID"] . '">';
-                        echo '<button type="submit" name="CambiarRol" class="BTN_Custom BTN-Orange" value="Disminuir">Disminuir Rol</button>';
+                        echo '<button type="submit" name="CambiarRol" class="btn btn-warning btn-lg m-1" value="Disminuir">Disminuir Rol</button>';
                         echo '</form>';
                     }
                 } else {
@@ -262,7 +296,7 @@ $conn->close();
                 if ($rolUsuario == 1 || ($rolUsuario == 2 && $row["Rol_del_usuario"] > 2)) {                
                     echo '<form action="TablaDeUsuarios.php" method="POST" style="display:inline;" onsubmit="return confirm(\'¿Está seguro de que desea reestablecer la contraseña del usuario?\');">';
                     echo '<input type="hidden" name="UsuarioID" value="' . $row["ID"] . '">';
-                    echo '<button type="submit" name="ResetPassword" class="BTN_Custom BTN-Violet">Restablecer Contraseña</button>';
+                    echo '<button type="submit" name="ResetPassword" class="btn btn-secondary btn-lg m-1">Restablecer Contraseña</button>';
                     echo '</form>';
                 }
                 echo '</td>';
@@ -283,6 +317,9 @@ $conn->close();
 <script>
 $(document).ready(function() {
   var table = $('#UserTable').DataTable({
+    language: {
+        url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
+        },
     searching: true, // Habilita el campo de búsqueda de DataTables
     lengthChange: false, // Desactiva el selector de cantidad de registros por página de DataTables
     pageLength: 10, // Establece la cantidad de registros por página predeterminada

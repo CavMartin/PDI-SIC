@@ -1,6 +1,6 @@
 <?php
 // Conectar a la base de datos de forma segura
-require '../ServerConnect.php';
+require '../PHP/ServerConnect.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST["username"];
@@ -10,7 +10,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $apellido = $_POST["Apellido_Operador"];
     $nombre = $_POST["Nombre_Operador"];
     $ni = $_POST["NI_Operador"];
-    $region = $_POST["Region"];
 
     // Verificar si las contraseñas coinciden
     if ($password !== $confirmPassword) {
@@ -36,8 +35,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             exit; // Asegúrate de salir del script aquí
         } else {
             $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-            $insertStmt = $conn->prepare("INSERT INTO sistema_usuarios (Usuario, Contraseña, Rol_del_usuario, Apellido_Operador, Nombre_Operador, NI_Operador, Region) VALUES (?, ?, ?, ?, ?, ?, ?)");
-            $insertStmt->bind_param("ssissis", $username, $hashedPassword, $rol, $apellido, $nombre, $ni, $region);
+            $insertStmt = $conn->prepare("INSERT INTO sistema_usuarios (Usuario, Contraseña, Rol_del_usuario, Apellido_Operador, Nombre_Operador, NI_Operador) VALUES (?, ?, ?, ?, ?, ?)");
+            $insertStmt->bind_param("ssissi", $username, $hashedPassword, $rol, $apellido, $nombre, $ni);
     
             if ($insertStmt->execute()) {
                 echo json_encode(['success' => true, 'message' => 'Usuario registrado exitosamente']);

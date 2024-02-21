@@ -1,6 +1,6 @@
 <?php
 // Conectar a la base de datos de forma segura
-require '../ServerConnect.php';
+require '../PHP/ServerConnect.php';
 
 if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     // El usuario no ha iniciado sesión, redirigirlo a la página de inicio de sesión
@@ -25,69 +25,91 @@ if ((int)$_SESSION['rolUsuario'] > 2) {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Crear usuario</title>
-  <link rel="stylesheet" type="text/css" href="../css/styles.css">
-  <link rel="icon" href="../css/Images/favicon.ico" type="Image/x-icon">
-  <link rel="shortcut icon" href="../css/Images/favicon.ico" type="Image/x-icon">
-  <script src="Scripts/RegistrarUsuario.js"></script>
-  <script src="../Scripts/TransformarDatos.js"></script>
-  <script src="../Scripts/PasswordVisibility.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script></head>
-<body class="BodyFondo1">
+  <link rel="stylesheet" type="text/css" href="../CSS/styles.css">
+  <link rel="icon" href="../CSS/Images/favicon.ico" type="Image/x-icon">
+  <link rel="shortcut icon" href="../CSS/Images/favicon.ico" type="Image/x-icon">
+  <!-- JS Core -->
+  <script src="JS/RegistrarUsuario.js"></script>
+  <script src="../JS/TransformarDatos.js"></script>
+  <script src="../JS/PasswordVisibility.js"></script>
+  <!-- SweetAlert -->
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <!-- Bootstrap -->
+  <script src="../Bootstrap/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="../Bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../Bootstrap/Icons/font/bootstrap-icons.css">
+</head>
+<body class="bg-secondary">
 
-<div class="LoginForm">
-    <form id="registerUserForm" method="post" onsubmit="return RegistrarUsuario()">
-        <h2>REGISTRO DE USUARIO</h2>
-        <label for="username" style="text-align: center;">Nombre de usuario:</label>
-        <input type="text" id="username" name="username" style="text-align: center;" onchange="transformarDatosMayusculas('username')" required>
-
-        <label for="password" style="text-align: center;">Contraseña:</label>
-        <div class="password-container">
-        <input type="password" id="password" name="password" style="text-align: center;" required>
-        <img src="../css/Images/Ocultar.png" onclick="togglePasswordVisibility('password', this, '../')" class="toggle-password" alt="Mostrar/Ocultar">
-        </div>
-        
-        <label for="confirm_password" style="text-align: center;">Confirmar contraseña:</label>
-        <div class="password-container">
-        <input type="password" id="confirm_password" name="confirm_password" style="text-align: center;" required>
-        <img src="../css/Images/Ocultar.png" onclick="togglePasswordVisibility('confirm_password', this, '../')" class="toggle-password" alt="Mostrar/Ocultar">
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark" style="height: 5vw;">
+    <div class="container-fluid d-flex align-items-center justify-content-center">
+        <!-- Imagen 1 -->
+        <div>
+            <img src="../CSS/Images/PSF.png" alt="Icono" style="width: 4vw; margin: 1vw;"><!-- Icono -->
         </div>
 
-        <label for="Rol_del_usuario" style="text-align: center;">Rol del Usuario:</label>
-        <select id="Rol_del_usuario" name="Rol_del_usuario" style="text-align: center;">
-          <option value="" disabled selected>Seleccione un rol</option>
-          <?php if ($rolUsuario == 1) { ?><option value="2">SUPERVISOR</option><?php } ?>
-          <option value="3">ANALISTA</option>
-          <option value="4" selected>INVITADO</option>
-        </select>
+        <!-- Título centrado -->
+        <div class="text-center">
+            <h1 class="text-light">FORMULARIO DE CREACIÓN DE USUARIO</h1>
+        </div>
 
-        <label for="Apellido_Operador" style="text-align: center;">Apellido del operador:</label>
-        <input type="text" id="Apellido_Operador" name="Apellido_Operador" style="text-align: center;" onchange="transformarDatosMayusculas('Apellido_Operador')" required>
+        <!-- Imagen 2 -->
+        <div>
+            <img src="../CSS/Images/OJO.png" alt="Icono" style="width: 4vw; margin: 1vw;"><!-- Icono -->
+        </div>
 
-        <label for="Nombre_Operador" style="text-align: center;">Nombre del operador:</label>
-        <input type="text" id="Nombre_Operador" name="Nombre_Operador" style="text-align: center;" onchange="transformarDatosNompropio('Nombre_Operador')" required>
+        <!-- Botón de navegación -->
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <button type="button" class="btn btn-primary btn-lg" style="position: fixed; top: 0; left: 0; width: 12vw; height: 4vw; font-size: 1.5vw; margin: 0.5vw;" onclick="window.location.href='Main.php'">
+                <i class="bi bi-arrow-left-square-fill"></i> <b>VOLVER</b>
+            </button>
+        </div>
+    </div>
+</nav>
 
-        <label for="NI_Operador" style="text-align: center;">NI del operador:</label>
-        <input type="text" id="NI_Operador" name="NI_Operador" style="text-align: center;" onchange="transformarDatosNumerico('NI_Operador')" required>
-        
-        <label for="Region" style="text-align: center;">Región:</label>
-        <select id="Region" name="Region" style="text-align: center;">
-          <option value="" disabled selected>Seleccione una región</option>
-          <?php if ($rolUsuario == 1) { ?><option value="División informática y tecnología">División informática y tecnología</option><?php } ?>
-          <option value="REGIÓN 1">REGIÓN 1</option>
-          <option value="REGIÓN 2">REGIÓN 2</option>
-          <option value="REGIÓN 3">REGIÓN 3</option>
-          <option value="REGIÓN 4">REGIÓN 4</option>
-          <option value="REGIÓN 5">REGIÓN 5</option>
-        </select>
+<div class="container mt-6" style="margin-top: 7vw;">
+    <div class="row justify-content-center">
+        <div class="col-md-8 bg-white p-4 border border-black rounded">
+            <form id="registerUserForm" method="post" onsubmit="return RegistrarUsuario()">
+              <label for="username" class="fs-4 fw-bold">Nombre de usuario:</label>
+              <input type="text" class="form-control fs-4" id="username" name="username" placeholder="Ingrese el nombre de usuario" onchange="transformarDatosMayusculas('username')" required>
 
-        <button type="submit" class="CustomLargeButton" style="text-align: center; margin-top: 1vw;">Registrar nuevo usuario</button>
-    </form>
+              <label for="password" class="mt-1 fs-4 fw-bold">Contraseña:</label>
+                <div class="password-container">
+                  <input type="password" class="form-control fs-4" id="password" name="password" placeholder="Ingrese la contraseña" required>
+                  <img src="../CSS/Images/Ocultar.png" onclick="togglePasswordVisibility('password', this, '../')" class="toggle-password" alt="Mostrar/Ocultar">
+                </div>
+
+              <label for="confirm_password" class="mt-1 fs-4 fw-bold">Confirmar contraseña:</label>
+                <div class="password-container">
+                  <input type="password" class="form-control fs-4" id="confirm_password" name="confirm_password" placeholder="Ingrese la contraseña nuevamente" required>
+                  <img src="../CSS/Images/Ocultar.png" onclick="togglePasswordVisibility('confirm_password', this, '../')" class="toggle-password" alt="Mostrar/Ocultar">
+                </div>
+
+              <label for="Rol_del_usuario" class="mt-1 fs-4 fw-bold">Rol del usuario:</label>
+              <select id="Rol_del_usuario" class="form-select fs-4" name="Rol_del_usuario">
+                <option value="" disabled selected>Seleccione un rol</option>
+                <?php if ($rolUsuario == 1) { ?><option value="2">SUPERVISOR</option><?php } ?>
+                <option value="3">ANALISTA</option>
+                <option value="4" selected>INVITADO</option>
+              </select>
+
+              <label for="Apellido_Operador" class="mt-1 fs-4 fw-bold">Apellido del operador:</label>
+              <input type="text" class="form-control fs-4" id="Apellido_Operador" name="Apellido_Operador" placeholder="Ingrese el Apellido del operador" onchange="transformarDatosMayusculas('Apellido_Operador')" required>
+
+              <label for="Nombre_Operador" class="mt-1 fs-4 fw-bold">Nombre del operador:</label>
+              <input type="text" class="form-control fs-4" id="Nombre_Operador" name="Nombre_Operador" placeholder="Ingrese el nombre del operador" onchange="transformarDatosNompropio('Nombre_Operador')" required>
+
+              <label for="NI_Operador" class="mt-1 fs-4 fw-bold">NI del operador:</label>
+              <input type="text" class="form-control fs-4" id="NI_Operador" name="NI_Operador" placeholder="Ingrese el NI del operador" onchange="transformarDatosNumerico('NI_Operador')" required>
+
+              <div class="d-grid mt-4">
+                <button class="btn btn-primary fs-2" type="submit">Registrar nuevo usuario</button>
+              </div>
+            </form>
+        </div>
+    </div>
 </div>
-
-<script>
-</script>
-
-<button type="button" class="CustomButton Volver" onclick="window.location.href='Main.php'">Volver</button>
 
 </body>
 </html>
