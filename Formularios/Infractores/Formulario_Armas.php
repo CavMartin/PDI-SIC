@@ -32,15 +32,14 @@
     // Recoger valores de POST
     $ArmasDeFuegoData = []; // Inicializar vacío
 
-    // Recuperar valor de $DispositivoSIACIP y $IP_Numero
-    $DispositivoSIACIP = isset($_POST['DispositivoSIACIP']) ? $_POST['DispositivoSIACIP'] : '';
-    $IP_Numero = isset($_POST['IP_Numero']) ? $_POST['IP_Numero'] : '';
+    // Recuperar valor de $ID y $IP_Numero
+    $ID = isset($_POST['ID']) ? $_POST['ID'] : '';
 
     // Recuperar valor de $NumeroDeOrden
     $NumeroDeOrden = isset($_POST['NumeroDeOrden']) ? $_POST['NumeroDeOrden'] : '';
 
     if ($NumeroDeOrden != 0) {
-        $ClavePrimaria = $DispositivoSIACIP . "-AF" . $NumeroDeOrden;
+        $ClavePrimaria = $ID . "-AF" . $NumeroDeOrden;
     } else {
         $ClavePrimaria = "";
     }
@@ -99,7 +98,7 @@
         <!-- Título centrado -->
         <div class="text-center">
             <h1 class="text-light">
-                FICHA "<?php echo $IP_Numero; ?>" - 
+                FICHA "<?php echo $ID; ?>" - 
                 <?php
                 $NumeroDeOrden = intval($NumeroDeOrden);
                 if ($NumeroDeOrden === 0) {
@@ -147,9 +146,8 @@
 
         <div><!-- Campos ocultos necesarios para el funcionamiento de la aplicacion -->
             <input type="hidden" id="ClavePrimaria" name="ClavePrimaria" value="<?php echo htmlspecialchars($ClavePrimaria, ENT_QUOTES, 'UTF-8'); ?>" readonly>
-            <input type="hidden" id="DispositivoSIACIP" name="DispositivoSIACIP" value="<?php echo htmlspecialchars($DispositivoSIACIP, ENT_QUOTES, 'UTF-8'); ?>" readonly>
+            <input type="hidden" id="ID" name="ID" value="<?php echo htmlspecialchars($ID, ENT_QUOTES, 'UTF-8'); ?>" readonly>
             <input type="hidden" id="NumeroDeOrden" name="NumeroDeOrden" value="<?php echo htmlspecialchars($NumeroDeOrden, ENT_QUOTES, 'UTF-8'); ?>" readonly>
-            <input type="hidden" id="IP_Numero" name="IP_Numero" value="<?php echo htmlspecialchars($IP_Numero, ENT_QUOTES, 'UTF-8'); ?>" readonly>
         </div>
 
         <div id="EntidadPrincipal" class="border border-black rounded bg-light p-3 m-1"><!-- Entidad principal del formulario -->
