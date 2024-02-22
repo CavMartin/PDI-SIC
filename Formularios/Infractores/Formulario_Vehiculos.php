@@ -32,20 +32,19 @@
     // Recoger valores de POST
     $VehiculosData = []; // Inicializar vacío
 
-    // Recuperar valor de $DispositivoSIACIP y $IP_Numero
-    $DispositivoSIACIP = isset($_POST['DispositivoSIACIP']) ? $_POST['DispositivoSIACIP'] : '';
-    $IP_Numero = isset($_POST['IP_Numero']) ? $_POST['IP_Numero'] : '';
+    // Recuperar valor de $ID y $ID
+    $ID = isset($_POST['ID']) ? $_POST['ID'] : '';
 
     // Recuperar valor de $NumeroDeOrden
     $NumeroDeOrden = isset($_POST['NumeroDeOrden']) ? $_POST['NumeroDeOrden'] : '';
 
     if ($NumeroDeOrden != 0) {
-        $ClavePrimaria = $DispositivoSIACIP . "-V" . $NumeroDeOrden;
+        $ClavePrimaria = $ID . "-V" . $NumeroDeOrden;
     } else {
         $ClavePrimaria = "";
     }
 
-    // Si IP_Numero no está vacío, recopila los datos usando DataFetcher
+    // Si ID no está vacío, recopila los datos usando DataFetcher
     if (!empty($ClavePrimaria)) {
         // Crear una VehiculosData de DataFetcher pasándole la conexión a la base de datos
         $DataFetcher = new DataFetcher($conn);
@@ -99,7 +98,7 @@
         <!-- Título centrado -->
         <div class="text-center">
             <h1 class="text-light">
-                FICHA "<?php echo $IP_Numero; ?>" - 
+                FICHA "<?php echo $ID; ?>" - 
                 <?php
                 $NumeroDeOrden = intval($NumeroDeOrden);
                 if ($NumeroDeOrden === 0) {
@@ -147,8 +146,7 @@
 
         <div><!-- Campos ocultos necesarios para el funcionamiento de la aplicacion -->
             <input type="hidden" id="ClavePrimaria" name="ClavePrimaria" value="<?php echo htmlspecialchars($ClavePrimaria); ?>">
-            <input type="hidden" id="DispositivoSIACIP" name="DispositivoSIACIP" value="<?php echo htmlspecialchars($DispositivoSIACIP, ENT_QUOTES, 'UTF-8'); ?>" readonly>
-            <input type="hidden" id="IP_Numero" name="IP_Numero" value="<?php echo htmlspecialchars($IP_Numero); ?>">
+            <input type="hidden" id="ID" name="ID" value="<?php echo htmlspecialchars($ID, ENT_QUOTES, 'UTF-8'); ?>" readonly>
             <input type="hidden" id="NumeroDeOrden" name="NumeroDeOrden" value="<?php echo htmlspecialchars($NumeroDeOrden); ?>">
         </div>
 

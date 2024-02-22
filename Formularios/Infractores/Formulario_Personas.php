@@ -156,7 +156,6 @@
         <div><!-- Campos ocultos necesarios para el funcionamiento de la aplicacion -->
             <input type="hidden" id="ClavePrimaria" name="ClavePrimaria" value="<?php echo htmlspecialchars($ClavePrimaria); ?>">
             <input type="hidden" id="ID" name="ID" value="<?php echo htmlspecialchars($ID, ENT_QUOTES, 'UTF-8'); ?>" readonly>
-            <input type="hidden" id="ID" name="ID" value="<?php echo htmlspecialchars($ID); ?>">
             <input type="hidden" id="NumeroDeOrden" name="NumeroDeOrden" value="<?php echo htmlspecialchars($NumeroDeOrden); ?>">
         </div>
 
@@ -207,7 +206,7 @@
                     <div id="DIV_Especifique" class="col" style="display: none;">
                         <div class="input-group mb-3">
                             <span class="input-group-text fw-bold">ESPECIFIQUE:</span>
-                            <input type="text" class="form-control" id="P_RolEspecifique" name="P_RolEspecifique" maxlength="100" placeholder="Especifique el tipo de rol" value="<?php echo (isset($datosPersona['P_Rol'])); ?>">
+                            <input type="text" class="form-control" id="P_RolEspecifique" name="P_RolEspecifique" maxlength="100" placeholder="Especifique el tipo de rol" value="<?php echo isset($datosPersona['P_Rol']) ? $datosPersona['P_Rol'] : ''; ?>">
                         </div>
                     </div>
                 </div>
