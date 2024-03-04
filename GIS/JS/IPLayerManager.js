@@ -1,22 +1,6 @@
 class IPLayerManager {
     constructor(map) {
         this.map = map;
-        // Definir colores directamente en la configuración de layerGroups
-        this.layerGroups = {
-            'Aprehendidos': L.layerGroup().addTo(map),
-            'Balaceras': L.layerGroup().addTo(map),
-            'Heridos': L.layerGroup().addTo(map),
-            'Óbitos': L.layerGroup().addTo(map),
-            'Otros': L.layerGroup().addTo(map),
-        };
-        // Asignar colores a cada grupo para usarlos al crear los marcadores
-        this.colors = {
-            'Aprehendidos': 'blue',
-            'Balaceras': 'green',
-            'Heridos': 'red',
-            'Óbitos': 'black',
-            'Otros': 'gray'
-        };
     }
 
     formatearFecha(fecha) {
@@ -50,7 +34,7 @@ class IPLayerManager {
                 type: 'Feature',
                 geometry: {
                     type: 'Point',
-                    coordinates: coordenadas.reverse()
+                    coordinates: coordenadas
                 },
                 properties: {
                     ...item,
@@ -65,16 +49,8 @@ class IPLayerManager {
         const features = this.convertirDatosAGeoJSON(data);
 
         features.forEach(feature => {
-            const grupoHecho = feature.properties.Tipo || 'Otros';
-            const marker = L.marker(feature.geometry.coordinates.reverse(), {
-                icon: L.divIcon({
-                    className: 'custom-div-icon',
-                    iconSize: [20, 20],
-                    html: `<div style="background-color: ${this.colors[grupoHecho]};" class="custom-marker"></div>`
-                })
-            }).bindPopup(this.generarPopupContent(feature));
-
-            this.layerGroups[grupoHecho].addLayer(marker);
+            const marker = L.marker(feature.geometry.coordinates).bindPopup(this.generarPopupContent(feature));
+            marker.addTo(this.map);
         });
     }
 
@@ -98,5 +74,4 @@ class IPLayerManager {
             .then(data => this.addMarkerLayer(data))
             .catch(error => console.error('Error al cargar los datos:', error));
     }
-    
 }

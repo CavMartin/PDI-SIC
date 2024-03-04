@@ -94,26 +94,16 @@
     // Inicializa el administrador de capas IPLayerManager
     var ipLayerManager = new IPLayerManager(map);
 
-    // Crea un objeto para las capas agrupadas
-    var groupedOverlays = {
-        "Incidencias priorizadas": {}
-    };
-
     // Cargar datos dinámicamente y agregarlos al mapa
     fetch('PHP/EndpointGIS.php')
         .then(response => response.json())
         .then(data => {
             ipLayerManager.addMarkerLayer(data);
-
-            // Agrega las capas del ipLayerManager al objeto groupedOverlays
-            Object.keys(ipLayerManager.layerGroups).forEach(groupName => {
-                groupedOverlays["Incidencias priorizadas"][groupName] = ipLayerManager.layerGroups[groupName];
-            });
+            // Aquí se eliminó el manejo de groupedOverlays porque ya no gestionamos layerGroups en IPLayerManager
         })
         .catch(error => {
             console.error("Error al cargar los datos:", error);
         });
-        
 </script>
 
 
