@@ -46,7 +46,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-search/4.0.0/leaflet-search.min.js" integrity="sha512-nvy2tht2GE/ReEeu0Zu7/Y1IgKTTrX1r1MaROtD1HDol5WUvw7Ih29qA6JCNCgYURzPcBqaSv12ZnNS68Eaq6Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!-- Layer Manager -->
     <script src="JS/IPLayerManager.js"></script>
-    <script src="JS/zonesLayerManager.js"></script>
     <!-- Leaflet Grouped Layer Control Plugin -->
     <script src="Plugins/Panel-layers/leaflet-panel-layers.min.js"></script>
     <link rel="stylesheet" src="Plugins/Panel-layers/leaflet-panel-layers.min.js"/>

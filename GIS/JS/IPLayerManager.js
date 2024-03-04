@@ -54,7 +54,7 @@ class IPLayerManager {
                 },
                 properties: {
                     ...item,
-                    IP_Fecha: this.formatearFecha(item.IP_Fecha),
+                    Fecha: this.formatearFecha(item.Fecha),
                     direccionCompleta: this.construirDireccion(item)
                 }
             };
@@ -65,7 +65,7 @@ class IPLayerManager {
         const features = this.convertirDatosAGeoJSON(data);
 
         features.forEach(feature => {
-            const grupoHecho = feature.properties.IP_GrupoHecho || 'Otros';
+            const grupoHecho = feature.properties.Tipo || 'Otros';
             const marker = L.marker(feature.geometry.coordinates.reverse(), {
                 icon: L.divIcon({
                     className: 'custom-div-icon',

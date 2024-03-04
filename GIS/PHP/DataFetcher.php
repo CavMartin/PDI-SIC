@@ -37,7 +37,7 @@ class DataFetcher {
                                         FROM 
                                             entidad_encabezado
                                         INNER JOIN 
-                                            entidad_lugares ON IP_Numero = FK_Encabezado;");
+                                            entidad_lugares ON ID = FK_Encabezado;");
         return $lugaresData;
     }
 
