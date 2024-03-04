@@ -20,8 +20,9 @@
 
 .LoginGlass {
   position: fixed;
-  top: 17vw;
-  left: 35vw;
+  top: 50%; /* Centrado verticalmente */
+  left: 50%; /* Centrado horizontalmente */
+  transform: translate(-50%, -50%); /* Ajusta el elemento para que su centro esté exactamente en el centro de la pantalla */
   width: 30vw;
   margin: 0 auto;
   padding: 0.5vw;
@@ -35,6 +36,7 @@
   border: 0.3vw solid rgb(0, 0, 0);
   border-radius: 1.5vw;
 }
+
 
 .toggle-password {
   cursor: pointer;
