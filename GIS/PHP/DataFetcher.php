@@ -20,15 +20,13 @@ class DataFetcher {
 
     public function ObtenerDatosGIS() {
         $lugaresData = $this->fetchData("SELECT 
-                                            IP_Numero, 
-                                            IP_Fecha, 
-                                            IP_Hora, 
-                                            IP_TipoHecho, 
-                                            IP_GrupoHecho, 
-                                            IP_Origen, 
-                                            IP_Carta911, 
-                                            IP_RecursosAsignados, 
-                                            IP_ResultadoDeLaIncidencia,
+                                            ID, 
+                                            Fecha, 
+                                            Tipo, 
+                                            Juzgado, 
+                                            Dependencia, 
+                                            Causa, 
+                                            Relato,
                                             L_Calle, 
                                             L_AlturaCatastral,
                                             L_CalleDetalle, 
@@ -37,9 +35,9 @@ class DataFetcher {
                                             L_Localidad,
                                             L_Coordenadas
                                         FROM 
-                                            entidad_incidencia_priorizada eip
+                                            entidad_encabezado
                                         INNER JOIN 
-                                            entidad_lugares el ON IP_Numero = FK_Encabezado;");
+                                            entidad_lugares ON IP_Numero = FK_Encabezado;");
         return $lugaresData;
     }
 

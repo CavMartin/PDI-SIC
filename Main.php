@@ -53,7 +53,7 @@ function actualizarEstadoIncidencia($incidenciaID, $nuevoEstado) {
     global $conn;
     
     // Actualiza el estado de la incidencia
-    $sql = "UPDATE sistema_dispositivo_siacip SET Estado = ? WHERE ID = ?";
+    $sql = "UPDATE sistema_planilla_infractores SET Estado = ? WHERE ID = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("is", $nuevoEstado, $incidenciaID);
     

@@ -79,18 +79,16 @@ class IPLayerManager {
     }
 
     generarPopupContent(feature) {
-        const fechaFormateada = this.formatearFecha(feature.properties.IP_Fecha);
+        const fechaFormateada = this.formatearFecha(feature.properties.Fecha);
         return `
-            <br><b>Número:</b> ${feature.properties.IP_Numero}
+            <br><b>ID:</b> ${feature.properties.ID}
             <br><b>Fecha:</b> ${fechaFormateada}
-            <br><b>Hora:</b> ${feature.properties.IP_Hora}
-            <br><b>Tipo de Hecho:</b> ${feature.properties.IP_TipoHecho}
-            <br><b>Grupo de Hecho:</b> ${feature.properties.IP_GrupoHecho}
-            <br><b>Origen de la IP:</b> ${feature.properties.IP_Origen}
-            <br><b>Carta 911:</b> ${feature.properties.IP_Carta911}
-            <br><b>Recursos asignados:</b> ${feature.properties.IP_RecursosAsignados}
+            <br><b>Tipo:</b> ${feature.properties.Tipo}
+            <br><b>Juzgado:</b> ${feature.properties.Juzgado}
+            <br><b>Dependencia:</b> ${feature.properties.Dependencia}
+            <br><b>Causa:</b> ${feature.properties.Causa}
             <br><b>Lugar del hecho:</b> ${feature.properties.direccionCompleta}
-            <br><b>Resultado de la Incidencia:</b> ${feature.properties.IP_ResultadoDeLaIncidencia}
+            <br><b>Relato:</b> ${feature.properties.Relato}
         `;
     }
 

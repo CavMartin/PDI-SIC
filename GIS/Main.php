@@ -87,7 +87,7 @@
 
 <script>
     // Inicializa el mapa Leaflet
-    var map = L.map('map').setView([-32.95, -60.67], 12);
+    var map = L.map('map').setView([-31, -60], 7);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
@@ -109,18 +109,6 @@
             // Agrega las capas del ipLayerManager al objeto groupedOverlays
             Object.keys(ipLayerManager.layerGroups).forEach(groupName => {
                 groupedOverlays["Incidencias priorizadas"][groupName] = ipLayerManager.layerGroups[groupName];
-            });
-
-            // Cargar las capas GeoJSON "Operativo Bandera" y "IBF" con colores personalizados
-            Promise.all([ //Agregue mas capas GeoJSON con los campos "ID" y "Nombre" de la misma manera
-                cargarCapaGeoJSON('JSON/OperativoBandera.geojson', 'Operativo Bandera', 'yellow', 'green'),
-                cargarCapaGeoJSON('JSON/IBF.geojson', 'IBF', 'blue', 'grey'),
-            ]).then(() => {
-                var baseLayers = {
-                };
-
-                // Añadir el control de capas agrupadas al mapa
-                L.control.groupedLayers(baseLayers, groupedOverlays, {collapsed: false}).addTo(map);
             });
         })
         .catch(error => {
