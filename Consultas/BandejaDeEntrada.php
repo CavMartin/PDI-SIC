@@ -19,7 +19,7 @@ function actualizarEstadoIncidencia($incidenciaID, $nuevoEstado) {
     global $conn;
     
     // Actualiza el estado de la incidencia
-    $sql = "UPDATE sistema_dispositivo_siacip SET Estado = ? WHERE DispositivoSIACIP = ?";
+    $sql = "UPDATE sistema_planilla_infractores SET Estado = ? WHERE ID = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("is", $nuevoEstado, $incidenciaID);
     
@@ -48,11 +48,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
 // Consulta para obtener los datos
-$sql = "SELECT DispositivoSIACIP, 
-               IncidenciaTipo, 
+$sql = "SELECT ID, 
+               Tipo, 
                Estado,
                FechaDeCreacion 
-        FROM sistema_dispositivo_siacip
+        FROM sistema_planilla_infractores
         ORDER BY FechaDeCreacion DESC";
 
 $result = $conn->query($sql);
@@ -155,44 +155,44 @@ $conn->close();
             echo '<tr>';
             echo '<td>' . htmlspecialchars($fechaFormateada, ENT_QUOTES, 'UTF-8') . '</td>';
 
-            echo '<td>' . htmlspecialchars($row["DispositivoSIACIP"], ENT_QUOTES, 'UTF-8') . '</td>';
+            echo '<td>' . htmlspecialchars($row["ID"], ENT_QUOTES, 'UTF-8') . '</td>';
 
             echo '<td>';
             // Formulario para Cerrar Incidencia
             if ($row["Estado"] == 1) {
                 echo '<form action="BandejaDeEntrada.php" method="POST" style="display:inline;" onsubmit="return confirm(\'¿Está seguro de que desea cerrar el dispositivo SIACIP?\');">';
-                echo '<input type="hidden" name="CerrarIncidencia" value="' . $row["DispositivoSIACIP"] . '">';
+                echo '<input type="hidden" name="CerrarIncidencia" value="' . $row["ID"] . '">';
                 echo '<button class="ESTADO_BTN ABIERTO"><span class="NORMAL_TEXT">ABIERTO</span><span class="ON_HOVER">CERRAR DISPOSITIVO</span></button>';
 
             } else {
                 echo '<form action="BandejaDeEntrada.php" method="POST" style="display:inline;" onsubmit="return confirm(\'¿Está seguro de que desea reabrir el dispositivo SIACIP?\');">';
-                echo '<input type="hidden" name="ReabrirIncidencia" value="' . $row["DispositivoSIACIP"] . '">';
+                echo '<input type="hidden" name="ReabrirIncidencia" value="' . $row["ID"] . '">';
                 echo '<button class="ESTADO_BTN CERRADO"><span class="NORMAL_TEXT">CERRADO</span><span class="ON_HOVER">REABRIR DISPOSITIVO</span></button>';
             }
             echo '</form>';
             echo '</td>';
 
-            echo '<td>' . htmlspecialchars($row["IncidenciaTipo"], ENT_QUOTES, 'UTF-8') . '</td>';
+            echo '<td>' . htmlspecialchars($row["Tipo"], ENT_QUOTES, 'UTF-8') . '</td>';
 
             // Agregamos botones para cada fila
             echo '<td>';
 
             // Formulario para Editar tipo de incidencia
-            echo '<form action="../DispositivoSIACIP/IncidenciaPriorizada/NuevaIncidencia.php" method="POST" style="display:inline;">';
-            echo '<input type="hidden" name="Incidencia_Numero" value="' . $row["DispositivoSIACIP"] . '">';
+            echo '<form action="../ID/IncidenciaPriorizada/NuevaIncidencia.php" method="POST" style="display:inline;">';
+            echo '<input type="hidden" name="Incidencia_Numero" value="' . $row["ID"] . '">';
             echo '<input type="hidden" name="POST_Action" value="EditarIncidencia">';
             echo '<input type="submit" class="btn btn-warning m-2" value="Modificar tipo">';
             echo '</form>';
 
             // Formulario para "Reporte preliminar"
-            echo '<form action="../DispositivoSIACIP/ReportePreliminar/Main.php" method="POST" style="display:inline;">';
-            echo '<input type="hidden" name="DispositivoSIACIP" value="' . $row["DispositivoSIACIP"] . '">';
+            echo '<form action="../ID/ReportePreliminar/Main.php" method="POST" style="display:inline;">';
+            echo '<input type="hidden" name="ID" value="' . $row["ID"] . '">';
             echo '<input type="submit" class="btn btn-primary m-2" value="Reporte preliminar">';
             echo '</form>';
 
             // Formulario para "Incidencia Priorizada"
-            echo '<form action="../DispositivoSIACIP/IncidenciaPriorizada/Main.php" method="POST" style="display:inline;">';
-            echo '<input type="hidden" name="DispositivoSIACIP" value="' . $row["DispositivoSIACIP"] . '">';
+            echo '<form action="../ID/IncidenciaPriorizada/Main.php" method="POST" style="display:inline;">';
+            echo '<input type="hidden" name="ID" value="' . $row["ID"] . '">';
             echo '<input type="submit" class="btn btn-danger m-2" value="Incidencia priorizada">';
             echo '</form>';
 
