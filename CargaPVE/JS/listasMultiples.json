@@ -1,0 +1,39 @@
+{
+    "Tipologia": [
+      "ACOPIO",
+      "COMERCIALIZACIÓN",
+      "CONSUMO",
+      "CULTIVO",
+      "DISTRIBUCIÓN",
+      "PRODUCCIÓN",
+      "TENENCIA",
+      "OTROS"
+    ],
+    
+    "ModalidadComisiva": [
+      "DOMICILIO",
+      "BUNKER",
+      "VÍA PÚBLICA",
+      "INSTITUCIÓN PÚBLICA",
+      "UNIDAD PENITENCIARIA",
+      "COMPLEJO HABITACIONAL",
+      "PLAZA",
+      "PLAYÓN",
+      "VEHÍCULO",
+      "DELIVERY",
+      "OTRA"
+    ],
+
+    "TipoEstupefaciente": [
+      "COCAINA",
+      "ÉXTASIS",
+      "HEROINA",
+      "MARIHUANA",
+      "SINTETICAS",
+      "KETAMINA",
+      "PACO",
+      "OTROS",
+      "NO MENCIONADO"
+    ]
+  }
+  

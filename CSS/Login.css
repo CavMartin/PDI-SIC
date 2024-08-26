@@ -1,0 +1,36 @@
+.LoginGlass {
+  position: fixed;
+  top: 40vh;
+  left: 30vw;
+  width: 40%;
+  margin: 0 auto;
+  padding: 0.5vw;
+  line-height: 1.50vw;
+  font-size: 1.25vw;
+  box-sizing: border-box;
+  background: rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 30px rgb(0, 0, 0);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 0.3vw solid rgb(0, 0, 0);
+  border-radius: 1.5vw;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 1vw;
+  height: 2vw;
+  width: 2vw;
+}
+.toggle-password {
+  cursor: pointer;
+}
+
+.password-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+.password-container input {
+  flex-grow: 1;
+}

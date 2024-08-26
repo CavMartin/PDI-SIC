@@ -1,0 +1,487 @@
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
+
+.Previsualizacion {
+  display: block;
+  width: 100%;
+  object-fit: contain;
+  max-height: 15vw;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.preview2 {
+  display: block;
+  width: 100%;
+  object-fit: contain;
+  max-height: 15vw;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.upload{
+  width: 100%;
+  position: relative;
+}
+
+.upload img{
+  width: 15vw;
+  height: 15vw;
+  border-radius: 50%;
+  border: 0.3vw solid rgb(0, 0, 0);
+}
+
+.upload .round{
+  position: absolute;
+  bottom: 0;
+  left: 75%;
+  background: #00B4FF;
+  width: 4vw;
+  height: 4vw;
+  border-radius: 50%;
+  overflow: hidden;
+  background-image: url('Images/Camara.png');
+  background-size: 80%; 
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.upload .round input[type = "file"]{
+  position: absolute;
+  transform: scale(2);
+  opacity: 0;
+}
+
+input[type=file]::-webkit-file-upload-button{
+    cursor: pointer;
+}
+
+.ImagenEntidadPersona {
+  width: 60%;
+  max-width: 60%;
+  padding: 0.5vw;
+  margin: 0 auto;
+}
+
+.MainLeftDiv {
+  position: fixed;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 0;
+  top: 6vw;
+  left: 1.5vw;
+  height: 40vw;
+  width: 33vw;
+  border: 0.2vw solid rgb(0, 0, 0);
+  border-radius:0.5vw;
+  background-color: rgb(255, 255, 255);
+}
+
+.Contenedor_Entidades {
+  position: fixed;
+  top: 6vw;
+  left: 36vw;
+  height: 40vw;
+  width: 62.5vw;
+  border: 0.2vw solid rgb(0, 0, 0);
+  border-radius:0.5vw;
+  background-color: rgb(255, 255, 255);
+}
+
+.Div_AgregarEntidad {
+  position: fixed;
+  top: 6vw;
+  left: 36vw;
+  height: 10vw;
+  width: 62.5vw;
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.DivEnumerarEntidades {
+  position: fixed;
+  top: 16vw;
+  left: 36vw;
+  height: 30vw;
+  width: 62.5vw;
+  align-items: left;
+  display: flex;
+  flex-wrap: wrap;
+  overflow-y: auto;
+  justify-content: center;
+}
+
+/* Estilos comunes para los botones*/
+.CustomButton {
+  width: 13vw;
+  height: 5vw;
+  position: fixed;
+  background: transparent;
+  background-color: transparent;
+  border-radius: 1.5vw;
+  display: inline-block;
+  cursor: pointer;
+  border: 0.2vw solid rgb(0, 0, 0);
+  font-family: Arial;
+  font-size: 1.25vw;
+  font-weight: bold;
+  text-align: center;
+  transition: background-color 1s, border-color 1s, color 1s;
+}
+.CustomButton:hover {
+  color: rgb(0, 0, 0);
+  background-color: #0d6efd;
+}
+
+.B_Encabezado {
+  margin: 0.5vw 1vw;
+  position: relative;
+  width: 30vw;
+  font-size: 2.5vw;
+  background-image: url('Images/evento.png');
+  background-size: 15%; 
+  background-repeat: no-repeat;
+  background-position: left center; 
+}
+.B_Encabezado:hover {
+  color: rgb(0, 0, 0);
+  background-color: #dc3545;
+}
+
+.B_Personas {
+  margin: 0.5vw 1vw;
+  position: relative;
+  width: 30vw;
+  font-size: 2.5vw;
+  background-image: url('Images/Personas.png');
+  background-size: 15%;
+  background-repeat: no-repeat;
+  background-position: left center; 
+}
+
+.B_Lugares {
+  margin: 0.5vw 1vw;
+  position: relative;
+  width: 30vw;
+  font-size: 2.5vw;
+  background-image: url('Images/Lugar.png');
+  background-size: 15%;
+  background-repeat: no-repeat;
+  background-position: left center; 
+}
+
+.B_Vehiculos {
+  margin: 0.5vw 1vw;
+  position: relative;
+  width: 30vw;
+  font-size: 2.5vw;
+  background-image: url('Images/vehiculo.png');
+  background-size: 15%;
+  background-repeat: no-repeat;
+  background-position: left center; 
+}
+
+.B_Armas {
+  margin: 0.5vw 1vw;
+  position: relative;
+  width: 30vw;
+  font-size: 2.5vw;
+  background-image: url('Images/Armas.png');
+  background-size: 15%;
+  background-repeat: no-repeat;
+  background-position: left center; 
+}
+
+.B_Ampliacion {
+  margin: 0.5vw 1vw;
+  position: relative;
+  width: 30vw;
+  font-size: 2.5vw;
+  background-image: url('Images/Ampliacion.png');
+  background-size: 15%;
+  background-repeat: no-repeat;
+  background-position: left center;
+}
+
+.B_PDF {
+  margin: 0.5vw 1vw;
+  position: relative;
+  width: 30vw;
+  padding: 0% 5%;
+  font-size: 3.5vw;
+  border: 0.3vw solid rgb(222, 70, 91);
+  color: rgb(222, 70, 91);
+}
+
+.B_PDF::before,
+.B_PDF::after {
+  content: "";
+  width: 15%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  background-image: url('Images/pdf.png');
+  background-repeat: no-repeat;
+}
+
+.B_PDF::before {
+  left: 0;
+  background-size: 80%;
+  background-repeat: no-repeat;  
+  background-position: left center;
+}
+
+.B_PDF::after {
+  right: 0;
+  background-size: 80%;
+  background-repeat: no-repeat;  
+  background-position: right center;
+}
+
+.B_PDF:hover {
+  color: rgb(255, 255, 255);
+  border: 0.3vw solid rgb(0, 0, 0);
+  border-color: rgb(0, 0, 0);
+  background-color: rgb(222, 70, 91);
+}
+
+.BTN_ReordenarEntidad {
+  margin: 0.5vw 1vw;
+  position: relative;
+  width: 4vw;
+  height: 6vw;
+  padding: 0% 5%;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: url('Images/Reordenar.png');
+}
+
+.BTN_AgregarEntidad {
+  margin: 0.5vw 1vw;
+  position: relative;
+  width: 48vw;
+  height: 6vw;
+  padding: 0% 5%;
+  font-size: 2.5vw;
+  background-size: 10%;
+  background-repeat: no-repeat;
+  background-position: right center;
+}
+
+.CartaEntidad {
+  margin: 0.5vw 0.5vw;
+  position: relative;
+  font-size: 1.1vw;
+  text-align: left;
+  height: 12vw;
+  width: 18vw;
+  padding: 10% 5% 1% 1%;
+  background-size: 20%;
+  background-repeat: no-repeat;
+  background-position: top center; 
+}
+
+.Personas {
+  background-image: url('Images/Personas.png');
+}
+
+.Hombre {
+  background-image: url('Images/Hombre.png');
+}
+
+.Mujer {
+  background-image: url('Images/Mujer.png');
+}
+
+.OtroGenero {
+  background-image: url('Images/PersonaOtroGenero.png');
+}
+
+.Lugar {
+  background-image: url('Images/Lugar.png');
+}
+
+.ViaPublica {
+  background-image: url('Images/LugarViaPublica.png');
+}
+
+.Plaza {
+  background-image: url('Images/LugarPlaza.png');
+}
+
+.Ruta {
+  background-image: url('Images/LugarRuta.png');
+}
+
+.Cochera {
+  background-image: url('Images/LugarCochera.png');
+}
+
+.Descampado {
+  background-image: url('Images/LugarDescampado.png');
+}
+
+.AsociacionCivil {
+  background-image: url('Images/LugarAsociacionCivil.png');
+}
+
+.Comercio {
+  background-image: url('Images/LugarComercio.png');
+}
+
+.DependenciaPublica {
+  background-image: url('Images/LugarEdificioPublico.png');
+}
+
+.Industria {
+  background-image: url('Images/LugarIndustria.png');
+}
+
+.Inmueble {
+  background-image: url('Images/LugarInmueble.png');
+}
+
+.Institucion {
+  background-image: url('Images/LugarInstitucionPublica.png');
+}
+
+.Arma {
+  background-image: url('Images/Armas.png');
+}
+
+.Carabina {
+  background-image: url('Images/ArmaCarabina.png');
+}
+
+.Escopeta {
+  background-image: url('Images/ArmaEscopeta.png');
+}
+
+.Fusil {
+  background-image: url('Images/ArmaFusil.png');
+}
+
+.Pistola {
+  background-image: url('Images/ArmaPistola.png');
+}
+
+.Ametralladora {
+  background-image: url('Images/ArmaAmetralladora.png');
+}
+
+.Pistolon {
+  background-image: url('Images/ArmaPistolon.png');
+}
+
+.Revolver {
+  background-image: url('Images/ArmaRevolver.png');
+}
+
+.Vehiculo {
+  background-image: url('Images/vehiculo.png');
+}
+
+.Acoplado {
+  background-image: url('Images/Acoplado.png');
+}
+
+.Automovil {
+  background-image: url('Images/Automovil.png');
+}
+
+.Avioneta {
+  background-image: url('Images/Avioneta.png');
+}
+
+.Bicicleta {
+  background-image: url('Images/Bicicleta.png');
+}
+
+.Camion {
+  background-image: url('Images/Camion.png');
+}
+
+.Camioneta {
+  background-image: url('Images/Camioneta.png');
+}
+
+.Ciclomotor {
+  background-image: url('Images/Ciclomotor.png');
+}
+
+.Cuatriciclo {
+  background-image: url('Images/Cuatriciclo.png');
+}
+
+.Autobus {
+  background-image: url('Images/Autobus.png');
+}
+
+.Lancha {
+  background-image: url('Images/Lancha.png');
+}
+
+.Furgon {
+  background-image: url('Images/Furgon.png');
+}
+
+.Motovehiculo {
+  background-image: url('Images/Motovehiculo.png');
+}
+
+.MaquinaAgricola {
+  background-image: url('Images/MaquinaAgricola.png');
+}
+
+.MaquinaConstruccion {
+  background-image: url('Images/MaquinaConstruccion.png');
+}
+
+.Recolector {
+  background-image: url('Images/Recolector.png');
+}
+
+.MotovehiculoAcuatico {
+  background-image: url('Images/MotovehiculoAcuatico.png');
+}
+
+.Triciclo {
+  background-image: url('Images/Triciclo.png');
+}
+
+.Tractor {
+  background-image: url('Images/Tractor.png');
+}
+
+.Carro {
+  background-image: url('Images/Carro.png');
+}
+
+.VehiculoOficial {
+  background-image: url('Images/MovilOficial.png');
+}
+
+.Secuestro {
+  background-image: url('Images/Ampliacion.png');
+}

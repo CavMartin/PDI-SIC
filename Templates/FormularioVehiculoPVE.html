@@ -1,0 +1,69 @@
+<div class="border border-black rounded bg-light p-3 mx-1 my-3">
+    <div class="d-flex justify-content-between align-items-center mb-2">
+        <h2 class="text-center">Vehículo #${contadorVehiculo}</h2>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <button type="button" id="quitarVehiculo${contadorVehiculo}" class="btn btn-danger btn-lg me-md-2 fs-4" onclick="eliminarVehiculo('${contadorVehiculo}')">
+            <i class="bi bi-car-front-fill"></i> Eliminar</button>
+        </div>
+    </div>
+
+    <div>
+      <input type="hidden" id="ID_Vehiculo${contadorVehiculo}" name="ID_Vehiculo${contadorVehiculo}" value="${ID_Vehiculo}">
+      <input type="hidden" id="V_NumeroDeOrden${contadorVehiculo}" name="V_NumeroDeOrden${contadorVehiculo}" value="${NumeroDeOrden}">
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <div class="input-group mb-3">
+            <label class="input-group-text fw-bold" for="V_Rol${contadorVehiculo}">ROL DEL VEHÍCULO #${contadorVehiculo}:</label>
+            <select id="V_Rol${contadorVehiculo}" class="form-select" name="V_Rol${contadorVehiculo}" onchange="HandlerRolVehiculo(this)" required>
+                <option value="" disabled selected>Seleccione el tipo de vehículo mencionado</option>
+                ${Opciones_Rol}
+            </select>
+        </div>
+      </div>
+      <div id="V_Rol${contadorVehiculo}Especifique" class="col" style="display: none;">
+        <div class="input-group mb-3">
+            <span class="input-group-text fw-bold" id="basic-addon1">ESPECIFIQUE:</span>
+            <input type="text" class="form-control" id="V_RolEspecifique${contadorVehiculo}" name="V_RolEspecifique${contadorVehiculo}" value="${V_RolEspecifique}" maxlength="100" placeholder="Especifique el rol del vehículo">
+        </div>
+      </div>
+      <div class="col">
+        <div class="input-group mb-3">
+            <label class="input-group-text fw-bold" for="V_Tipo${contadorVehiculo}">TIPO DE VEHÍCULO:</label>
+            <select id="V_Tipo${contadorVehiculo}" class="form-select" name="V_Tipo${contadorVehiculo}" required>
+                <option value="" disabled selected>Seleccione el tipo de vehículo</option>
+                ${Opciones_Tipo}
+            </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="input-group">
+                <span class="input-group-text fw-bold" id="basic-addon1">COLOR:</span>
+                <input type="text" class="form-control" id="V_Color${contadorVehiculo}" name="V_Color${contadorVehiculo}" value="${V_Color}" maxlength="25" placeholder="Coler/es del vehpiculo" onchange="transformarDatosNompropio('V_Color${contadorVehiculo}')" required>
+            </div>
+        </div>
+        <div class="col">
+            <div class="input-group">
+                <span class="input-group-text fw-bold" id="basic-addon1">MARCA:</span>
+                <input type="text" class="form-control" id="V_Marca${contadorVehiculo}" name="V_Marca${contadorVehiculo}" value="${V_Marca}" maxlength="25" placeholder="Marca del vehículo" onchange="transformarDatosNompropio('V_Marca${contadorVehiculo}')">
+            </div>
+        </div>
+        <div class="col">
+            <div class="input-group">
+                <span class="input-group-text fw-bold" id="basic-addon1">MODELO:</span>
+                <input type="text" class="form-control" id="V_Modelo${contadorVehiculo}" name="V_Modelo${contadorVehiculo}" value="${V_Modelo}" maxlength="25" placeholder="Modelo del vehículo" onchange="transformarDatosNompropio('V_Modelo${contadorVehiculo}')">
+            </div>
+        </div>
+        <div class="col">
+            <div class="input-group">
+                <span class="input-group-text fw-bold" id="basic-addon1">DOMINIO:</span>
+                <input type="text" class="form-control" id="V_Dominio${contadorVehiculo}" name="V_Dominio${contadorVehiculo}" value="${V_Dominio}" maxlength="25" placeholder="Número de dominio del vehículo" onchange="transformarDatosAlfaNumerico('V_Dominio${contadorVehiculo}')">
+            </div>
+        </div>
+    </div>
+
+</div>

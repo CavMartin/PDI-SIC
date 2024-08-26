@@ -74,10 +74,10 @@ function transformarDatosAlfaNumerico(inputId) {    // Transforma los datos a va
   }
 
 
-  function transformarDatosNompropio(campoId) {    // Transforma los datos a texto tipo "Nombre Propio" (Nompropio)
+  function transformarDatosNompropio(campoId) {
     var campoTexto = document.getElementById(campoId);
     var valor = campoTexto.value;
-    
+  
     var valorNompropioTransformado = valor
       .toLowerCase()
       .replace(/[áäàâ]/gi, "a")
@@ -87,32 +87,13 @@ function transformarDatosAlfaNumerico(inputId) {    // Transforma los datos a va
       .replace(/[úüùû]/gi, "u")  // Reemplazar vocales acentuadas por sus contrapartes sin acentos
       .replace(/ {2,}/g, " ")  // Eliminar espacios dobles
       .trim()  // Eliminar espacios iniciales y finales
-      .replace(/\b\w/g, function(match) {
+      .replace(/\b\w/g, function(match, offset, string) {
+        // Solo capitaliza si no es después de 'ñ'
+        if (offset > 0 && string[offset - 1] === 'ñ') {
+          return match;
+        }
         return match.toUpperCase();
       });
-    
+  
     campoTexto.value = valorNompropioTransformado;
   }  
-
-// Autocompletar calificacion de la fuente
-function AutoSeleccionarCalificacion(id) {
-  var tipoFuente = document.getElementById("FC_TipoFuente" + id).value;
-  var calificacion = document.getElementById("FC_Calificación" + id);
-
-  switch (tipoFuente) {
-    case "Noticias periodisticas":
-    case "Redes sociales":
-    case "Padrón electoral":
-      calificacion.value = "ABIERTA";
-      break;
-    case "CIFCOP":
-    case "DNRPA":
-    case "Registro de personas identificadas":
-    case "Renaper":
-    case "SICONPOL":
-    case "Sistema Condor":
-    case "SIPAC":
-      calificacion.value = "CERRADA";
-      break;
-  }
-}

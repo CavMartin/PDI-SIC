@@ -1,0 +1,53 @@
+<div class="border border-black rounded bg-light p-3 mx-1 my-3">
+    <div class="d-flex justify-content-between align-items-center mb-2">
+        <h2 class="text-center">Persona #${contadorPersona}</h2>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <button type="button" id="quitarPersona${contadorPersona}" class="btn btn-danger btn-lg me-md-2 fs-4" onclick="eliminarPersona('${contadorPersona}')">
+            <i class="bi bi-person-x"></i> Eliminar</button>
+        </div>
+    </div>
+
+    <div>
+        <input type="hidden" id="ID_Persona${contadorPersona}" name="ID_Persona${contadorPersona}" value="${ID_Persona}">
+        <input type="hidden" id="P_NumeroDeOrden${contadorPersona}" name="P_NumeroDeOrden${contadorPersona}" value="${NumeroDeOrden}">
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="input-group mb-3">
+                <label class="input-group-text fw-bold" for="P_Rol${contadorPersona}">ROL DE LA PERSONA #${contadorPersona}:</label>
+                <select id="P_Rol${contadorPersona}" class="form-select" name="P_Rol${contadorPersona}" onchange="HandlerRolPersona(this)" required>
+                    <option value="" disabled selected>Seleccione el rol de la persona</option>
+                    ${Opciones_Rol}
+                </select>            
+            </div>
+        </div>
+        <div id="P_Rol${contadorPersona}Especifique" class="col" style="display: none;">
+            <div class="input-group mb-3">
+                <span class="input-group-text fw-bold" id="basic-addon1">ESPECIFIQUE:</span>
+                <input type="text" class="form-control" id="P_RolEspecifique${contadorPersona}" name="P_RolEspecifique${contadorPersona}" value="${P_RolEspecifique}" maxlength="100" placeholder="Especifique el rol de la persona">
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="input-group">
+                <span class="input-group-text fw-bold" id="basic-addon1">APELLIDO:</span>
+                <input type="text" class="form-control" id="P_Apellido${contadorPersona}" name="P_Apellido${contadorPersona}" value="${P_Apellido}" maxlength="50" placeholder="Apellido/s de la persona" onchange="transformarDatosMayusculas('P_Apellido${contadorPersona}')">
+            </div>
+        </div>
+        <div class="col">
+            <div class="input-group">
+                <span class="input-group-text fw-bold" id="basic-addon1">NOMBRE:</span>
+                <input type="text" class="form-control" id="P_Nombre${contadorPersona}" name="P_Nombre${contadorPersona}" value="${P_Nombre}" maxlength="50" placeholder="Nombre/s de la persona" onchange="transformarDatosNompropio('P_Nombre${contadorPersona}')">
+            </div>
+        </div>
+        <div class="col">
+            <div class="input-group">
+                <span class="input-group-text fw-bold" id="basic-addon1">ALIAS:</span>
+                <input type="text" class="form-control" id="P_Alias${contadorPersona}" name="P_Alias${contadorPersona}" value="${P_Alias}" maxlength="50" placeholder="Alias o apodo" onchange="transformarDatosNompropio('P_Alias${contadorPersona}')">>
+            </div>
+        </div>
+    </div>
+</div>

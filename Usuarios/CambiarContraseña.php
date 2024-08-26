@@ -2,11 +2,8 @@
 // Conectar a la base de datos de forma segura
 require '../PHP/ServerConnect.php';
 
-if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
-    // El usuario no ha iniciado sesión, redirigirlo a la página de inicio de sesión
-    header("Location: ../Login.php");
-    exit();
-}
+// Verificar estado del login
+checkLoginState();
 ?>
 
 <!DOCTYPE html>
@@ -19,47 +16,42 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
   <link rel="icon" href="../CSS/Images/favicon.ico" type="Image/x-icon">
   <link rel="shortcut icon" href="../CSS/Images/favicon.ico" type="Image/x-icon">
   <!-- JS Core -->
-  <script src="JS/CambiarContraseña.js"></script>
-  <script src="../JS/PasswordVisibility.js"></script>
+  <script src="JS/changePassword.js"></script>
+  <script src="JS/passwordVisibility.js"></script>
   <!-- SweetAlert -->
-  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="../Resources/SweetAlert2/sweetalert2.min.js"></script>
+  <link rel="stylesheet" href="../Resources/SweetAlert2/sweetalert2.min.css">
   <!-- Bootstrap -->
-  <script src="../Bootstrap/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" href="../Bootstrap/css/bootstrap.min.css">
-  <link rel="stylesheet" href="../Bootstrap/Icons/font/bootstrap-icons.css">
+  <script src="../Resources/Bootstrap/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="../Resources/Bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../Resources/Bootstrap/Icons/font/bootstrap-icons.css">
 </head>
 <body class="bg-secondary">
 
-<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark" style="height: 5vw;">
-    <div class="container-fluid d-flex align-items-center justify-content-center">
-        <!-- Imagen 1 -->
-        <div>
-            <img src="../CSS/Images/PSF.png" alt="Icono" style="width: 4vw; margin: 1vw;"><!-- Icono -->
-        </div>
+<!-- Barra de navegación -->
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <div class="container-fluid d-flex justify-content-center position-relative">
 
-        <!-- Título centrado -->
-        <div class="text-center">
-            <h1 class="text-light">FORMULARIO DE CAMBIO DE CONTRASEÑA</h1>
-        </div>
-
-        <!-- Imagen 2 -->
-        <div>
-            <img src="../CSS/Images/OJO.png" alt="Icono" style="width: 4vw; margin: 1vw;"><!-- Icono -->
-        </div>
-
-        <!-- Botón de navegación -->
-        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <button type="button" class="btn btn-primary btn-lg" style="position: fixed; top: 0; left: 0; width: 12vw; height: 4vw; font-size: 1.5vw; margin: 0.5vw;" onclick="window.location.href='Main.php'">
+        <!-- Botón de volver a la izquierda con posición absoluta -->
+        <div style="position: absolute; left: 0;">
+            <button type="button" class="btn btn-warning btn-lg mx-3" onclick="window.location.href='index.php'">
                 <i class="bi bi-arrow-left-square-fill"></i> <b>VOLVER</b>
             </button>
+        </div>
+
+        <!-- Bloque del título con imágenes, centrado en la totalidad de la pantalla -->
+        <div class="d-flex justify-content-center align-items-center">
+            <img src="../CSS/Images/PSF.png" class="mx-3" alt="Icono" style="width: 4rem;"><!-- Icono Izquierdo -->
+            <h2 class="text-light text-center m-0">FORMULARIO CAMBIO DE CONTRASEÑA</h2>
+            <img src="../CSS/Images/LOGO.png" class="mx-3" alt="Icono" style="width: 4rem;"><!-- Icono Derecho -->
         </div>
     </div>
 </nav>
 
-<div class="container mt-6" style="margin-top: 7vw;">
+<div class="container mt-6" style="margin-top: 7rem;">
     <div class="row justify-content-center">
         <div class="col-md-8 bg-white p-4 border border-black rounded">
-          <form id="changePasswordForm" method="post" onsubmit="return CambiarContraseña()">        
+          <form id="changePasswordForm">        
             <!-- Campo de contraseña actual -->
             <label for="current_password" class="fs-4 fw-bold">Contraseña actual:</label>
             <div class="password-container form-group">
@@ -84,7 +76,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
             <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
 
             <div class="d-grid mt-4">
-              <button class="btn btn-primary fs-2" type="submit">Cambiar contraseña</button>
+              <button class="btn btn-primary fs-2" type="button" onclick="changePassword()">Cambiar contraseña</button>
             </div>
         </form>
       </div>

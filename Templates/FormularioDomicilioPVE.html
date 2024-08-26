@@ -1,0 +1,126 @@
+<div class="border border-black rounded bg-light p-3 mx-1 my-3">
+    <div class="d-flex justify-content-between align-items-center mb-2">
+        <h2 class="text-center">Domicilio #${contadorDomicilio}</h2>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <button type="button" id="quitarDomicilio${contadorDomicilio}" class="btn btn-danger btn-lg me-md-2 fs-4" onclick="eliminarDomicilio('${contadorDomicilio}')">
+            <i class="bi bi-house-x"></i> Eliminar</button>
+        </div>
+    </div>
+
+    <div>
+      <input type="hidden" id="ID_Lugar${contadorDomicilio}" name="ID_Lugar${contadorDomicilio}" value="${ID_Lugar}">
+      <input type="hidden" id="L_NumeroDeOrden${contadorDomicilio}" name="L_NumeroDeOrden${contadorDomicilio}" value="${NumeroDeOrden}">
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <div class="input-group mb-3">
+            <label class="input-group-text fw-bold col-4" for="L_Rol${contadorDomicilio}">ROL DEL DOMICILIO #${contadorDomicilio}:</label>
+            <select id="L_Rol${contadorDomicilio}" class="form-select col-8" name="L_Rol${contadorDomicilio}" onchange="HandlerRolLugar(this)" required>
+                <option value="" disabled selected>Seleccione el rol de domicilio</option>
+                ${Opciones_Rol}
+            </select>            
+        </div>
+      </div>
+      <div id="L_Rol${contadorDomicilio}Especifique" class="col" style="display: none;">
+        <div class="input-group mb-3">
+            <span class="input-group-text fw-bold col-4" id="basic-addon1">ESPECIFIQUE:</span>
+            <input type="text" class="form-control col-8" id="L_RolEspecifique${contadorDomicilio}" name="L_RolEspecifique${contadorDomicilio}" value="${L_RolEspecifique}" maxlength="100" placeholder="Especifique el rol del domicilio">
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+          <div class="input-group mb-3">
+            <label class="input-group-text fw-bold col-4" for="L_Tipo${contadorDomicilio}">TIPO DE DOMICILIO:</label>
+            <select id="L_Tipo${contadorDomicilio}" class="form-select col-8" name="L_Tipo${contadorDomicilio}" required>
+                <option value="" disabled selected>Seleccione el tipo de domicilio</option>
+                ${Opciones_Tipo}
+            </select>            
+          </div>
+        </div>
+        <div class="col">
+          <div class="input-group mb-3">
+            <span class="input-group-text fw-bold col-4" id="basic-addon1">SUBTIPO DE DOMICILIO:</span>
+            <input type="text" class="form-control col-8" id="L_SubTipo${contadorDomicilio}" name="L_SubTipo${contadorDomicilio}" value="${L_SubTipo}" maxlength="50" placeholder="Especifique el subtipo del domicilio" onchange="transformarDatosMayusculas('L_SubTipo${contadorDomicilio}')">
+          </div>        
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="input-group mb-3">
+                <span class="input-group-text fw-bold" id="basic-addon1">CALLE:</span>
+                <input type="text" class="form-control" id="L_Calle${contadorDomicilio}" name="L_Calle${contadorDomicilio}" value="${L_Calle}" maxlength="50" placeholder="Nombre de la calle / ruta" onchange="transformarDatosNompropio('L_Calle${contadorDomicilio}')" required>
+            </div>
+        </div>
+        <div class="col">
+            <div class="input-group mb-3">
+                <span class="input-group-text fw-bold" id="basic-addon1">ALTURA CATASTRAL:</span>
+                <input type="text" class="form-control" id="L_AlturaCatastral${contadorDomicilio}" name="L_AlturaCatastral${contadorDomicilio}" value="${L_AlturaCatastral}" maxlength="5" placeholder="Número correspondiente a la altura catastral deldomicilio" onchange="transformarDatosNumerico('L_AlturaCatastral${contadorDomicilio}')">
+            </div>
+        </div>
+        <div class="col">
+            <div class="input-group mb-3">
+                <span class="input-group-text fw-bold" id="basic-addon1">DETALLE:</span>
+                <input type="text" class="form-control" id="L_CalleDetalle${contadorDomicilio}" name="L_CalleDetalle${contadorDomicilio}" value="${L_CalleDetalle}" maxlength="50" placeholder="Detalle adicional del domicilio. Ej: Bis / Piso N° / Depto N°">
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="input-group mb-3">
+                <span class="input-group-text fw-bold" id="basic-addon1">ENTRE CALLE:</span>
+                <input type="text" class="form-control" id="L_Interseccion1${contadorDomicilio}" name="L_Interseccion1${contadorDomicilio}" value="${L_Interseccion1}" maxlength="50" placeholder="Primera intersección de la calle, si corresponde" onchange="transformarDatosNompropio('L_Interseccion1${contadorDomicilio}')">
+            </div>
+        </div>
+        <div class="col">
+            <div class="input-group mb-3">
+                <span class="input-group-text fw-bold" id="basic-addon1">Y CALLE:</span>
+                <input type="text" class="form-control" id="L_Interseccion2${contadorDomicilio}" name="L_Interseccion2${contadorDomicilio}" value="${L_Interseccion2}" maxlength="50" placeholder="Segunda intersección de la calle, si corresponde" onchange="transformarDatosNompropio('L_Interseccion2${contadorDomicilio}')">
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="input-group mb-3">
+                <span class="input-group-text fw-bold" id="basic-addon1">BARRIO:</span>
+                <input type="text" class="form-control" id="L_Barrio${contadorDomicilio}" name="L_Barrio${contadorDomicilio}" value="${L_Barrio}" placeholder="Especifique el barrio" onchange="transformarDatosNompropio('L_Barrio${contadorDomicilio}')">
+            </div>
+        </div>
+        <div class="col">
+            <div class="input-group mb-3">
+                <span class="input-group-text fw-bold" id="basic-addon1">LOCALIDAD:</span>
+                <input type="text" class="form-control" id="L_Localidad${contadorDomicilio}" name="L_Localidad${contadorDomicilio}" value="${L_Localidad}" placeholder="Especifique la localidad" list="globalSugerenciasCiudades" maxlength="50">
+                <datalist id="sugerenciasCiudades">
+                </datalist>
+            </div>
+        </div>
+        <div class="col">
+            <div class="input-group mb-3">
+                <span class="input-group-text fw-bold" id="basic-addon1">PROVINCIA:</span>
+                <input type="text" class="form-control" id="L_Provincia${contadorDomicilio}" name="L_Provincia${contadorDomicilio}" value="${L_Provincia}" list="globalSugerenciasProvincias" maxlength="50">
+                <datalist id="sugerenciasProvincias">
+                </datalist>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="input-group">
+                <span class="input-group-text fw-bold" id="basic-addon1">PAÍS:</span>
+                <input type="text" class="form-control" id="L_Pais${contadorDomicilio}" name="L_Pais${contadorDomicilio}" maxlength="50" value="${L_Pais}" onchange="transformarDatosMayusculas('L_Pais${contadorDomicilio}')">
+            </div>
+        </div>
+        <div class="col">
+            <div class="input-group">
+                <span class="input-group-text fw-bold" id="basic-addon1">COORDENADAS:</span>
+                <input type="text" class="form-control" id="L_Coordenadas${contadorDomicilio}" name="L_Coordenadas${contadorDomicilio}" value="${L_Coordenadas}">
+            </div>
+        </div>
+    </div>
+</div>
