@@ -7,12 +7,6 @@
 
     // Cargar la variable de sesión "usergroup"
     $usergroup = $_SESSION['usergroup'];
-    
-    // Verifica si el grupo del usuario es diferente de 'ADMINISTRADOR' o 'UAIC - PVE' o 'URII' y si lo fuera, redirigirlo
-    if ($usergroup !== 'ADMINISTRADOR' && $usergroup !== 'UAIC - PVE' && $usergroup !== 'URII') {
-        header("Location: Invitado.php"); // Redirige a la página de invitados
-        exit();
-    }
 
     // Si el método para acceder a la pagina no es POST, redirige a index.php
     if ($_SERVER["REQUEST_METHOD"] !== "POST") {
@@ -21,7 +15,7 @@
     }
 
     // Conexión a la base de datos
-    $conn = open_database_connection('uaic');
+    $conn = open_database_connection('carga_pve');
     if ($conn->connect_error) {
         die("Error de conexión: " . $conn->connect_error);
     }

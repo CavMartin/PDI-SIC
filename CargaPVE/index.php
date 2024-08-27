@@ -8,19 +8,6 @@ checkLoginState();
 $username = $_SESSION['username'];
 $usergroup = $_SESSION['usergroup'];
 
-// Redirigir a la página correspondiente
-if ($usergroup == 'UAIC - PVE' || $usergroup == 'ADMINISTRADOR') {
-    // El usuario tiene acceso, continuar con la carga de la página
-}elseif ($usergroup == 'URII') {
-    // El usuario es del grupo PVE_URII, redirigir a PVE_URII.php
-    header("Location: PVE_URII.php");
-    exit();
-} else {
-    // El usuario no tiene acceso, redirigir a Invitado.php
-    header("Location: Invitado.php");
-    exit();
-}
-
 // Consulta para obtener los datos a mostrar en la tabla
 function fetchDataForTable($conn) {
     $sql = "SELECT Formulario, Tipologia, Fuente, ReporteAsociado, FechaDeCreacion FROM entidad_encabezado  WHERE Fuente != 'URII' OR Fuente IS NULL ORDER BY FechaDeCreacion DESC LIMIT 10";
@@ -96,7 +83,7 @@ function generateTable($datosMainPage) {
 }
 
 // Conexión a la base de datos
-$conn = open_database_connection('uaic');
+$conn = open_database_connection('carga_pve');
 if ($conn->connect_error) {
     die("Error de conexión: " . $conn->connect_error);
 }

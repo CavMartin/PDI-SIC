@@ -3,7 +3,7 @@ class UserManagement {
     private $conn;
 
     public function __construct() {
-        $this->conn = open_database_connection('sistema_horus');
+        $this->conn = open_database_connection('sistema_usuarios');
     }
 
     private function isCurrentPasswordValid($username, $current_password) {

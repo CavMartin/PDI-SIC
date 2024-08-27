@@ -23,8 +23,8 @@ if (empty($_SESSION['csrf_token'])) {
 // Función para conectar a la base de datos de forma segura
 function open_database_connection($db) {
     $host = 'localhost';
-    $user = 'remote';
-    $password = 'R00tSlayer';
+    $user = 'root';
+    $password = '';
 
     $conn = new mysqli($host, $user, $password, $db);
 

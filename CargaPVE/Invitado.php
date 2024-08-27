@@ -8,10 +8,6 @@ checkLoginState();
 $username = $_SESSION['username'];
 $usergroup = $_SESSION['usergroup'];
 
-// Redirigir a la página correspondiente
-if ($usergroup == 'UAIC - PVE') {header("Location: index.php");}
-if ($usergroup == 'URII') {header("Location: PVE_URII.php");}
-
 // Consulta para obtener los datos a mostrar en la tabla
 function fetchDataForTable($conn) {
     $sql = "SELECT Formulario, Tipologia, Fuente, ReporteAsociado, FechaDeCreacion FROM entidad_encabezado ORDER BY FechaDeCreacion DESC LIMIT 10";
@@ -87,7 +83,7 @@ function generateTable($datosMainPage) {
 }
 
 // Conexión a la base de datos
-$conn = open_database_connection('uaic');
+$conn = open_database_connection('carga_pve');
 if ($conn->connect_error) {
     die("Error de conexión: " . $conn->connect_error);
 }
